@@ -399,24 +399,24 @@
               <FilePath>..\User\Code_C\src\FlyControl.c</FilePath>
             </File>
             <File>
-              <FileName>Altitude.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\Altitude.c</FilePath>
-            </File>
-            <File>
               <FileName>Attitude.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Code_C\src\Attitude.c</FilePath>
             </File>
             <File>
-              <FileName>Math_User.c</FileName>
+              <FileName>Position.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\Math_User.c</FilePath>
+              <FilePath>..\User\Code_C\src\Position.c</FilePath>
             </File>
             <File>
               <FileName>SysState.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Code_C\src\SysState.c</FilePath>
+            </File>
+            <File>
+              <FileName>Math_User.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Code_C\src\Math_User.c</FilePath>
             </File>
             <File>
               <FileName>SD_APP.c</FileName>
@@ -447,6 +447,11 @@
               <FileName>PID.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\Code_C++\src\PID.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GPS_Parse.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\Code_C++\src\GPS_Parse.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -484,19 +489,9 @@
               <FilePath>..\User\Code_C\src\Motor.c</FilePath>
             </File>
             <File>
-              <FileName>SBUS.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\SBUS.c</FilePath>
-            </File>
-            <File>
               <FileName>PWM_Capture.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Code_C\src\PWM_Capture.c</FilePath>
-            </File>
-            <File>
-              <FileName>NRF24L01.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\NRF24L01.c</FilePath>
             </File>
             <File>
               <FileName>Battery.c</FileName>
@@ -504,14 +499,9 @@
               <FilePath>..\User\Code_C\src\Battery.c</FilePath>
             </File>
             <File>
-              <FileName>ADS1118.c</FileName>
+              <FileName>GPS_UART.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\ADS1118.c</FilePath>
-            </File>
-            <File>
-              <FileName>GPS.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\GPS.c</FilePath>
+              <FilePath>..\User\Code_C\src\GPS_UART.c</FilePath>
             </File>
             <File>
               <FileName>Buzzer.c</FileName>
@@ -519,14 +509,14 @@
               <FilePath>..\User\Code_C\src\Buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>Ultra.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\Ultra.c</FilePath>
-            </File>
-            <File>
               <FileName>USART.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Code_C\src\USART.c</FilePath>
+            </File>
+            <File>
+              <FileName>SDCard.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Code_C\src\SDCard.c</FilePath>
             </File>
             <File>
               <FileName>Queue.c</FileName>
@@ -534,9 +524,14 @@
               <FilePath>..\User\Code_C\src\Queue.c</FilePath>
             </File>
             <File>
-              <FileName>SDCard.c</FileName>
+              <FileName>SBUS.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Code_C\src\SDCard.c</FilePath>
+              <FilePath>..\User\Code_C\src\SBUS.c</FilePath>
+            </File>
+            <File>
+              <FileName>Ultra.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Code_C\src\Ultra.c</FilePath>
             </File>
           </Files>
         </Group>

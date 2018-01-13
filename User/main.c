@@ -11,16 +11,13 @@ int main(void)
 	SystemTime.Init();
 	Led.Init();
 	Buzzer.Init();
+	//SD_APP.init();
 	usart1.init(115200);
-	Power.Init();
-	MPU6050.Init();
-	MS5611.Init();
-	HMC5883.Init();
-	Motor.Init();
-//GPS.Init();
+	Attitude.Init();
+  Position.Init();
 	PWM_In.Init(2000,4000);
-//SD_APP.init();
-//Altitude.Init();
+	Power.Init();
+	Motor.Init();
 	while(1)
 	{		
 		TG_50HZ.Run();
@@ -28,7 +25,6 @@ int main(void)
 		TG_500HZ.Run();
 	}
 }
-
 
 
 /*

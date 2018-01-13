@@ -1,4 +1,5 @@
 #include "MS5611.h"
+#include "Communication.h"
 
 #define MS5611_ADDRESS      0XEE
 #define MS5611_RST          0X1E
@@ -207,8 +208,8 @@ void MS561101_Init(void)
 	MS5611_Updata();
 	
 }
-//采样频率25HZ 截止频率 2HZ
-Filter_2nd MS5611_Filter(0.046131802093312926,0.092263604186625853,0.046131802093312926,-1.3072850288493234 , 0.49181223722257528);
+//采样频率50HZ 截止频率 2HZ 
+Filter_2nd MS5611_Filter(0.01335920002786,0.02671840005571,0.01335920002786,-1.647459981077,0.7008967811884);
 
 void MS5611_Updata(void)
 {
@@ -217,9 +218,8 @@ void MS5611_Updata(void)
 	int64_t OFF2 = 0;
 	int64_t SENS2 = 0;
 	
-	
-		switch (MS5611_State)
-		{
+	switch (MS5611_State)
+	{
 			case MS5611_IDEL:
 				if(MS5611_GetTemperature() == True) MS5611_State = MS5611_TEMP_OK;
 				break;
@@ -228,8 +228,7 @@ void MS5611_Updata(void)
 				break;
 			default:
 				break;
-		}
-		
+	}
 	
 	if(MS5611_State != MS5611_PRESS_OK) return;
 	
@@ -268,14 +267,14 @@ void MS5611_Updata(void)
 	float ALT_TMP = MS5611_Filter.LPF2ndFilter(MS5611_Data.Altitude);
 	
 	MS5611_Data.Speed = (ALT_TMP - MS5611_Data.Altitude) / (TimeNow - Time_Pre) * (double)1e3;
-	MS5611_Data.Altitude = ALT_TMP;
+	MS5611_Data.Altitude = ALT_TMP;//单位 m
 	
 	Time_Pre = TimeNow;
 	MS5611_State = MS5611_IDEL;
 }
 
 
-//10MS进一次，4次后更新完一次数据
+//10MS进一次，4次后更新完一次数据  //停用 和MPU6050、HMC5883使用同一iic引脚，中断使数据错误  GYL
 //更新频率25HZ
 extern "C"{
 void TIM5_IRQHandler(void)

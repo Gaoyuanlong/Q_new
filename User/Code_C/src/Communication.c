@@ -54,7 +54,7 @@ void Send_Senser_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
 	
-	Temp1 =  HMC5883.Data->Length*100;
+	Temp1 =  MPU6050.Data->GYR_ADC.z;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);
 	
@@ -124,8 +124,6 @@ void Send_RC_PC(void)
 {
 	u16 Temp1 = 0;
 	u8 Cnt = 1;
-
-	if(NRF24L01.RequsetAckBuf(False) == False) return;	
 	
 	Communicate_BUF[Cnt++] = 0XAA;
 	Communicate_BUF[Cnt++] = 0XAA;
@@ -319,28 +317,19 @@ BOOL Send_UserData_PC(void)
 	u8 Cnt = 1;
 	vs16 Temp = 0;
 	
-//	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_x.Setpoint);		
-//	User_Data.Data2 = Degrees(Attitude.Rate->x);	
-//	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_x.Setpoint);		
-//	User_Data.Data4 = Degrees(FlyControl.Para->ATT_Outer_PID_x.Feedback);			
-//	User_Data.Data5 = Motor.PWM->PWM1;
-//	User_Data.Data6 = Motor.PWM->PWM2;
-//	User_Data.Data7 = Motor.PWM->PWM3;
-//	User_Data.Data8 = Degrees(FlyControl.Para->ATT_Inner_PID_x.Feedback);;
-//	User_Data.Data9 = FlyControl.Para->ATT_Inner_PID_x.SumError;
-	
-//	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_x.Setpoint);		
-//	User_Data.Data2 = Degrees(Attitude.Rate->x);	
-//	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_x.Setpoint);		
-//	User_Data.Data4 = Degrees(FlyControl.Para->ATT_Outer_PID_x.Feedback);			
-//	User_Data.Data5 = Motor.PWM->PWM1;
-//	User_Data.Data6 = Motor.PWM->PWM2;
-//	User_Data.Data7 = Motor.PWM->PWM3;
-//	User_Data.Data8 = Degrees(FlyControl.Para->ATT_Inner_PID_x.Feedback);;
-//	User_Data.Data9 = FlyControl.Para->ATT_Inner_PID_x.SumError;
-//	User_Data.Data10 = 0;
-//	User_Data.Data11 = 0;
-//	User_Data.Data12 = 0;
+
+	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Setpoint);		
+	User_Data.Data2 = Degrees(Attitude.Rate->z);	
+	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Setpoint);		
+	User_Data.Data4 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Feedback);			
+	User_Data.Data5 = Motor.PWM->PWM1;
+	User_Data.Data6 = Motor.PWM->PWM2;
+	User_Data.Data7 = Motor.PWM->PWM3;
+	User_Data.Data8 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Feedback);;
+	User_Data.Data9 = FlyControl.Para->ATT_Inner_PID_z.SumError;
+	User_Data.Data10 = 0;
+	User_Data.Data11 = 0;
+	User_Data.Data12 = 0;
 	
 	Communicate_BUF[Cnt++] = 0xAA;
 	Communicate_BUF[Cnt++] = 0xAA;
@@ -547,10 +536,18 @@ void Data_Analysis_PC(void)
 	}
 }
 
+
 BOOL Communicate(void)
 {
+#ifndef ENABLE_GPS_PC// GPS未占用串口1进行调试，才可正常使用
+	
+	
 	Send_Data_PC();
 	Data_Analysis_PC();
 	
+	
+#else
+	GPS_UART.GPS_Cof();
+#endif
 	return True;
 }
