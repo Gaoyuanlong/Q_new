@@ -15,6 +15,8 @@
 #include "Position.h"
 #include "Ultra.h"
 #include "PWM_Capture.h"
+#include "GPS_Parse.h"
+
 
 #define UNLOCK  	0X0001
 #define LOST    	0X0002

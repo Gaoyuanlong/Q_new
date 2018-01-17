@@ -63,3 +63,4 @@
 .\browse\attitude.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\attitude.o: ..\User\Code_C\inc\Position.h
 .\browse\attitude.o: ..\User\Code_C\inc\Ultra.h
+.\browse\attitude.o: ..\User\Code_C++\inc\GPS_Parse.h

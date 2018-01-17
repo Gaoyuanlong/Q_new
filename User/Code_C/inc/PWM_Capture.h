@@ -10,9 +10,10 @@
 #define PWM_RC_MIN 0
 #define PWM_RC_RANGE 1000
 #define PWM_RC_MID 500
-
+#define PWM_RC_DEAD 100
 typedef enum
 {
+	PWM_In_Null,
 	PWM_In_Down,
 	PWM_In_Mid,
 	PWM_In_Up,

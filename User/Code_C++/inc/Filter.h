@@ -1,6 +1,7 @@
 #ifndef _FILTER_H_
 #define _FILTER_H_
 #include "Common.h"
+
 class Filter_1nd
 {
 
@@ -10,8 +11,8 @@ class Filter_1nd
 class Filter_2nd
 {
 	public:
+		Filter_2nd();
 		Filter_2nd(float Init_b0,float Init_b1,float Init_b2,float Init_a1,float Init_a2);
-	
 
 		//b:分子多项式系数
 		//a:分母多项式系数 ,a0默认为1

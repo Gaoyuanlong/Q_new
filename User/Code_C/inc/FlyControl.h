@@ -8,10 +8,10 @@
 #include "HMC5883.h"
 #include "PWM_Capture.h"
 
-#define THROTTLE_MIN SBUS_MIN
-#define THROTTLE_MAX SBUS_MAX
-#define THROTTLE_MID ((SBUS_MAX + SBUS_MIN) / 2)
-#define THROTTLE_80_PERCENT ((THROTTLE_MAX - THROTTLE_MIN) * 0.8f)
+#define THROTTLE_MIN PWM_RC_MIN
+#define THROTTLE_MAX PWM_RC_MAX
+#define THROTTLE_MID ((PWM_RC_MAX + PWM_RC_MIN) / 2)
+#define THROTTLE_40_PERCENT ((THROTTLE_MAX - THROTTLE_MIN) * 0.4f)
 
 enum Fly_Mode
 {
@@ -30,6 +30,10 @@ struct Control_Para_
 	PID ATT_Outer_PID_y;	
 	PID ATT_Outer_PID_z;	
 	
+	PID POS_Acc_PID_x;
+	PID POS_Acc_PID_y;
+	PID POS_Acc_PID_z;
+	
 	PID POS_Inner_PID_x;
 	PID POS_Inner_PID_y;
 	PID POS_Inner_PID_z;
@@ -39,7 +43,7 @@ struct Control_Para_
 	PID POS_Outer_PID_z;
 	int Throttle;
 
-	float ALT_Onland;
+	Vector Home;
 	BOOL IsLock;
 	BOOL IsLost;
 	BOOL IsError;
@@ -53,6 +57,7 @@ extern struct FlyControl_
 	void (*ATT_InnerLoop)(u32 Time);
 	void (*ATT_OuterLoop)(u32 Time);
 	
+	void (*POS_AccLoop)(u32 Time);
 	void (*POS_InnerLoop)(u32 Time);
 	void (*POS_OuterLoop)(u32 Time);
 	

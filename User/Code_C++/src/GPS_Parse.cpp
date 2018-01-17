@@ -1,7 +1,7 @@
 #include "GPS_Parse.h"
 #include "GPS_UART.h"
 
-double RTK_Str2Float(const u8* Str_Add)
+double GPS_Str2Float(const u8* Str_Add)
 { 
 	double Float_Int_temp = 0;
 	double Float_Float_temp = 0;
@@ -12,9 +12,11 @@ double RTK_Str2Float(const u8* Str_Add)
 	{
 		i++;
 	}
-	for(; Str_Add_temp[i] != '.' && Str_Add_temp[i] != ',' ; i++)
+	for(; Str_Add_temp[i] != '.' && Str_Add_temp[i] != ','; i++)
 	{
+		if( i > 10 || Str_Add_temp[i] == '*')return 0;
 		Float_Int_temp = (Float_Int_temp + (Str_Add_temp[i] - '0'))*10;
+
 	}
 	Float_Int_temp = Float_Int_temp*0.1;
 	if(Str_Add_temp[i] == '.')
@@ -22,6 +24,7 @@ double RTK_Str2Float(const u8* Str_Add)
 	
 	for(; Str_Add_temp[i] != ',' ; i++)
 	{
+		if( i > 20 || Str_Add_temp[i] == '*')return 0;
 		Float_Float_temp = (Float_Float_temp + (Str_Add_temp[i] - '0'))*10;
 		j++;
 	}
@@ -38,51 +41,157 @@ double RTK_Str2Float(const u8* Str_Add)
 }
 
 //-------GXGGA数据解析---------------------------------------//
+void GXGGA::GXGGA_Data_Clear(void)
+{
+		 UTC = 0;          //UTC时间
+		 LAT = 0;          //纬度
+		 NorS = 0;         //南北
+		 LON = 0;          //经度
+		 WorE = 0;          //东西
+		 state = 0;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
+		 SatNum = 0;          //卫星数量
+		 HDOP = 0;         //水平经度衰减因子
+		 AltSea = 0;       //海平面高度
+		 AltEarth = 0;     //相对于海平面的地面高度
+		 GPSBaseTime = 0;    //上一次收到GPS差分站数据开始的计时，单位秒
+		 GPSBase = 0;        //差分站编号
+}	
 void GPS::GPS_Parse(GXGGA &GXGGA_Data ,const u8* BUF)
 {
+	#define ONE_DATA_MAX_SIZE 20
 	const u8* Str_Add_temp = BUF;
-	u8 i = 0;
+	u16 i = 0;
+	u8 j = 0;
 	
-	while(Str_Add_temp[i++] != ','){if(i > GPS_DATA_MAX_SIZE)return;}      	//1
-	GXGGA_Data.UTC = RTK_Str2Float(&Str_Add_temp[i]);		
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      	//1 UTC 时间
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.UTC = GPS_Str2Float(&Str_Add_temp[i]);		
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //2
-	GXGGA_Data.LAT = RTK_Str2Float(&Str_Add_temp[i]);
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //2 纬度
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.LAT = GPS_Str2Float(&Str_Add_temp[i]);
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //3
-	GXGGA_Data.NorS = Str_Add_temp[i];		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //3 N 或 S
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.NorS = Str_Add_temp[i];		
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //4
-	GXGGA_Data.LON = RTK_Str2Float(&Str_Add_temp[i]);	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //4 经度
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.LON = GPS_Str2Float(&Str_Add_temp[i]);	
 		 
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //5
-	GXGGA_Data.WorE = Str_Add_temp[i];		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //5 E 或 W
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.WorE = Str_Add_temp[i];		
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //6
-	GXGGA_Data.state = Str_Add_temp[i];
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //6 定位质量指示，0=定位无效，1=定位有效
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.state = Str_Add_temp[i] - '0';
 				
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //7
-	GXGGA_Data.SatNum = (u8)RTK_Str2Float(&Str_Add_temp[i]);
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //7 使用卫星数量，从 00 到 12
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.SatNum = (u8)GPS_Str2Float(&Str_Add_temp[i]);
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //8
-	GXGGA_Data.HDOP = RTK_Str2Float(&Str_Add_temp[i]);	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //8 水平精确度，0.5 到 99.9
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.HDOP = GPS_Str2Float(&Str_Add_temp[i]);	
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //9
-	GXGGA_Data.AltSea = RTK_Str2Float(&Str_Add_temp[i]);	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //9 天线离海平面的高度，-9999.9 到 9999.9 米
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.AltSea = GPS_Str2Float(&Str_Add_temp[i]);	
+	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      // 单位M 不处理
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //10
-	GXGGA_Data.AltEarth = Str_Add_temp[i];
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //10 大地水准面高度，-9999.9 到 9999.9 米
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.AltEarth = GPS_Str2Float(&Str_Add_temp[i]);
+	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      // 单位M 不处理
+	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //11 差分 GPS 数据期限
+	if(Str_Add_temp[i] !=  ',')GXGGA_Data.GPSBaseTime = (u16)GPS_Str2Float(&Str_Add_temp[i]);
 
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //11
-	GXGGA_Data.GPSBaseTime = RTK_Str2Float(&Str_Add_temp[i]);
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //12 差分参考基站标号
+	if(Str_Add_temp[i] !=  '*')GXGGA_Data.GPSBase = (u16)GPS_Str2Float(&Str_Add_temp[i]);	
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  '*'){if(j++ > ONE_DATA_MAX_SIZE)return;}      //13 语句结束标志符
 
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //12
-	GXGGA_Data.GPSBaseTime = Str_Add_temp[i];	
+}
+//-------GXRMC 数据解析---------------------------------------//
+void GXRMC::GXRMC_Data_Clear(void)
+{
+		 UTC = 0;         //UTC时间
+		 state = 0;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
+		 LAT = 0;         //纬度
+		 NorS = 0;         //南北
+		 LON = 0;         //经度
+		 WorE = 0;          //东西
+		 SOG = 0;  				//地面速率（000.0~999.9节，前面的0也将被传输）
+		 COG = 0;					//地面航向（000.0~359.9度，以真北为参考基准，前面的0也将被传输）
+		 Date = 0;        //日期 ddmmyy（日月年）格式
+		 Mag_Var = 0; 		//磁偏角 （000.0~180.0度，前面的0也将被传输）
+		 Mag_EorW = 0;			//磁偏角方向 E（东）或W（西）
+		 Mode = 0;  				//模式指示（仅NMEA0183 3.00版本输出，A=自主定位，D=差分，E=估算，N=数据无效）
+}
+void GPS::GPS_Parse(GXRMC &GXRMC_Data ,const u8* BUF)
+{
+	#define ONE_DATA_MAX_SIZE 20
+	const u8* Str_Add_temp = BUF;
+	u16 i = 0;
+	u8 j = 0;
+	
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      	//1 UTC 时间
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.UTC = GPS_Str2Float(&Str_Add_temp[i]);		
 		
-	while(Str_Add_temp[i++] !=  ','){if(i > GPS_DATA_MAX_SIZE)return;}      //13
-	GXGGA_Data.GPSBase = (u16)RTK_Str2Float(&Str_Add_temp[i]);	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //2 定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.state = Str_Add_temp[i];	
 		
-	while(Str_Add_temp[i++] !=  '*'){if(i > GPS_DATA_MAX_SIZE)return;}      //14
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //3 纬度
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.LAT = GPS_Str2Float(&Str_Add_temp[i]);		
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //4  N 或 S
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.NorS = Str_Add_temp[i];	
+		 
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //5 经度
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.LON = GPS_Str2Float(&Str_Add_temp[i]);				
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //6 E 或 W
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.WorE = Str_Add_temp[i];
+				
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //7 地面速率（000.0~999.9节，前面的0也将被传输）
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.SOG = GPS_Str2Float(&Str_Add_temp[i]);
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //8 地面航向（000.0~359.9度，以真北为参考基准，前面的0也将被传输）
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.COG = GPS_Str2Float(&Str_Add_temp[i]);	
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //9 日期 ddmmyy（日月年）格式
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.Date = GPS_Str2Float(&Str_Add_temp[i]);	
+	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //10 磁偏角 （000.0~180.0度，前面的0也将被传输）
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.Mag_Var = GPS_Str2Float(&Str_Add_temp[i]);	
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //12 磁偏角方向 E（东）或W（西）
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.Mag_EorW = Str_Add_temp[i];
+	
+	j = 0;
+	while(Str_Add_temp[i++] !=  ','){if(j++ > ONE_DATA_MAX_SIZE)return;}      //12 模式指示（仅NMEA0183 3.00版本输出，A=自主定位，D=差分，E=估算，N=数据无效）
+	if(Str_Add_temp[i] !=  ',')GXRMC_Data.Mode = Str_Add_temp[i];
+		
+	j = 0;
+	while(Str_Add_temp[i++] !=  '*'){if(j++ > ONE_DATA_MAX_SIZE)return;}      //13 语句结束标志符
 
 }
 //-------GXGLL 数据解析---------------------------------------//
@@ -90,12 +199,6 @@ void GPS::GPS_Parse(GXGLL &GXGLL_Data ,const u8* BUF)
 {
 
 }
-//-------GXRMC 数据解析---------------------------------------//
-void GPS::GPS_Parse(GXRMC &GXGLL_Data ,const u8* BUF)
-{
-
-}
-
 //-------找帧头---------------------------------------//
 u8 GPS::GPS_Find_Head(const char* Str1,const char* Str2,const char* Str3)
 {
@@ -124,42 +227,68 @@ u8 GPS::GPS_Find_Head(const char* Str1,const char* Str2,const char* Str3)
 		else
 			P3 = Str3;
 		
-		if(*P1 == '\0')return 1;
-		if(*P2 == '\0')return 2;
-		if(*P3 == '\0')return 3;
+		if(*P1 == '\0')
+			return 1;
+		if(*P2 == '\0')
+			return 2;
+		if(*P3 == '\0')
+			return 3;
 	}
 	
 	return 0;
 }
 
+BOOL GPS::GPS_Read_Str(u8 *data, u16 num)
+{
+	u8 BUF = 0;
+	u8 i = 0;
+	while(i < GPS_DATA_MAX_SIZE)
+	{
+		GPS_UART.receive(&BUF,1);
+		data[i] = BUF;
+		if(data[i] == '*')
+			return True;
+				
+		i++;
+	}
+	return False;
+}
 
-GPS GPS_Location;
+
 GXGGA GXGGA_Data;
-GXGLL GXGLL_Data;
 GXRMC GXRMC_Data;
+GPS GPS_Location;
 void GPS::GPS_Update(void)
 {
+	static u8 Time_10 = 0;
 	u8 Temp = 0;
-	u8 Gps_original_data[GPS_DATA_MAX_SIZE];
+	u8 Gps_original_data[GPS_DATA_MAX_SIZE+1] ={0};
 	
-	Temp = GPS_Find_Head("$GPGGA","$GPGGA","$GPGGA");
-  GPS_UART.receive(Gps_original_data,GPS_DATA_MAX_SIZE);
-	
-	switch(Temp)
+	if(Time_10++ > 1)
 	{
-		case 1:
-			GPS_Location.GPS_Parse(GXGGA_Data,Gps_original_data);
-		break;
-		case 2:
-			GPS_Location.GPS_Parse(GXGLL_Data,Gps_original_data);
-		break;
-		case 3:
-			GPS_Location.GPS_Parse(GXRMC_Data,Gps_original_data);
-		break;
-		default:break;
-	}
+		Temp = GPS_Find_Head("$GNGGA","$GNRMC","----");
+		switch(Temp)
+		{
+			case 1:
+				if(GPS_Read_Str(Gps_original_data,GPS_DATA_MAX_SIZE) == False)break;
+				GXGGA_Data.GXGGA_Data_Clear();
+				GPS_Location.GPS_Parse(GXGGA_Data,Gps_original_data);
+				GPS_Unit_transform();
+			break;
+			case 2:
+				if(GPS_Read_Str(Gps_original_data,GPS_DATA_MAX_SIZE) == False)break;
+				GXRMC_Data.GXRMC_Data_Clear();
+				GPS_Location.GPS_Parse(GXRMC_Data,Gps_original_data);
+				GPS_Unit_transform();
+			break;
+			case 3:
+
+			break;
+			default:break;
+		}
+		Time_10 = 0;
+}
 	
-	GPS_Unit_transform();
 
 }
 
@@ -187,7 +316,7 @@ void GPS::GPS_Update(void)
 void GPS::GPS_Unit_transform(void)
 {
 	#define EARTH_RADIUS 6371393
-	#define PI 3.141592653
+	#define PI 3.141592653f
 	#define LAT0 0
 	#define LON0 0
 	double  Lon_Deg = 0 ,Lat_Deg = 0;
@@ -204,11 +333,14 @@ void GPS::GPS_Unit_transform(void)
 	if(GXGGA_Data.NorS == 'S')
 		Lat_Deg = -Lat_Deg;
 	
-	POS_X = (Lon_Deg*PI/180)*EARTH_RADIUS;		//经度 单位米	GGA
-	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS;		//纬度 单位米	GGA
-	POS_Z = GXGGA_Data.AltSea; 								//相对海平面高度 单位米	GGA
+	POS_X = (Lon_Deg*PI/180)*EARTH_RADIUS * 100;		//经度 单位cm	GGA
+	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100;		//纬度 单位cm	GGA
+	POS_Z = GXGGA_Data.AltSea * 100; 								//相对海平面高度 单位cm	GGA
 	
 	SatNum = GXGGA_Data.SatNum;
 	state = GXGGA_Data.state;
 }
+
+
+
 

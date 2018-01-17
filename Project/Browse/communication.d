@@ -63,3 +63,5 @@
 .\browse\communication.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\communication.o: ..\User\Code_C\inc\Position.h
 .\browse\communication.o: ..\User\Code_C\inc\Ultra.h
+.\browse\communication.o: ..\User\Code_C++\inc\GPS_Parse.h
+.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

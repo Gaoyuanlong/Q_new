@@ -64,3 +64,4 @@
 .\browse\position.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\position.o: ..\User\Code_C\inc\Position.h
 .\browse\position.o: ..\User\Code_C\inc\Ultra.h
+.\browse\position.o: ..\User\Code_C++\inc\GPS_Parse.h

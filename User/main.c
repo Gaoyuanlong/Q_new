@@ -3,8 +3,21 @@
 Target_ TG_50HZ(Scheduler.Loop_50Hz,20000);
 Target_ TG_200HZ(Scheduler.Loop_200Hz,5000);
 Target_ TG_500HZ(Scheduler.Loop_500Hz,2000);
+//-------时间测试函数------------------------//
+float Test_Time = 0;
+void Get_Time(void)
+{
+	uint64_t Time_Now = 0;
+	static uint64_t Time_Pre = 0;
+	
+	Time_Now = SystemTime.Now_US();
+	Test_Time = (Time_Now - Time_Pre);
+	Time_Pre = Time_Now;
+}
+//extern void Get_Time(void);
+//Get_Time();
 
-extern void TIM5_CH1_Cap_Init(u32 arr,u16 psc);
+//-------------------------------------------//
 int main(void)
 {
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  
@@ -25,7 +38,6 @@ int main(void)
 		TG_500HZ.Run();
 	}
 }
-
 
 /*
 问题：

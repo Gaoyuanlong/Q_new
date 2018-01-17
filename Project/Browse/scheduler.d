@@ -67,6 +67,7 @@
 .\browse\scheduler.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Position.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Ultra.h
+.\browse\scheduler.o: ..\User\Code_C++\inc\GPS_Parse.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Scheduler.h
 .\browse\scheduler.o: ..\User\Code_C\inc\SysState.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Board.h
@@ -76,4 +77,3 @@
 .\browse\scheduler.o: ..\User\SDCard\integer.h
 .\browse\scheduler.o: ..\User\SDCard\ffconf.h
 .\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\browse\scheduler.o: ..\User\Code_C++\inc\GPS_Parse.h

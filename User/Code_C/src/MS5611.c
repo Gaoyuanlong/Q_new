@@ -267,7 +267,7 @@ void MS5611_Updata(void)
 	float ALT_TMP = MS5611_Filter.LPF2ndFilter(MS5611_Data.Altitude);
 	
 	MS5611_Data.Speed = (ALT_TMP - MS5611_Data.Altitude) / (TimeNow - Time_Pre) * (double)1e3;
-	MS5611_Data.Altitude = ALT_TMP;//单位 m
+	MS5611_Data.Altitude = ALT_TMP - MS5611_ALT_OFFECT;//单位 m
 	
 	Time_Pre = TimeNow;
 	MS5611_State = MS5611_IDEL;

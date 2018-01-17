@@ -1,7 +1,8 @@
 .\browse\flycontrol.o: ..\User\Code_C\src\FlyControl.c
 .\browse\flycontrol.o: ..\User\Code_C\inc\FlyControl.h
 .\browse\flycontrol.o: ..\User\Code_C++\inc\PID.h
-.\browse\flycontrol.o: ..\User\Code_C\inc\Attitude.h
+.\browse\flycontrol.o: ..\User\Code_C++\inc\Filter.h
+.\browse\flycontrol.o: ..\User\Code_C\inc\Common.h
 .\browse\flycontrol.o: ..\CIMIS\stm32f4xx.h
 .\browse\flycontrol.o: ..\CIMIS\core_cm4.h
 .\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
@@ -37,12 +38,11 @@
 .\browse\flycontrol.o: ..\Libraries\inc\stm32f4xx_dac.h
 .\browse\flycontrol.o: ..\Libraries\inc\stm32f4xx_dcmi.h
 .\browse\flycontrol.o: ..\Libraries\inc\stm32f4xx_fsmc.h
+.\browse\flycontrol.o: ..\User\Code_C\inc\Attitude.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\flycontrol.o: ..\User\Code_C++\inc\I2C_Soft.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\MPU6050_Register.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Time.h
-.\browse\flycontrol.o: ..\User\Code_C\inc\Common.h
-.\browse\flycontrol.o: ..\User\Code_C++\inc\Filter.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Math_User.h
 .\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\flycontrol.o: ..\User\DSP\Include\arm_math.h
@@ -64,3 +64,4 @@
 .\browse\flycontrol.o: ..\User\Code_C\inc\Position.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Ultra.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\PWM_Capture.h
+.\browse\flycontrol.o: ..\User\Code_C++\inc\GPS_Parse.h

@@ -24,10 +24,11 @@ void Position_Init(void)
 #define TIME_CONTANST_ZER 3.0f
 #define K_ACC_ZER 	    (1.0f / (TIME_CONTANST_ZER * TIME_CONTANST_ZER * TIME_CONTANST_ZER))
 #define K_VEL_ZER	        (3.0f / (TIME_CONTANST_ZER * TIME_CONTANST_ZER))														
-#define K_POS_ZER         (3.0f / TIME_CONTANST_ZER)
+#define K_POS_ZER         (2.0f / TIME_CONTANST_ZER)
 #define Delay_Cnt 60
-void Altitude_Update(u16 Time_Ms,float Origion_Acc_z)
+void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 {
+	float Origion_Acc_z;
 	static float acc_correction = 0;
 	static float vel_correction = 0;
 	static float pos_correction = 0;
@@ -44,19 +45,19 @@ void Altitude_Update(u16 Time_Ms,float Origion_Acc_z)
 	static uint16_t Save_Cnt=0;
 	Save_Cnt++;//数据存储周期
 	
-	Delta_T = Time_Ms/1000.0;    //单位 s
-	
-	Altitude_Estimate = MS5611.Data->Altitude*100.0 + 11770;//高度观测量   单位cm
+	Delta_T = Time_Ms/1000.0;//ms转s 单位 s
+	Altitude_Estimate = MS5611.Data->Altitude*100.0;//高度观测量 m转cm 单位cm
+	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s
 	
 	//由观测量（气压计）得到状态误差
-	Altitude_Dealt = Altitude_Estimate -  Altitude_History[Delay_Cnt];//气压计(超声波)与SINS估计量的差，单位Cm
+	Altitude_Dealt = Altitude_Estimate -  Altitude_History[Delay_Cnt];//气压计(超声波)与SINS估计量的差，单位cm
 	//三路积分反馈量修正惯导
 	acc_correction +=Altitude_Dealt* K_ACC_ZER*Delta_T ;//加速度矫正量
 	vel_correction +=Altitude_Dealt* K_VEL_ZER*Delta_T ;//速度矫正量
 	pos_correction +=Altitude_Dealt* K_POS_ZER*Delta_T ;//位置矫正量
 	//加速度计矫正后更新
 	Last_Acc_z = Position.Acc.z;//上一次加速度量
-	Position.Acc.z = Origion_Acc_z*100 + acc_correction;// 加速度单位cm/s
+	Position.Acc.z = Origion_Acc_z + acc_correction;// 加速度单位cm/s
 	//速度增量矫正后更新，用于更新位置,由于步长h=0.005,相对较长，
 	//这里采用二阶龙格库塔法更新微分方程，不建议用更高阶段，因为加速度信号非平滑
 	SpeedDealt = (Last_Acc_z + Position.Acc.z) * Delta_T/2.0;
@@ -99,6 +100,13 @@ void Altitude_Update(u16 Time_Ms,float Origion_Acc_z)
 */	
 }
 
+void XY_Update(u16 Time_Ms,Vector ACC_Earth)
+{
+	
+	
+	
+	
+}
 void Position_Updata(u16 Time)
 {
 	Vector ACC_Earth;
@@ -114,7 +122,7 @@ void Position_Updata(u16 Time)
 	ACC_Earth.z /= 4095;
 	ACC_Earth.z *= 9.8f;
 //--------------高度融合--------------------------------------------------------------------//
-	Altitude_Update(Time,ACC_Earth.z);
+	Altitude_Update(Time,ACC_Earth);
 	
 //	User_Data.Data7 = ACC_Earth.x*100;
 //	User_Data.Data8 = ACC_Earth.y*100;

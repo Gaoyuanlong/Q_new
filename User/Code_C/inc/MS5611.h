@@ -6,6 +6,8 @@
 #include "Common.h"
 #include "arm_math.h"
 #include "Filter.h"
+
+#define MS5611_ALT_OFFECT (-65)
 struct MS5611_Data_
 {
 	int64_t Temperature;
@@ -20,6 +22,8 @@ extern struct MS5611_
 	void (*Init)(void);
 	void (*Updata)(void);
 }MS5611;
+
+
 
 #endif
 

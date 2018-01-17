@@ -63,3 +63,4 @@
 .\browse\ms5611.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Position.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Ultra.h
+.\browse\ms5611.o: ..\User\Code_C++\inc\GPS_Parse.h

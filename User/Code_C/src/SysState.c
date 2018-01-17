@@ -71,9 +71,31 @@ void Sensor_State(void)
 
 void Controller_State(u16 Time)
 {
-
 	static u16 LockCnt = 0;
 	static u16 UnlockCnt = 0;
+	static u16 ModeCnt = 0;
+	//控制模式判断
+	if(PWM_RC_R6 < PWM_RC_DEAD)
+	{
+		if(FlyControl.Para->Mode != ATT && ModeCnt > 10)
+		{
+			FlyControl.Para->Mode = ATT;
+			ModeCnt = 0;
+		}
+		else if(FlyControl.Para->Mode != ATT)
+			ModeCnt++;
+	}
+	else
+	{	
+		if(FlyControl.Para->Mode != ALT && ModeCnt > 10)
+		{
+			FlyControl.Para->Mode = ALT;
+			ModeCnt = 0;
+		}
+		else if(FlyControl.Para->Mode != ALT)
+			ModeCnt++;
+	}
+	
 	//解锁判定	 上锁判定
 	if(FlyControl.Para->IsLock == True)// & (FlyControl.Para->IsError == False))
 	{

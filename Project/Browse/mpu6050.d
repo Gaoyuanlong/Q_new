@@ -63,3 +63,4 @@
 .\browse\mpu6050.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\Position.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\Ultra.h
+.\browse\mpu6050.o: ..\User\Code_C++\inc\GPS_Parse.h

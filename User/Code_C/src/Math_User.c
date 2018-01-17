@@ -3,12 +3,13 @@
 double Constrain(double AimN, double Limit_Up,double Limit_Down);
 int Dead_Zone(int AimN,int Limit);
 Vector Body_To_Earth(Vector Body,float Pitch,float Roll);
-
+Vector XY_Coordinate_Rotate(float X,float Y,float Angle);
 struct Math_ Math =
 {
 	Constrain,
 	Dead_Zone,
-	Body_To_Earth
+	Body_To_Earth,
+	XY_Coordinate_Rotate
 };
 
 
@@ -52,6 +53,21 @@ Vector Body_To_Earth(Vector Body,float Pitch,float Roll)
 	Earth.z = -SIN_Theta * Body.x + SIN_Phi * COS_Theta * Body.y + COS_Phi * COS_Theta * Body.z;
 	return Earth;
 };
+
+Vector XY_Coordinate_Rotate(float X,float Y,float Angle)
+{
+	Vector Earth;
+	Angle *= DEG_TO_RAD;
+	float COS = arm_cos_f32(Angle);
+	float SIN = arm_sin_f32(Angle);
+	
+	Earth.x =  COS * X +  SIN * Y;
+	Earth.y = -SIN * X +  COS * Y;
+	Earth.z = 0;
+	
+	return Earth;
+};
+
 
 float To_180_degrees(float x)
 {

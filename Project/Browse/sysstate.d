@@ -67,6 +67,7 @@
 .\browse\sysstate.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Position.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Ultra.h
+.\browse\sysstate.o: ..\User\Code_C++\inc\GPS_Parse.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Scheduler.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Board.h
 .\browse\sysstate.o: ..\User\Code_C\inc\SysState.h
@@ -76,4 +77,3 @@
 .\browse\sysstate.o: ..\User\SDCard\integer.h
 .\browse\sysstate.o: ..\User\SDCard\ffconf.h
 .\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\browse\sysstate.o: ..\User\Code_C++\inc\GPS_Parse.h
