@@ -5,7 +5,7 @@
 
 #define PWM_LIMIT_U 1900
 #define PWM_LIMIT_D 900
-#define THROTTLE_HOLD 100
+#define THROTTLE_HOLD 130
 
 struct PWM_ 
 {

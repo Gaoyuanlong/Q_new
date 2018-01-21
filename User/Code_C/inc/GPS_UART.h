@@ -4,7 +4,7 @@
 #include "Queue.h"
 #include "Common.h"
 
-//#define ENABLE_GPS_PC //GPS占用串口1进行调试  需要统一波特率为GPS波特率 9600
+#define USE_GPS_PC 0  //GPS占用串口1进行调试  需要统一波特率为GPS波特率 9600
 
 
 extern struct GPS_UART_

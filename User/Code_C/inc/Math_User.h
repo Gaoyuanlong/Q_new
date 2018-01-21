@@ -27,7 +27,7 @@ public:
 extern struct Math_
 {
 	double (*Constrain)(double AimN, double Limit_Up,double Limit_Down);
-	int (*Dead_Zone)(int AimN,int Limit);
+	float (*Dead_Zone)(float AimN,float Limit);
 	Vector (*Body_To_Earth)(Vector Body,float Pitch,float Roll);	
 	Vector(*XY_Coordinate_Rotate)(float X,float Y,float Angle);
 }Math;

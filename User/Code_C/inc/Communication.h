@@ -55,4 +55,11 @@ extern struct Communication_
 
 }Communication;
 
+typedef struct
+{
+  u8 Head;
+  float DataBuf[8];
+  u8 End;
+}Vcan_Buff_;
+
 #endif

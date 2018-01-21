@@ -55,19 +55,19 @@ void Send_Senser_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
 	
-	Temp1 =  HMC5883.IsSensorError*100;
+	Temp1 =  MPU6050.Data->GYR_ADC.z;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);
 	
-	Temp1 = HMC5883.Data->MAG_Original.x;	
+	Temp1 = HMC5883.Data->MAG_ADC.x*100;;	
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);		
 	
-	Temp1 = HMC5883.Data->MAG_Original.y;
+	Temp1 = HMC5883.Data->MAG_ADC.y*100;;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
 	
-	Temp1 = HMC5883.Data->MAG_Original.z;
+	Temp1 = HMC5883.Data->MAG_ADC.z*100;;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);
 	
@@ -358,19 +358,31 @@ BOOL Send_UserData_PC(void)
 	u8 Cnt = 1;
 	vs16 Temp = 0;
 	
-extern GXGGA GXGGA_Data;
-	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Setpoint);		
-	User_Data.Data2 = Degrees(Attitude.Rate->z);	
-	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Setpoint);		
-	User_Data.Data4 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Feedback);			
-	User_Data.Data5 = Motor.PWM->PWM1;
-	User_Data.Data6 = GXGGA_Data.UTC;
-	User_Data.Data7 = Motor.PWM->PWM3;
-	User_Data.Data8 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Feedback);;
-	User_Data.Data9 = FlyControl.Para->ATT_Inner_PID_z.SumError;
+	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
+	User_Data.Data2 = FlyControl.Para->POS_Outer_PID_z.Feedback;	
+	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
+	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_z.Feedback;			
+	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
+	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_z.Feedback;;
+	User_Data.Data7 = FlyControl.Para->Throttle;
+	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
+	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
 	User_Data.Data10 = 0;
 	User_Data.Data11 = 0;
 	User_Data.Data12 = 0;
+	
+//	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Setpoint);		
+//	User_Data.Data2 = Degrees(Attitude.Rate->z);	
+//	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Setpoint);		
+//	User_Data.Data4 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Feedback);			
+//	User_Data.Data5 = Motor.PWM->PWM1;
+//	User_Data.Data6 = GXGGA_Data.UTC;
+//	User_Data.Data7 = Motor.PWM->PWM3;
+//	User_Data.Data8 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Feedback);;
+//	User_Data.Data9 = FlyControl.Para->ATT_Inner_PID_z.SumError;
+//	User_Data.Data10 = 0;
+//	User_Data.Data11 = 0;
+//	User_Data.Data12 = 0;
 	
 	Communicate_BUF[Cnt++] = 0xAA;
 	Communicate_BUF[Cnt++] = 0xAA;
@@ -460,34 +472,7 @@ void Send_Reply_PC(u16 Sum,u8 Head)
 }
 
 
-void Send_Data_PC(void)
-{
-	static u8 Cnt = 0;
 
-	switch (Cnt++%6) 
-	{
-		case 0:
-			Send_Eular_PC();
-			break;
-		case 1:
-			Send_Senser_PC();
-			break;
-		case 2:
-			Send_RC_PC();
-			break;
-		case 3:
-			Send_Motor_PC();
-			break;
-		case 4:
-			Send_UserData_PC();
-			break;
-		case 5:
-		Send_Senser2_PC();
-		break;
-		default:
-			break;
-	}
-}
 
 void Data_Analysis_PC(void)
 {
@@ -580,6 +565,35 @@ void Data_Analysis_PC(void)
 	}
 }
 
+void Send_Data_PC(void)
+{
+	static u8 Cnt = 0;
+
+	switch (1) 
+	{
+		case 0:
+			Send_Eular_PC();
+			break;
+		case 1:
+			Send_Senser_PC();
+			break;
+		case 2:
+			Send_RC_PC();
+			break;
+		case 3:
+			Send_Motor_PC();
+			break;
+		case 4:
+			Send_UserData_PC();
+			break;
+		case 5:
+		Send_Senser2_PC();
+		break;
+		default:
+			break;
+	}
+}
+
 u32 Char_2_Int(u8 *str)
 {
 	u32 Float_Int_temp = 0;
@@ -597,12 +611,22 @@ u32 Char_2_Int(u8 *str)
 void Send_Data_Phone(void)
 {		char Tx_buffer[50];
 		u8 Cnt = 0;
+	if(SystemTime.Now_MS() < 5000)
+		return;
 		Cnt = sprintf(Tx_buffer,"{B%d:%d:%d:%d:%d}$",
 	(int)(FlyControl.Para->POS_Outer_PID_z.Setpoint - FlyControl.Para->Home.z),
 	(int)(Position.Position_xyz.z - FlyControl.Para->Home.z),
-	(int)Position.Speed.z,
+	(int)Attitude.Angle->z,
 	(int)FlyControl.Para->POS_Acc_PID_z.Setpoint,
 	(int)Position.Acc.z);        //Position.Speed.z Position.Acc.z
+	
+//		Cnt = sprintf(Tx_buffer,"{B%d:%d:%d:%d:%d}$",
+//	(int)GPS_Location.POS_X,
+//	(int)GPS_Location.POS_Y,
+//	(int)GPS_Location.POS_Z,
+//	(int)GPS_Location.state,
+//	(int)GPS_Location.SatNum);        //Position.Speed.z Position.Acc.z
+	
 	usart_pc.send((u8*)Tx_buffer,Cnt);
 	
 	Cnt = sprintf(Tx_buffer,"{A%d:%d:%d:%d}$",
@@ -699,20 +723,98 @@ void Data_Analysis_Phone(void)
 	}
 }
 
-//#define USE_PHONE
+
+void Vcan_Send_Data_PC(void)
+{
+	float Temp1 = 0;
+	u8 Cnt = 0;
+	
+	Communicate_BUF[Cnt++] = 0X03;
+	Communicate_BUF[Cnt++] = 0XFC;
+	
+	Temp1 = 10 ;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+	
+	Temp1 = Position.Position_xyz.z;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	
+	Temp1 = Attitude.Angle->z;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+	
+	Temp1 = 40;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+
+	Temp1 = 50;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+
+	Temp1 = 60;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	
+	Temp1 = 70; 
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+
+	Temp1 = 80;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	
+	Communicate_BUF[Cnt++] = 0XFC;	
+	Communicate_BUF[Cnt++] = 0X03;
+	
+	usart_pc.send(Communicate_BUF,Cnt);
+}
+
+#define USE_PHONE 0
+#define USE_VCAN 1
+#define USE_ANTO 0
+
 BOOL Communicate(void)
 {
-#ifndef ENABLE_GPS_PC// GPS未占用串口1进行调试，才可正常使用
+//	static u8 Time_Cnt = 0;
+//	if(Time_Cnt++ != 6)
+//	{
+//		return;
+//	}
+//	Time_Cnt = 0;
+#if GPS_PC// GPS未占用串口1进行调试，才可正常使用
+	GPS_UART.GPS_Cof();
+#endif	
 	
-	#ifdef USE_PHONE
-		Data_Analysis_Phone();
-		Send_Data_Phone();
-	#else	
+#if USE_PHONE
+	Data_Analysis_Phone();
+	Send_Data_Phone();
+#endif	
+	
+#if USE_VCAN
+		Vcan_Send_Data_PC();
+#endif		
+	
+#if USE_ANTO
 		Send_Data_PC();
 		Data_Analysis_PC();
-	#endif
-#else
-	GPS_UART.GPS_Cof();
 #endif
+
 	return True;
 }

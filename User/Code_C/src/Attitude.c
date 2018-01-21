@@ -1,7 +1,7 @@
 #include "Attitude.h"
 #define Kp 1.5f
 #define Ki 0.0f
-#define Z_FILTER 0.004f //磁力计一阶互补滤波系数
+#define Z_FILTER 0.01f //磁力计一阶互补滤波系数
 
 Quaternion Q;//,Qz;
 u8 IsCalulate = True;
@@ -137,12 +137,7 @@ void Updata_Quaternion(Vector GYR,Vector ACC,Vector MAG,double DltaT_S)
 	//Angle.z = Degrees(atan2f(2.0f*(Q.q2*Q.q3 + Q.q1*Q.q4),1 - 2.0f*(Q.q3*Q.q3 + Q.q4*Q.q4)));	
 	
 //--------------磁力计融合z轴--------------------------------------------------------------------------------------//	
-	Mxyz = MAG;
-	arm_sqrt_f32(Mxyz.x*Mxyz.x + Mxyz.y*Mxyz.y + Mxyz.z*Mxyz.z,&Norm);       //mag数据归一化
-		if(Norm == 0) return;//有零值退出，避免除零运算
-	Mxyz.x = Mxyz.x / Norm;
-	Mxyz.y = Mxyz.y / Norm;
-	Mxyz.z = Mxyz.z / Norm;	
+
 	
 	Angle.z += Degrees(gz*DltaT_S);																//陀螺仪积分Z角度
 	if(Angle.z > 180)
@@ -150,11 +145,17 @@ void Updata_Quaternion(Vector GYR,Vector ACC,Vector MAG,double DltaT_S)
 	if(Angle.z < -180)
 			Angle.z = 180;	
 	
+	Mxyz = MAG;
+	arm_sqrt_f32(Mxyz.x*Mxyz.x + Mxyz.y*Mxyz.y + Mxyz.z*Mxyz.z,&Norm);       //mag数据归一化
+		if(Norm == 0) return;//有零值退出，避免除零运算
+	Mxyz.x = Mxyz.x / Norm;
+	Mxyz.y = Mxyz.y / Norm;
+	Mxyz.z = Mxyz.z / Norm;		
+	
 	if(HMC5883.IsSensorError == False)													//磁力计数据正常进行一阶互补滤波
 	{ 
 		MAG_Earth = Math.Body_To_Earth(MAG,Angle.y ,Angle.x);				//磁力计坐标转换 机体->地球
   	MAG_Z_angle  = Degrees(atan2f(MAG_Earth.x,MAG_Earth.y));		//磁力计计算角度
-		
 		if(MAG_Z_angle - Angle.z > 180 )
 			Angle.z = (1- Z_FILTER) * Angle.z + Z_FILTER * (MAG_Z_angle - 360);
 		else if(MAG_Z_angle - Angle.z < -180 )
@@ -166,6 +167,7 @@ void Updata_Quaternion(Vector GYR,Vector ACC,Vector MAG,double DltaT_S)
 			Angle.z = -180;
 	if(Angle.z < -180)
 			Angle.z = 180;	
+}
 //	Angle.y = Degrees(atan2f(2.0f*(Q.q1*Q.q3 - Q.q2*Q.q4),1 - 2.0f*(Q.q3*Q.q3 + Q.q4*Q.q4)));
 //	Angle.z = Degrees(Safe_Asin(2.0f*(Q.q2*Q.q3 + Q.q1*Q.q4)));
 //	Angle.x = Degrees(atan2f(2.0f*(Q.q1*Q.q2 - Q.q3*Q.q4),1 - 2.0f*(Q.q2*Q.q2 + Q.q4*Q.q4)));	
@@ -182,9 +184,6 @@ void Updata_Quaternion(Vector GYR,Vector ACC,Vector MAG,double DltaT_S)
 //		Angle.x = Degrees(atan2f(2.0f*(Q.q3*Q.q4 - Q.q1*Q.q2),1 - 2.0f*(Q.q2*Q.q2 + Q.q3*Q.q3)));
 //		Angle.z = Degrees(Safe_Asin(2.0f*(Q.q1*Q.q3 + Q.q2*Q.q4)));
 //	}
-	
-}
-
 /***************************************************
 * 更新欧拉角
 * 每个2MS计算一次姿态角

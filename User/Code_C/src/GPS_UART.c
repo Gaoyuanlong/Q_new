@@ -129,7 +129,7 @@ BOOL GPS_receive(u8 *data, u16 num)
 
 void GPS_Cof(void)
 {
-	#ifdef ENABLE_GPS_PC
+	#if USE_GPS_PC
 	extern Queue_ USART1_QueueRecv;
 	u8 gps_2_pc[100],pc_2_gps[100];
 	u16 gps_2_pc_size = 0;

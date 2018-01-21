@@ -7,12 +7,6 @@
 #include "Motor.h"
 #include "HMC5883.h"
 #include "PWM_Capture.h"
-
-#define THROTTLE_MIN PWM_RC_MIN
-#define THROTTLE_MAX PWM_RC_MAX
-#define THROTTLE_MID ((PWM_RC_MAX + PWM_RC_MIN) / 2)
-#define THROTTLE_40_PERCENT ((THROTTLE_MAX - THROTTLE_MIN) * 0.4f)
-
 enum Fly_Mode
 {
 	ATT,
@@ -42,7 +36,8 @@ struct Control_Para_
 	PID POS_Outer_PID_y;
 	PID POS_Outer_PID_z;
 	int Throttle;
-
+	
+	float Home_Z_Angle;
 	Vector Home;
 	BOOL IsLock;
 	BOOL IsLost;

@@ -106,17 +106,17 @@ void Controller_State(u16 Time)
 			if(UnlockCnt > 2000)	FlyControl.Para->IsLock = False;
 		}
 		else	UnlockCnt = 0;	
-	}
+	} 
 	else if(FlyControl.Para->IsLost == True)
 		FlyControl.Para->IsLock = True;
 	else
 	{
 		UnlockCnt = 0;
-		if(PWM_RC_D_U < PWM_RC_MIN + 150) 
+		if((PWM_RC_D_U < PWM_RC_MIN + 150) & (PWM_RC_Lr_Rr > PWM_RC_MAX - 150)) 
 			LockCnt += Time;
 		else
 			LockCnt = 0;
-		if(LockCnt > 10000)
+		if(LockCnt > 2000)
 			FlyControl.Para->IsLock = True;
 	}
 	

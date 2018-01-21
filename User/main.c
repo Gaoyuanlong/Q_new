@@ -25,7 +25,7 @@ int main(void)
 	Led.Init();
 	Buzzer.Init();
 	//SD_APP.init();
-	usart1.init(115200);
+	usart1.init(57600);
 	Attitude.Init();
   Position.Init();
 	PWM_In.Init(2000,4000);

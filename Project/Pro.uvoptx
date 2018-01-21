@@ -174,6 +174,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name>/</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -341,107 +342,117 @@
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SystemState</ItemText>
+          <ItemText>Control_Para.Throttle,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Control_Para</ItemText>
+          <ItemText>MS5611,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>28</count>
           <WinNumber>1</WinNumber>
-          <ItemText>MS5611,0x0A</ItemText>
+          <ItemText>Position</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Position</ItemText>
+          <ItemText>XY_RC</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
           <WinNumber>1</WinNumber>
-          <ItemText>XY_RC</ItemText>
+          <ItemText>PWM_RC_F_B,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>31</count>
           <WinNumber>1</WinNumber>
-          <ItemText>PWM_RC_F_B,0x0A</ItemText>
+          <ItemText>PWM_RC_L_R,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>32</count>
           <WinNumber>1</WinNumber>
-          <ItemText>PWM_RC_L_R,0x0A</ItemText>
+          <ItemText>Control_Para</ItemText>
         </Ww>
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Control_Para</ItemText>
+          <ItemText>Rx_buf</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Rx_buf</ItemText>
+          <ItemText>i</ItemText>
         </Ww>
         <Ww>
           <count>35</count>
           <WinNumber>1</WinNumber>
-          <ItemText>i</ItemText>
+          <ItemText>Rx_Temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>36</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Rx_Temp,0x0A</ItemText>
+          <ItemText>str</ItemText>
         </Ww>
         <Ww>
           <count>37</count>
           <WinNumber>1</WinNumber>
-          <ItemText>str</ItemText>
+          <ItemText>Str_Add_temp</ItemText>
         </Ww>
         <Ww>
           <count>38</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Str_Add_temp</ItemText>
+          <ItemText>Float_Int_temp,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>39</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Float_Int_temp,0x0A</ItemText>
+          <ItemText>USART1_RX_BUF</ItemText>
         </Ww>
         <Ww>
           <count>40</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART1_RX_BUF</ItemText>
+          <ItemText>USART1_QueueRecv,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>41</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART1_QueueRecv,0x0A</ItemText>
+          <ItemText>Tx_buffer</ItemText>
         </Ww>
         <Ww>
           <count>42</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Tx_buffer</ItemText>
+          <ItemText>Cnt,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>43</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Cnt,0x0A</ItemText>
+          <ItemText>USART1_QueueSend</ItemText>
         </Ww>
         <Ww>
           <count>44</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART1_QueueSend</ItemText>
+          <ItemText>USART1_TX_BUF</ItemText>
         </Ww>
         <Ww>
           <count>45</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART1_TX_BUF</ItemText>
+          <ItemText>USART1_QueueSend,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>46</count>
           <WinNumber>1</WinNumber>
-          <ItemText>USART1_QueueSend,0x0A</ItemText>
+          <ItemText>Position</ItemText>
+        </Ww>
+        <Ww>
+          <count>47</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>GPS_Location</ItemText>
+        </Ww>
+        <Ww>
+          <count>48</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>GXGGA_Data</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

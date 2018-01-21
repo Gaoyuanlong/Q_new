@@ -31,6 +31,7 @@ void Loop_200Hz(u16 Time_Ms)
 	HMC5883.Updata();											//磁力计数据采集
 	FlyControl.ATT_OuterLoop(Time_Ms);		//姿态控制外环
   FlyControl.POS_InnerLoop(Time_Ms);		//位置控制速度内环
+	
 }
 
 void Loop_50Hz(u16 Time_Ms)

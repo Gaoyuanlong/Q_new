@@ -287,9 +287,7 @@ void GPS::GPS_Update(void)
 			default:break;
 		}
 		Time_10 = 0;
-}
-	
-
+	}
 }
 
 /*

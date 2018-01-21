@@ -1,7 +1,7 @@
 #include "Math_User.h"
 
 double Constrain(double AimN, double Limit_Up,double Limit_Down);
-int Dead_Zone(int AimN,int Limit);
+float Dead_Zone(float AimN,float Limit);
 Vector Body_To_Earth(Vector Body,float Pitch,float Roll);
 Vector XY_Coordinate_Rotate(float X,float Y,float Angle);
 struct Math_ Math =
@@ -21,7 +21,7 @@ double Constrain(double AimN, double Limit_Up,double Limit_Down)
 		else return AimN;
 }
 
-int Dead_Zone(int AimN,int Limit)
+float Dead_Zone(float AimN,float Limit)
 {
 	if(fabsf(AimN) < Limit) return 0;
 	else return AimN;
@@ -67,7 +67,6 @@ Vector XY_Coordinate_Rotate(float X,float Y,float Angle)
 	
 	return Earth;
 };
-
 
 float To_180_degrees(float x)
 {

@@ -5,14 +5,14 @@
 void HMC5883_Init(void);
 void HMC5883_Updata(void);
 
-I2C_Soft_ I2C_HMC5883('C',GPIO_Pin_2,GPIO_Pin_1,1);
+I2C_Soft_ I2C_HMC5883('C',GPIO_Pin_7,GPIO_Pin_6,4);
 Filter_MidValue MAG_Filter;
 struct HMC5883_Data_ HMC5883_Data = 
 {
 	Vector(0,0,0),
 	Vector(0,0,0),
-	Vector(4.793531985510514e+02,4.587732773887269e+02,4.103192854398615e+02),
-	Vector(-1.996533568349714e+02,-1.509952308615789e+02,50.170498820936770),
+	Vector(5.118581583767211e+02,4.920017803999152e+02,5.054141964270870e+02),
+	Vector(37.595672123192850,-81.277217280296300,20.557777544769620),
 	0
 };
 
@@ -33,7 +33,7 @@ void HMC5883_Init(void)
 	I2C_HMC5883.Single_Write(HMC5883ADDRESS,0X02,0X80);// 高速 连续
 	SystemTime.WaitMS(10);
 }
-#define HMC5883_FILTER 0.2
+
 void HMC5883_Updata(void)
 {
 	u8 BUF[6];
@@ -57,9 +57,9 @@ void HMC5883_Updata(void)
 	I2C_HMC5883.NoAck();
 	I2C_HMC5883.Stop();
 	
-	HMC5883.Data->MAG_Original.x = (int16_t)(BUF[0] << 8 | BUF[1]);
-	HMC5883.Data->MAG_Original.z = (int16_t)(BUF[2] << 8 | BUF[3]);
-	HMC5883.Data->MAG_Original.y = (int16_t)(BUF[4] << 8 | BUF[5]);
+	HMC5883.Data->MAG_Original.x = -((int16_t)(BUF[0] << 8 | BUF[1]));
+	HMC5883.Data->MAG_Original.z = -((int16_t)(BUF[2] << 8 | BUF[3]));
+	HMC5883.Data->MAG_Original.y = ((int16_t)(BUF[4] << 8 | BUF[5]));
 
 	HMC5883.Data->MAG_Original = MAG_Filter.MidValue(HMC5883.Data->MAG_Original);	
 	
@@ -67,16 +67,14 @@ void HMC5883_Updata(void)
 	//椭球校正算法，校正结果为单位球
 	MAG_TMP.x = (HMC5883.Data->MAG_Original.x - HMC5883.Data->Offset.x) / HMC5883.Data->Kp.x;
 	MAG_TMP.y = (HMC5883.Data->MAG_Original.y - HMC5883.Data->Offset.y) / HMC5883.Data->Kp.y;
-	MAG_TMP.z = (HMC5883.Data->MAG_Original.z - HMC5883.Data->Offset.z) / HMC5883.Data->Kp.z;		
+	MAG_TMP.z = (HMC5883.Data->MAG_Original.z - HMC5883.Data->Offset.z) / HMC5883.Data->Kp.z;
 	HMC5883.Data->Length = MAG_TMP.x * MAG_TMP.x + MAG_TMP.y * MAG_TMP.y + MAG_TMP.z * MAG_TMP.z;
 
 	//验证三轴平方和是否接近1 ，不接近于1，出错,该数据置零无效
-	if(abs(HMC5883.Data->Length - 1) < 0.15f)
+	if(abs(HMC5883.Data->Length - 1) < 0.13f)
 	{
 		HMC5883.IsSensorError = False;
-		HMC5883.Data->MAG_ADC.x = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.x + HMC5883_FILTER * MAG_TMP.x ;			
-		HMC5883.Data->MAG_ADC.y = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.y + HMC5883_FILTER * MAG_TMP.y ;			
-		HMC5883.Data->MAG_ADC.z = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.z + HMC5883_FILTER * MAG_TMP.z ;	
+		HMC5883.Data->MAG_ADC = MAG_TMP;				
 	}
 	else	
 	{ 

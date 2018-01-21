@@ -3,14 +3,14 @@
 #include "stm32f4xx.h"
 
 //原始通道输入
-#define PWM_IN_MAX 4000
-#define PWM_IN_MIN 2000
+#define PWM_IN_MAX 4000.0
+#define PWM_IN_MIN 2000.0
 //转换后量度
-#define PWM_RC_MAX 1000
-#define PWM_RC_MIN 0
-#define PWM_RC_RANGE 1000
-#define PWM_RC_MID 500
-#define PWM_RC_DEAD 100
+#define PWM_RC_MAX 1000.0
+#define PWM_RC_MIN 0.0
+#define PWM_RC_RANGE 1000.0
+#define PWM_RC_MID 500.0
+#define PWM_RC_DEAD 100.0
 typedef enum
 {
 	PWM_In_Null,
