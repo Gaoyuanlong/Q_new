@@ -33,14 +33,13 @@ void Pow_State(u16 Time)
 {
 	BOOL IsAnyError = False;
 	
-	if(Power.Data->BAT_3S < 11.1f && FlyControl.Para->IsLock == False)
+	if(Power.Data->BAT_3S < 11.1f)
 	{
-		Buzzer.On(100);
+		Led.Off(LED1);
 		SYS_State.State1 |= POW_LOW;
 	}
 	else
 	{
-		Buzzer.Off();
 		SYS_State.State1 &= ~POW_LOW;	
 	}
 //	if(abs(Power.Data->BAT_12S - 50) > 20)        	IsAnyError = True;
@@ -72,9 +71,31 @@ void Sensor_State(void)
 
 void Controller_State(u16 Time)
 {
-
 	static u16 LockCnt = 0;
 	static u16 UnlockCnt = 0;
+	static u16 ModeCnt = 0;
+	//控制模式判断
+	if(PWM_RC_R6 < PWM_RC_DEAD)
+	{
+		if(FlyControl.Para->Mode != ATT && ModeCnt > 10)
+		{
+			FlyControl.Para->Mode = ATT;
+			ModeCnt = 0;
+		}
+		else if(FlyControl.Para->Mode != ATT)
+			ModeCnt++;
+	}
+	else
+	{	
+		if(FlyControl.Para->Mode != ALT && ModeCnt > 10)
+		{
+			FlyControl.Para->Mode = ALT;
+			ModeCnt = 0;
+		}
+		else if(FlyControl.Para->Mode != ALT)
+			ModeCnt++;
+	}
+	
 	//解锁判定	 上锁判定
 	if(FlyControl.Para->IsLock == True)// & (FlyControl.Para->IsError == False))
 	{
@@ -108,8 +129,8 @@ void Controller_State(u16 Time)
 	else
 	{
 		SYS_State.State1 &= ~UNLOCK;
-		Led.Off(LED1);
-	}	
+		Led.Reverse(LED1,500);
+	}
 
 	if(FlyControl.Para->IsLost != False) 
 	{
@@ -125,8 +146,8 @@ void Controller_State(u16 Time)
 void State_Updata(u16 Time)
 {
 	RC_State(Time);
-	Pow_State(Time);
 	Controller_State(Time);
+	Pow_State(Time);
 //	Sensor_State();
 }
 

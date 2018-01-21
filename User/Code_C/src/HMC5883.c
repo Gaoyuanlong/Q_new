@@ -33,7 +33,7 @@ void HMC5883_Init(void)
 	I2C_HMC5883.Single_Write(HMC5883ADDRESS,0X02,0X80);// 高速 连续
 	SystemTime.WaitMS(10);
 }
-
+#define HMC5883_FILTER 0.2
 void HMC5883_Updata(void)
 {
 	u8 BUF[6];
@@ -71,10 +71,12 @@ void HMC5883_Updata(void)
 	HMC5883.Data->Length = MAG_TMP.x * MAG_TMP.x + MAG_TMP.y * MAG_TMP.y + MAG_TMP.z * MAG_TMP.z;
 
 	//验证三轴平方和是否接近1 ，不接近于1，出错,该数据置零无效
-	if(abs(HMC5883.Data->Length - 1) < 0.2f)
+	if(abs(HMC5883.Data->Length - 1) < 0.15f)
 	{
 		HMC5883.IsSensorError = False;
-		HMC5883.Data->MAG_ADC = MAG_TMP;	
+		HMC5883.Data->MAG_ADC.x = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.x + HMC5883_FILTER * MAG_TMP.x ;			
+		HMC5883.Data->MAG_ADC.y = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.y + HMC5883_FILTER * MAG_TMP.y ;			
+		HMC5883.Data->MAG_ADC.z = (1 - HMC5883_FILTER)*HMC5883.Data->MAG_ADC.z + HMC5883_FILTER * MAG_TMP.z ;	
 	}
 	else	
 	{ 

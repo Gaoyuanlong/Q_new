@@ -14,6 +14,7 @@ extern struct Attitude_
 {
 	struct Vector* Rate; //原始多陀螺仪数据
 	struct Vector* Angle;
+	void (*Init)(void);
 	void (*Updata)(void);
 }Attitude;
 #endif

@@ -25,7 +25,7 @@ class Vector
 			y = Y_In;
 			z = Z_In;
 		};
-		
+	
 		float x,y,z;
 };
 

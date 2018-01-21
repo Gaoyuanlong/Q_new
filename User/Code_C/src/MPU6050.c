@@ -82,7 +82,6 @@ void MPU6050_Read_ACC(void)
 	MPU6050_Data.ACC_ADC.z = MPU6050_Data.ACC_ADC_Original.z - MPU6050_Data.ACC_Offset.z;
 	
 	MPU6050_Data.ACC_ADC = ACC_Filter.LPF2ndFilter(MPU6050_Data.ACC_ADC);
-	
 }
 
 

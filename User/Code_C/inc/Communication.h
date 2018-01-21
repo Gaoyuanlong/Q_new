@@ -8,14 +8,15 @@
 #include "MS5611.h"
 #include "Battery.h"
 #include "Motor.h"
-#include "GPS.h"
-#include "NRF24L01.h"
+#include "GPS_UART.h"
 #include "HMC5883.h"
 #include "FlyControl.h"
 #include "SBUS.h"
-#include "Altitude.h"
+#include "Position.h"
 #include "Ultra.h"
 #include "PWM_Capture.h"
+#include "GPS_Parse.h"
+
 
 #define UNLOCK  	0X0001
 #define LOST    	0X0002

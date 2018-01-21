@@ -1,5 +1,27 @@
 #include "Filter.h"
 
+Filter_2nd:: Filter_2nd(void)
+{
+	b0 = 0;
+	b1 = 0;
+	b2 = 0;
+//a0 = 1;
+	a1 = 0;
+	a2 = 0;
+
+	LastIn.x = 0;
+	LastIn.y = 0;
+	LastIn.z = 0;
+	
+	PreOut.x = 0;
+	PreOut.y = 0;
+	PreOut.z = 0;
+	
+	LastOut.x = 0;
+	LastOut.y = 0;
+	LastOut.z = 0;
+}
+
 Filter_2nd:: Filter_2nd(float Init_b0,float Init_b1,float Init_b2,float Init_a1,float Init_a2)
 {
 	b0 = Init_b0;
