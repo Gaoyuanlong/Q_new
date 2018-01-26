@@ -7,14 +7,15 @@
 #define ATT_FILTER_ANGLE   	 0.1f                    //角度环前置滤波器系数
 #define ATT_FILTER_SPEED     0.1f                    //角速度环前置滤波系数
 
-#define POS_POS_FEEBACK_MAX_Z        100.0f                   //Z最大反馈高度 cm
-#define POS_SPEED_FEEBACK_MAX_Z      40.0f                    //Z最大速度 cm/s
-#define POS_ACC_FEEBACK_MAX_Z        100.0f                    //Z最大加速度 cm/s
-
 #define POS_POS_SET_MAX_Z        250.0f                   //Z最大高度 cm
 #define POS_SPEED_SET_MAX_Z      40.0f                    //Z最大速度 cm/s
 #define POS_ACC_SET_MAX_Z        60.0f                    //Z最大加速度 cm/s
 #define POS_OUT_MAX_Z        600.0f                   //Z最大输出
+
+
+#define POS_POS_FEEBACK_MAX_Z        (1.5*POS_POS_SET_MAX_Z)    //Z最大反馈高度 cm
+#define POS_SPEED_FEEBACK_MAX_Z      40.0f                    //Z最大速度 cm/s
+#define POS_ACC_FEEBACK_MAX_Z        100.0f                   //Z最大加速度 cm/s
 
 #define POS_FILTER_POS   	   0.1f                    //位置前置滤波器系数
 #define POS_FILTER_SPEED     0.1f                    //速度环前置滤波系数
@@ -89,7 +90,7 @@ struct Control_Para_ Control_Para =
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(1,0.8,0,500,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
+	PID(0.8,1,0,500,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
@@ -271,7 +272,7 @@ void POS_Inner_Loop(u32 Time)
 		return;		
 	}
 	//--------------pid控制------------------------------------------------------------------//
-	Control_Para.POS_Inner_PID_z.Feedback = Math.Constrain(Control_Para.POS_Inner_PID_z.Feedback,POS_SPEED_FEEBACK_MAX_Z,-POS_SPEED_FEEBACK_MAX_Z);
+	Control_Para.POS_Inner_PID_z.Feedback = Math.Constrain(Position.Speed.z,POS_SPEED_FEEBACK_MAX_Z,-POS_SPEED_FEEBACK_MAX_Z);
 	// PID计算及限幅
 	Inner_Output.z =  Math.Constrain(Control_Para.POS_Inner_PID_z.Cal_PID_POS(Time),POS_ACC_SET_MAX_Z,-POS_ACC_SET_MAX_Z);	
 	//--------------输出处理------------------------------------------------------------------//
@@ -319,7 +320,7 @@ void POS_Outer_Loop(u32 Time)
 	//--------------pid控制------------------------------------------------------------------//
 	// Z PID计算
 	Control_Para.POS_Outer_PID_z.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_z.Setpoint,	Control_Para.Home.z + POS_POS_SET_MAX_Z,Control_Para.Home.z);// 飞行高度限幅  姿态模式不可飞高！姿态模式切换到定高模式会有跳变危险！
-	Control_Para.POS_Outer_PID_z.Feedback =  Math.Constrain(Position.Position_xyz.z,POS_POS_FEEBACK_MAX_Z,-POS_POS_FEEBACK_MAX_Z);
+	Control_Para.POS_Outer_PID_z.Feedback = Math.Constrain(Position.Position_xyz.z,Control_Para.Home.z + POS_POS_FEEBACK_MAX_Z,Control_Para.Home.z);
 	Outer_Output.z = Math.Constrain(Control_Para.POS_Outer_PID_z.Cal_PID_POS(Time),POS_SPEED_SET_MAX_Z,-POS_SPEED_SET_MAX_Z);
 	//--------------输出处理------------------------------------------------------------------//
 	// Z 输出选择 悬停或遥控
