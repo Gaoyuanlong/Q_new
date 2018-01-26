@@ -55,19 +55,19 @@ void Send_Senser_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
 	
-	Temp1 =  MPU6050.Data->GYR_ADC.z;
+	Temp1 =  HMC5883.IsSensorError*100;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);
 	
-	Temp1 = HMC5883.Data->MAG_ADC.x*100;;	
+	Temp1 = HMC5883.Data->MAG_Original.x;	
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);		
 	
-	Temp1 = HMC5883.Data->MAG_ADC.y*100;;
+	Temp1 = HMC5883.Data->MAG_Original.y;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
 	
-	Temp1 = HMC5883.Data->MAG_ADC.z*100;;
+	Temp1 = HMC5883.Data->MAG_Original.z;
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);
 	
@@ -357,7 +357,6 @@ BOOL Send_UserData_PC(void)
 {
 	u8 Cnt = 1;
 	vs16 Temp = 0;
-	
 	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
 	User_Data.Data2 = FlyControl.Para->POS_Outer_PID_z.Feedback;	
 	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
@@ -367,7 +366,7 @@ BOOL Send_UserData_PC(void)
 	User_Data.Data7 = FlyControl.Para->Throttle;
 	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
 	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
-	User_Data.Data10 = 0;
+	User_Data.Data10 = MS5611.Data->Altitude*100;
 	User_Data.Data11 = 0;
 	User_Data.Data12 = 0;
 	
@@ -569,7 +568,7 @@ void Send_Data_PC(void)
 {
 	static u8 Cnt = 0;
 
-	switch (1) 
+	switch (Cnt++%6) 
 	{
 		case 0:
 			Send_Eular_PC();
@@ -587,7 +586,7 @@ void Send_Data_PC(void)
 			Send_UserData_PC();
 			break;
 		case 5:
-		Send_Senser2_PC();
+			Send_Senser2_PC();
 		break;
 		default:
 			break;
@@ -606,6 +605,7 @@ u32 Char_2_Int(u8 *str)
 		Float_Int_temp = (Float_Int_temp + (Str_Add_temp[i] - '0'))*10;
 	}
 	Float_Int_temp = Float_Int_temp*0.1;
+	return Float_Int_temp;
 }
 
 void Send_Data_Phone(void)
@@ -723,7 +723,6 @@ void Data_Analysis_Phone(void)
 	}
 }
 
-
 void Vcan_Send_Data_PC(void)
 {
 	float Temp1 = 0;
@@ -731,54 +730,99 @@ void Vcan_Send_Data_PC(void)
 	
 	Communicate_BUF[Cnt++] = 0X03;
 	Communicate_BUF[Cnt++] = 0XFC;
-	
-	Temp1 = 10 ;	
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+/*		
+	Temp1 =  FlyControl.Para->POS_Outer_PID_z.Setpoint - FlyControl.Para->Home.z;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
-	
-	Temp1 = Position.Position_xyz.z;
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Temp1 = Position.Position_xyz.z - FlyControl.Para->Home.z;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//2
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	
-	Temp1 = Attitude.Angle->z;	
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Temp1 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//3
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
-	
-	Temp1 = 40;
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	Temp1 = Position.Speed.z;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//4
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = Position.Acc.z;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = FlyControl.Para->Throttle; 
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//7
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = FlyControl.Para->POS_Acc_PID_z.Output;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//8
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
 
-	Temp1 = 50;
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
+	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
+	User_Data.Data2 = FlyControl.Para->POS_Outer_PID_z.Feedback;	
+	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
+	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_z.Feedback;			
+	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
+	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_z.Feedback;;
+	User_Data.Data7 = FlyControl.Para->Throttle;
+	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
+	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
+*/	
+	Temp1 =  GPS_Location.state;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+	Temp1 = GXGGA_Data.LON;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//2
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = GXGGA_Data.LAT;	
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//3
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+	Temp1 = HMC5883.Data->MAG_Original.x;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//4
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = HMC5883.Data->MAG_Original.y;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = HMC5883.Data->MAG_Original.z;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = Attitude.Angle->z; 
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//7
+	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+	Temp1 = HMC5883.IsSensorError*10;
+	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//8
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
 
-	Temp1 = 60;
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	
-	Temp1 = 70; 
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-
-	Temp1 = 80;
-	Communicate_BUF[Cnt++] = BYTE0(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
-	Communicate_BUF[Cnt++] = BYTE3(Temp1);
 	
 	Communicate_BUF[Cnt++] = 0XFC;	
 	Communicate_BUF[Cnt++] = 0X03;
@@ -787,18 +831,12 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 1
-#define USE_ANTO 0
+#define USE_VCAN 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {
-//	static u8 Time_Cnt = 0;
-//	if(Time_Cnt++ != 6)
-//	{
-//		return;
-//	}
-//	Time_Cnt = 0;
-#if GPS_PC// GPS未占用串口1进行调试，才可正常使用
+#if USE_GPS_PC// GPS未占用串口1进行调试，才可正常使用
 	GPS_UART.GPS_Cof();
 #endif	
 	

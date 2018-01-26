@@ -202,14 +202,14 @@ void MS561101_Init(void)
 	MS5611_Reset();
 	SystemTime.WaitMS(50);
 	MS5611_PROM_Read();
-	//SystemTime.WaitMS(50);
-	//Timer_Init(10);
+//	SystemTime.WaitMS(50);
+//	Timer_Init(10);
 	SystemTime.WaitMS(200);
 	MS5611_Updata();
 	
 }
-//采样频率50HZ 截止频率 2HZ 
-Filter_2nd MS5611_Filter(0.01335920002786,0.02671840005571,0.01335920002786,-1.647459981077,0.7008967811884);
+//采样频率25HZ 截止频率 2HZ 
+Filter_2nd MS5611_Filter(0.046131802093312926,0.092263604186625852,0.046131802093312926, -1.3072850288493234,0.49181223722257528 );
 
 void MS5611_Updata(void)
 {

@@ -162,8 +162,8 @@ void PWM_CPT_Updata(void)
 
 PWM_In_POS PWM_POS_Judge(u16 AUXN)
 {
-	if(AUXN < PWM_RC_MIN  + 250) return PWM_In_Up;
-	else if(AUXN > PWM_RC_MAX - 250) return PWM_In_Down;
+	if(AUXN < PWM_RC_MIN  + 250) return PWM_In_Down;
+	else if(AUXN > PWM_RC_MAX - 250) return PWM_In_Up;
 	else if(AUXN < PWM_RC_MID + 100 && AUXN > PWM_RC_MID - 100) return PWM_In_Mid;
 	else return PWM_In_Null;
 }

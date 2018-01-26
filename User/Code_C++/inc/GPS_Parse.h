@@ -108,6 +108,8 @@ class GPS
 };
 
 extern GPS GPS_Location;
+extern GXGGA GXGGA_Data;
+extern GXRMC GXRMC_Data;
 #endif
 
 

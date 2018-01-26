@@ -7,10 +7,14 @@
 #define ATT_FILTER_ANGLE   	 0.1f                    //角度环前置滤波器系数
 #define ATT_FILTER_SPEED     0.1f                    //角速度环前置滤波系数
 
-#define POS_POS_MAX_Z        250.0f                   	//Z最大高度 cm
-#define POS_SPEED_MAX_Z      40.0f                    //Z最大速度 cm/s
-#define POS_ACC_MAX_Z        60.0f                    //Z最大加速度 cm/s
-#define POS_OUT_MAX_Z        600.0f                    //Z最大输出
+#define POS_POS_FEEBACK_MAX_Z        100.0f                   //Z最大反馈高度 cm
+#define POS_SPEED_FEEBACK_MAX_Z      40.0f                    //Z最大速度 cm/s
+#define POS_ACC_FEEBACK_MAX_Z        100.0f                    //Z最大加速度 cm/s
+
+#define POS_POS_SET_MAX_Z        250.0f                   //Z最大高度 cm
+#define POS_SPEED_SET_MAX_Z      40.0f                    //Z最大速度 cm/s
+#define POS_ACC_SET_MAX_Z        60.0f                    //Z最大加速度 cm/s
+#define POS_OUT_MAX_Z        600.0f                   //Z最大输出
 
 #define POS_FILTER_POS   	   0.1f                    //位置前置滤波器系数
 #define POS_FILTER_SPEED     0.1f                    //速度环前置滤波系数
@@ -85,7 +89,7 @@ struct Control_Para_ Control_Para =
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(1,0.5,0,500,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
+	PID(1,0.8,0,500,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
@@ -126,7 +130,7 @@ void ATT_Inner_Loop(u32 Time)
 {
 	Vector Rate_filter_Temp;
 	Vector Inner_Output;
-	if(Control_Para.IsLock == True)            //停机复位
+	if(Control_Para.IsLock == True)            //停机 复位
 	{
 		Control_Para.ATT_Inner_PID_x.Rst_I();
 		Control_Para.ATT_Inner_PID_y.Rst_I();
@@ -146,12 +150,12 @@ void ATT_Inner_Loop(u32 Time)
  	Inner_Output.z = Control_Para.ATT_Inner_PID_z.Cal_PID_POS(Time);
 		
 	//四轴输出
-	Motor.PWM->PWM1 = - Inner_Output.x -  Inner_Output.y + Inner_Output.z + Control_Para.Throttle + 700;	
-	Motor.PWM->PWM2 = - Inner_Output.x +  Inner_Output.y - Inner_Output.z + Control_Para.Throttle + 700;
-	Motor.PWM->PWM3 = + Inner_Output.x +  Inner_Output.y + Inner_Output.z + Control_Para.Throttle + 700; 
-	Motor.PWM->PWM4 = + Inner_Output.x -  Inner_Output.y - Inner_Output.z + Control_Para.Throttle + 700;
+	Motor.PWM->PWM1 = - Inner_Output.x -  Inner_Output.y + Inner_Output.z + Control_Para.Throttle;	
+	Motor.PWM->PWM2 = - Inner_Output.x +  Inner_Output.y - Inner_Output.z + Control_Para.Throttle;
+	Motor.PWM->PWM3 = + Inner_Output.x +  Inner_Output.y + Inner_Output.z + Control_Para.Throttle; 
+	Motor.PWM->PWM4 = + Inner_Output.x -  Inner_Output.y - Inner_Output.z + Control_Para.Throttle;
 	
-	Motor.Output(True);
+	//Motor.Output(True);
 }
 /*
 	弧度制单位 
@@ -182,8 +186,8 @@ void ATT_Outer_Loop(u32 Time)
 	else if(abs(Z_Angle_Change) < 180 )
 		Z_Angle_Change = Z_Angle_Change;
 	
-	XY_RC.x = Radians((float)Math.Dead_Zone(PWM_RC_MID - PWM_RC_F_B ,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
-	XY_RC.y = Radians((float)Math.Dead_Zone(PWM_RC_MID - PWM_RC_L_R ,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+	XY_RC.x = Radians((float)Math.Dead_Zone(PWM_RC_F_B - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+	XY_RC.y = Radians((float)Math.Dead_Zone(PWM_RC_L_R - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
 	XY_RC = Math.XY_Coordinate_Rotate(XY_RC.x,XY_RC.y,Z_Angle_Change);	
 	
 	Control_Para.ATT_Outer_PID_x.Setpoint = (1 - ATT_FILTER_ANGLE) * Control_Para.ATT_Outer_PID_x.Setpoint + ATT_FILTER_ANGLE * XY_RC.x;
@@ -219,7 +223,7 @@ void ATT_Outer_Loop(u32 Time)
 	//根据打舵量控制偏航角
 	PWM_In_POS Yaw_Control_Choose = PWM_In.POS_Judge(PWM_RC_Lr_Rr);	
 	if(Yaw_Control_Choose != PWM_In_Mid )//打舵则不进行角度控制 并直接用打舵量控制角速度   不打舵则退出并保持回中时角度 
-	{	
+	{
 		Control_Para.ATT_Outer_PID_z.Setpoint = ATT_Outer_PID_z_Feedback_2_Setpoint;
 		Control_Para.ATT_Inner_PID_z.Setpoint = (1 - ATT_FILTER_SPEED) * Control_Para.ATT_Inner_PID_z.Setpoint + ATT_FILTER_SPEED * Radians((float)Math.Dead_Zone(PWM_RC_MID - PWM_RC_Lr_Rr ,10) / PWM_RC_RANGE * ATT_ANGLE_SPEED_RC_Z_MAX);
 	}
@@ -240,11 +244,12 @@ void POS_Acc_Loop(u32 Time)
 	//姿态模式油门直接取决于遥控输入信号，其他模式油门取决于PID运算结果	
 	if(Control_Para.Mode == ATT) 
 	{
-		Control_Para.Throttle = (1 - POS_FILTER_ACC)*Control_Para.Throttle + POS_FILTER_ACC*PWM_RC_D_U;		
+		Control_Para.Throttle = (1 - POS_FILTER_ACC)*Control_Para.Throttle + POS_FILTER_ACC*2*(PWM_RC_D_U - PWM_RC_MID);		
+		Control_Para.Throttle = Math.Constrain(Control_Para.Throttle,THROTTLE_60_PERCENT,0);
 		return;		
 	}
 	//--------------pid控制\直接输出------------------------------------------------------------------//
-	Control_Para.POS_Acc_PID_z.Feedback = Position.Acc.z;
+	Control_Para.POS_Acc_PID_z.Feedback = Math.Constrain( Position.Acc.z,POS_ACC_FEEBACK_MAX_Z,-POS_ACC_FEEBACK_MAX_Z);
 	// PID计算及限幅
 	Control_Para.Throttle = Math.Constrain(Control_Para.POS_Acc_PID_z.Cal_PID_POS_BT_LPF(Time),THROTTLE_60_PERCENT,0);
 	// 输出平滑
@@ -266,9 +271,9 @@ void POS_Inner_Loop(u32 Time)
 		return;		
 	}
 	//--------------pid控制------------------------------------------------------------------//
-	Control_Para.POS_Inner_PID_z.Feedback = Position.Speed.z;
+	Control_Para.POS_Inner_PID_z.Feedback = Math.Constrain(Control_Para.POS_Inner_PID_z.Feedback,POS_SPEED_FEEBACK_MAX_Z,-POS_SPEED_FEEBACK_MAX_Z);
 	// PID计算及限幅
-	Inner_Output.z =  Math.Constrain(Control_Para.POS_Inner_PID_z.Cal_PID_POS(Time),POS_ACC_MAX_Z,-POS_ACC_MAX_Z);	
+	Inner_Output.z =  Math.Constrain(Control_Para.POS_Inner_PID_z.Cal_PID_POS(Time),POS_ACC_SET_MAX_Z,-POS_ACC_SET_MAX_Z);	
 	//--------------输出处理------------------------------------------------------------------//
 	// 输出平滑
 	Control_Para.POS_Acc_PID_z.Setpoint = (1 - POS_FILTER_ACC) * Control_Para.POS_Acc_PID_z.Setpoint + POS_FILTER_ACC * Inner_Output.z;
@@ -288,6 +293,8 @@ void POS_Inner_Loop(u32 Time)
 //		// 输出平滑
 //	}		
 }
+
+
 
 // 加锁的方式过于简单，在飞行过程中也会出现油门拉到最低的情况，不能简单的根据油门值加锁
 void POS_Outer_Loop(u32 Time)
@@ -311,19 +318,21 @@ void POS_Outer_Loop(u32 Time)
 	}
 	//--------------pid控制------------------------------------------------------------------//
 	// Z PID计算
-	Control_Para.POS_Outer_PID_z.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_z.Setpoint,	Control_Para.Home.z + POS_POS_MAX_Z,Control_Para.Home.z);// 飞行高度限幅  姿态模式不可飞高！姿态模式切换到定高模式会有跳变危险！
-	Control_Para.POS_Outer_PID_z.Feedback = Position.Position_xyz.z;
-	Outer_Output.z = Math.Constrain(Control_Para.POS_Outer_PID_z.Cal_PID_POS(Time),POS_SPEED_MAX_Z,-POS_SPEED_MAX_Z);
+	Control_Para.POS_Outer_PID_z.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_z.Setpoint,	Control_Para.Home.z + POS_POS_SET_MAX_Z,Control_Para.Home.z);// 飞行高度限幅  姿态模式不可飞高！姿态模式切换到定高模式会有跳变危险！
+	Control_Para.POS_Outer_PID_z.Feedback =  Math.Constrain(Position.Position_xyz.z,POS_POS_FEEBACK_MAX_Z,-POS_POS_FEEBACK_MAX_Z);
+	Outer_Output.z = Math.Constrain(Control_Para.POS_Outer_PID_z.Cal_PID_POS(Time),POS_SPEED_SET_MAX_Z,-POS_SPEED_SET_MAX_Z);
 	//--------------输出处理------------------------------------------------------------------//
 	// Z 输出选择 悬停或遥控
 	PWM_In_POS Position_Control_Choose = PWM_In.POS_Judge(PWM_RC_D_U);
 	if(Position_Control_Choose != PWM_In_Mid)
 	{
 		Control_Para.POS_Outer_PID_z.Setpoint = Position.Position_xyz.z;
-		Control_Para.POS_Inner_PID_z.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_z.Setpoint + POS_FILTER_SPEED * ((PWM_RC_D_U - PWM_RC_MID)/PWM_RC_RANGE*2*POS_SPEED_MAX_Z);
+		Control_Para.POS_Inner_PID_z.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_z.Setpoint + POS_FILTER_SPEED * ((PWM_RC_D_U - PWM_RC_MID)/PWM_RC_RANGE*2*POS_SPEED_SET_MAX_Z);
 	}
 	else
 	{
 		Control_Para.POS_Inner_PID_z.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_z.Setpoint + POS_FILTER_SPEED * Outer_Output.z;
 	}
 }
+
+

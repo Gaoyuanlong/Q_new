@@ -11,8 +11,8 @@ struct HMC5883_Data_ HMC5883_Data =
 {
 	Vector(0,0,0),
 	Vector(0,0,0),
-	Vector(5.118581583767211e+02,4.920017803999152e+02,5.054141964270870e+02),
-	Vector(37.595672123192850,-81.277217280296300,20.557777544769620),
+	Vector(5.391971659266945e+02,5.040243595483645e+02,5.249689459288868e+02),
+	Vector(-34.470314010813270,-81.235974847682770,0.500000000000000),
 	0
 };
 
@@ -71,7 +71,7 @@ void HMC5883_Updata(void)
 	HMC5883.Data->Length = MAG_TMP.x * MAG_TMP.x + MAG_TMP.y * MAG_TMP.y + MAG_TMP.z * MAG_TMP.z;
 
 	//验证三轴平方和是否接近1 ，不接近于1，出错,该数据置零无效
-	if(abs(HMC5883.Data->Length - 1) < 0.13f)
+	if(abs(HMC5883.Data->Length - 1) < 0.2f)
 	{
 		HMC5883.IsSensorError = False;
 		HMC5883.Data->MAG_ADC = MAG_TMP;				

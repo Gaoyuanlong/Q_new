@@ -1,6 +1,7 @@
 #include "Board.h"
 
 Target_ TG_50HZ(Scheduler.Loop_50Hz,20000);
+Target_ TG_100HZ(Scheduler.Loop_100Hz,10000);
 Target_ TG_200HZ(Scheduler.Loop_200Hz,5000);
 Target_ TG_500HZ(Scheduler.Loop_500Hz,2000);
 //-------Ê±¼ä²âÊÔº¯Êý------------------------//
@@ -34,6 +35,7 @@ int main(void)
 	while(1)
 	{		
 		TG_50HZ.Run();
+		TG_100HZ.Run();
 		TG_200HZ.Run();
 		TG_500HZ.Run();
 	}
