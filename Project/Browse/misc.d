@@ -2,7 +2,7 @@
 .\browse\misc.o: ..\Libraries\inc\misc.h
 .\browse\misc.o: ..\CIMIS\stm32f4xx.h
 .\browse\misc.o: ..\CIMIS\core_cm4.h
-.\browse\misc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\misc.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\misc.o: ..\CIMIS\core_cmInstr.h
 .\browse\misc.o: ..\CIMIS\core_cmFunc.h
 .\browse\misc.o: ..\CIMIS\core_cmSimd.h

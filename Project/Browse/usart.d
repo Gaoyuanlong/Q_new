@@ -2,7 +2,7 @@
 .\browse\usart.o: ..\User\Code_C\inc\USART.h
 .\browse\usart.o: ..\CIMIS\stm32f4xx.h
 .\browse\usart.o: ..\CIMIS\core_cm4.h
-.\browse\usart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\usart.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\usart.o: ..\CIMIS\core_cmInstr.h
 .\browse\usart.o: ..\CIMIS\core_cmFunc.h
 .\browse\usart.o: ..\CIMIS\core_cmSimd.h

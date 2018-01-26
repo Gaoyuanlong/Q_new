@@ -2,7 +2,7 @@
 .\browse\sbus.o: ..\User\Code_C\inc\SBUS.h
 .\browse\sbus.o: ..\CIMIS\stm32f4xx.h
 .\browse\sbus.o: ..\CIMIS\core_cm4.h
-.\browse\sbus.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\sbus.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\sbus.o: ..\CIMIS\core_cmInstr.h
 .\browse\sbus.o: ..\CIMIS\core_cmFunc.h
 .\browse\sbus.o: ..\CIMIS\core_cmSimd.h
@@ -39,8 +39,8 @@
 .\browse\sbus.o: ..\User\Code_C\inc\Common.h
 .\browse\sbus.o: ..\User\Code_C\inc\Motor.h
 .\browse\sbus.o: ..\User\Code_C\inc\Math_User.h
-.\browse\sbus.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\sbus.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\sbus.o: ..\User\DSP\Include\arm_math.h
 .\browse\sbus.o: ..\User\DSP\Include\core_cm4.h
-.\browse\sbus.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\sbus.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\sbus.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\sbus.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

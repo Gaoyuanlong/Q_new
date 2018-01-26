@@ -569,7 +569,7 @@ void Send_Data_PC(void)
 {
 	static u8 Cnt = 0;
 
-	switch (1) 
+	switch (Cnt++%6) 
 	{
 		case 0:
 			Send_Eular_PC();
@@ -787,17 +787,11 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 1
-#define USE_ANTO 0
+#define USE_VCAN 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {
-//	static u8 Time_Cnt = 0;
-//	if(Time_Cnt++ != 6)
-//	{
-//		return;
-//	}
-//	Time_Cnt = 0;
 #if GPS_PC// GPS未占用串口1进行调试，才可正常使用
 	GPS_UART.GPS_Cof();
 #endif	

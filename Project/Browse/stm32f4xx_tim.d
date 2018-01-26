@@ -2,7 +2,7 @@
 .\browse\stm32f4xx_tim.o: ..\Libraries\inc\stm32f4xx_tim.h
 .\browse\stm32f4xx_tim.o: ..\CIMIS\stm32f4xx.h
 .\browse\stm32f4xx_tim.o: ..\CIMIS\core_cm4.h
-.\browse\stm32f4xx_tim.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\stm32f4xx_tim.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\stm32f4xx_tim.o: ..\CIMIS\core_cmInstr.h
 .\browse\stm32f4xx_tim.o: ..\CIMIS\core_cmFunc.h
 .\browse\stm32f4xx_tim.o: ..\CIMIS\core_cmSimd.h
