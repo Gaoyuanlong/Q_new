@@ -21,7 +21,7 @@ void Position_Init(void)
 }
 
 /****气压计三阶互补滤波方案——参考开源飞控APM****/
-#define TIME_CONTANST_ZER 3.0f
+#define TIME_CONTANST_ZER 2.5f
 #define K_ACC_ZER 	    (1.0f / (TIME_CONTANST_ZER * TIME_CONTANST_ZER * TIME_CONTANST_ZER))
 #define K_VEL_ZER	        (3.0f / (TIME_CONTANST_ZER * TIME_CONTANST_ZER))														
 #define K_POS_ZER         (2.0f / TIME_CONTANST_ZER)
@@ -50,7 +50,7 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s
 	
 	//由观测量（气压计）得到状态误差
-	Altitude_Dealt = Altitude_Estimate -  Altitude_History[Delay_Cnt];//气压计(超声波)与SINS估计量的差，单位cm
+	Altitude_Dealt = Altitude_Estimate -  Position.Position_xyz.z;//气压计(超声波)与SINS估计量的差，单位cm
 	//三路积分反馈量修正惯导
 	acc_correction +=Altitude_Dealt* K_ACC_ZER*Delta_T ;//加速度矫正量
 	vel_correction +=Altitude_Dealt* K_VEL_ZER*Delta_T ;//速度矫正量

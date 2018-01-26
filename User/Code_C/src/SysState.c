@@ -13,7 +13,7 @@ void RC_State(u16 Time)
 {
 	static u16 LostCnt = 0;
 	//Ê§¿ØÅÐ¶¨
-	if((PWM_In.POS_Judge(PWM_RC_SW5) == PWM_In_Up) || PWM_In.Connect_Status == 0)
+	if((PWM_In.POS_Judge(PWM_RC_SW5) == PWM_In_Down) || PWM_In.Connect_Status == 0)
 	{
 		LostCnt += Time;
 		if(LostCnt > 10)

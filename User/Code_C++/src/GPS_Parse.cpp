@@ -267,7 +267,7 @@ void GPS::GPS_Update(void)
 	if(Time_10++ > 1)
 	{
 		Temp = GPS_Find_Head("$GNGGA","$GNRMC","----");
-		switch(Temp)
+		switch(1)
 		{
 			case 1:
 				if(GPS_Read_Str(Gps_original_data,GPS_DATA_MAX_SIZE) == False)break;

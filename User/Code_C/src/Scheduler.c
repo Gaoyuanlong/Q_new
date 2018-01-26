@@ -2,6 +2,7 @@
 void Loop_1000Hz(u16 Time);
 void Loop_500Hz(u16 Time);
 void Loop_200Hz(u16 Time);
+void Loop_100Hz(u16 Time);
 void Loop_50Hz(u16 Time);
 
 struct Scheduler_ Scheduler = 
@@ -9,6 +10,7 @@ struct Scheduler_ Scheduler =
 	Loop_1000Hz,
 	Loop_500Hz,
 	Loop_200Hz,
+	Loop_100Hz,
 	Loop_50Hz
 };
 
@@ -33,10 +35,13 @@ void Loop_200Hz(u16 Time_Ms)
   FlyControl.POS_InnerLoop(Time_Ms);		//位置控制速度内环
 	
 }
-
+void Loop_100Hz(u16 Time_Ms)
+{
+	MS5611.Updata();											//气压计数据采集			
+}
 void Loop_50Hz(u16 Time_Ms)
 {
-	MS5611.Updata();											//气压计数据采集									
+						
 	GPS_Location.GPS_Update();
 	
 	PWM_In.Updata();											//遥控数据采集 
