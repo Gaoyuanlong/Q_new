@@ -20,7 +20,7 @@ void Get_Time(void)
 
 //-------------------------------------------//
 int main(void)
-{//test3
+{//test4
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);  
 	SystemTime.Init();
 	Led.Init();
