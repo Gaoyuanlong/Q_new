@@ -35,3 +35,5 @@
 .\browse\pwm_capture.o: ..\Libraries\inc\stm32f4xx_dac.h
 .\browse\pwm_capture.o: ..\Libraries\inc\stm32f4xx_dcmi.h
 .\browse\pwm_capture.o: ..\Libraries\inc\stm32f4xx_fsmc.h
+.\browse\pwm_capture.o: ..\User\Code_C++\inc\Filter.h
+.\browse\pwm_capture.o: ..\User\Code_C\inc\Common.h

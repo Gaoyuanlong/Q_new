@@ -12,7 +12,6 @@
 #define POS_ACC_SET_MAX_Z        60.0f                    //Z最大加速度 cm/s
 #define POS_OUT_MAX_Z        600.0f                   //Z最大输出
 
-
 #define POS_POS_FEEBACK_MAX_Z        (1.5*POS_POS_SET_MAX_Z)    //Z最大反馈高度 cm
 #define POS_SPEED_FEEBACK_MAX_Z      40.0f                    //Z最大速度 cm/s
 #define POS_ACC_FEEBACK_MAX_Z        100.0f                   //Z最大加速度 cm/s
@@ -88,14 +87,25 @@ struct Control_Para_ Control_Para =
 	PID(10,0,0,0),
 	PID(1,0,0,0),
 	
+	
+	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
+<<<<<<< HEAD
 	PID(0.8,1,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止频率 2HZ 
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
 	PID(1,0,0,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
 	
+=======
+	PID(0.8,1,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+
+	PID(0,0,0,0),
+	PID(0,0,0,0),
+	PID(1.8,0,0,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+
+>>>>>>> b5eea91808f87b66da2e431ab3d4f5b50deebe18
 	PID(0,0,0,0),
 	PID(0,0,0,0),
 	PID(1,0,0,0),
@@ -187,8 +197,8 @@ void ATT_Outer_Loop(u32 Time)
 	else if(abs(Z_Angle_Change) < 180 )
 		Z_Angle_Change = Z_Angle_Change;
 	
-	XY_RC.x = Radians((float)Math.Dead_Zone(PWM_RC_F_B - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
-	XY_RC.y = Radians((float)Math.Dead_Zone(PWM_RC_L_R - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+	XY_RC.x = Radians(Math.Dead_Zone(PWM_RC_F_B - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+	XY_RC.y = Radians(Math.Dead_Zone(PWM_RC_L_R - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
 	XY_RC = Math.XY_Coordinate_Rotate(XY_RC.x,XY_RC.y,Z_Angle_Change);	
 	
 	Control_Para.ATT_Outer_PID_x.Setpoint = (1 - ATT_FILTER_ANGLE) * Control_Para.ATT_Outer_PID_x.Setpoint + ATT_FILTER_ANGLE * XY_RC.x;
@@ -300,6 +310,7 @@ void POS_Inner_Loop(u32 Time)
 // 加锁的方式过于简单，在飞行过程中也会出现油门拉到最低的情况，不能简单的根据油门值加锁
 void POS_Outer_Loop(u32 Time)
 {
+	static u8 Speed_Change_Cnt = 0;
 	Vector Outer_Output;
 	//-------------预先处理-------------------------------------------------------------------//
 	if(Control_Para.IsLock == True) 
@@ -332,6 +343,7 @@ void POS_Outer_Loop(u32 Time)
 	}
 	else
 	{
+		Speed_Change_Cnt = 0;
 		Control_Para.POS_Inner_PID_z.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_z.Setpoint + POS_FILTER_SPEED * Outer_Output.z;
 	}
 }

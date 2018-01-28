@@ -1,4 +1,5 @@
 #include "PWM_Capture.h"
+#include "Filter.h"
 
 struct PWM_In_Data_ PWM_In_Data;
 struct PWM_In_Data_ RC_CPT_Data;
@@ -17,6 +18,7 @@ struct PWM_In_ PWM_In =
 	0							//连接状态  0连接断开 1连接正常
 };
 
+Filter_MidValue Filter_MidValue_CH3;
 void PWM_CPT_GPIO_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -148,6 +150,7 @@ void PWM_CPT_Updata(void)
 	if(PWM_In_Data.CH6 >= PWM_IN_MIN)	RC_CPT_Data.CH6 = (PWM_In_Data.CH6 - PWM_IN_MIN) * PWM_RC_Kp + PWM_RC_MIN;
 	else RC_CPT_Data.CH6 = 0;		
 
+	RC_CPT_Data.CH2 = Filter_MidValue_CH3.MidValue(RC_CPT_Data.CH2);
 	//连接状态监测1
 	if(Connect_Status_Cnt > 10)
 	{
