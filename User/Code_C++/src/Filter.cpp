@@ -233,13 +233,13 @@ float Filter_EKF::EKFFilter(float Model,float Input)
 }
 
 
-float Filter_EKF::EKFFilter(float Model,float Model_D ,float Input,float Input_D )
-{
-	X_k_k1 = Model;
-	P_k_k1 = P_k_k + Q;
-	X_k_k  = X_k_k1 + Kg * (Input - X_k_k1);
-	Kg     = P_k_k1 / (P_k_k1 + R);
-	P_k_k  = (1 - Kg) * P_k_k1;
-	
-	return X_k_k;
-}
+//float Filter_EKF::EKFFilter(float Model,float Model_D ,float Input,float Input_D )
+//{
+//	X_k_k1 = Model;
+//	P_k_k1 = P_k_k + Q;
+//	X_k_k  = X_k_k1 + Kg * (Input - X_k_k1);
+//	Kg     = P_k_k1 / (P_k_k1 + R);
+//	P_k_k  = (1 - Kg) * P_k_k1;
+//	
+//	return X_k_k;
+//}
