@@ -2,7 +2,7 @@
 .\browse\gps_uart.o: ..\User\Code_C\inc\GPS_UART.h
 .\browse\gps_uart.o: ..\CIMIS\stm32f4xx.h
 .\browse\gps_uart.o: ..\CIMIS\core_cm4.h
-.\browse\gps_uart.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\gps_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\gps_uart.o: ..\CIMIS\core_cmInstr.h
 .\browse\gps_uart.o: ..\CIMIS\core_cmFunc.h
 .\browse\gps_uart.o: ..\CIMIS\core_cmSimd.h

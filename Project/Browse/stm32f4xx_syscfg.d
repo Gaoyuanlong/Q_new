@@ -2,7 +2,7 @@
 .\browse\stm32f4xx_syscfg.o: ..\Libraries\inc\stm32f4xx_syscfg.h
 .\browse\stm32f4xx_syscfg.o: ..\CIMIS\stm32f4xx.h
 .\browse\stm32f4xx_syscfg.o: ..\CIMIS\core_cm4.h
-.\browse\stm32f4xx_syscfg.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\stm32f4xx_syscfg.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\stm32f4xx_syscfg.o: ..\CIMIS\core_cmInstr.h
 .\browse\stm32f4xx_syscfg.o: ..\CIMIS\core_cmFunc.h
 .\browse\stm32f4xx_syscfg.o: ..\CIMIS\core_cmSimd.h

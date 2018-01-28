@@ -836,11 +836,8 @@ void Vcan_Send_Data_PC(void)
 
 BOOL Communicate(void)
 {
-<<<<<<< HEAD
-#if GPS_PC// GPS未占用串口1进行调试，才可正常使用
-=======
 #if USE_GPS_PC// GPS未占用串口1进行调试，才可正常使用
->>>>>>> 4fc7a4617d8531703bc14078b01d6950b7065003
+
 	GPS_UART.GPS_Cof();
 #endif	
 	

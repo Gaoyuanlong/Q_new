@@ -2,7 +2,7 @@
 .\browse\gps_parse.o: ..\User\Code_C++\inc\GPS_Parse.h
 .\browse\gps_parse.o: ..\CIMIS\stm32f4xx.h
 .\browse\gps_parse.o: ..\CIMIS\core_cm4.h
-.\browse\gps_parse.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\gps_parse.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\gps_parse.o: ..\CIMIS\core_cmInstr.h
 .\browse\gps_parse.o: ..\CIMIS\core_cmFunc.h
 .\browse\gps_parse.o: ..\CIMIS\core_cmSimd.h

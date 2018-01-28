@@ -7,7 +7,7 @@
 #define ATT_FILTER_ANGLE   	 0.1f                    //角度环前置滤波器系数
 #define ATT_FILTER_SPEED     0.1f                    //角速度环前置滤波系数
 
-#define POS_POS_SET_MAX_Z        250.0f                   //Z最大高度 cm
+#define POS_POS_SET_MAX_Z        500.0f                   //Z最大高度 cm
 #define POS_SPEED_SET_MAX_Z      40.0f                    //Z最大速度 cm/s
 #define POS_ACC_SET_MAX_Z        60.0f                    //Z最大加速度 cm/s
 #define POS_OUT_MAX_Z        600.0f                   //Z最大输出
@@ -90,11 +90,11 @@ struct Control_Para_ Control_Para =
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(0.8,1,0,500,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
+	PID(0.8,1,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止频率 2HZ 
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(1,0,0,0,Filter_2nd(0.0009446918438402,0.00188938368768,0.0009446918438402,-1.911197067426,0.9149758348014)),	//采样频率200HZ 截止频率 2HZ 
+	PID(1,0,0,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
@@ -156,7 +156,7 @@ void ATT_Inner_Loop(u32 Time)
 	Motor.PWM->PWM3 = + Inner_Output.x +  Inner_Output.y + Inner_Output.z + Control_Para.Throttle; 
 	Motor.PWM->PWM4 = + Inner_Output.x -  Inner_Output.y - Inner_Output.z + Control_Para.Throttle;
 	
-	//Motor.Output(True);
+	Motor.Output(True);
 }
 /*
 	弧度制单位 
