@@ -220,8 +220,12 @@ float Filter_Balance::BalanceFilter(float Input,float Measurement,double dt)
 	
 	return Output;
 }
-
-float Filter_EKF::EKFFilter(float Model,float Input)
+/*
+@单观测卡尔曼
+Model			状态1上次预估值  
+Input 		状态1当前观测值	
+*/
+float Filter_EKF_Single::EKFFilter_Single(float Model,float Input)
 {
 	X_k_k1 = Model;
 	P_k_k1 = P_k_k + Q;
@@ -232,14 +236,43 @@ float Filter_EKF::EKFFilter(float Model,float Input)
 	return X_k_k;
 }
 
+/*
+@双观测卡尔曼
+Model			状态1上次预估值  上次预估距离
+Model_D		状态2上次预估值	上次预估速度
+Input 		状态1当前观测值	当前观测距离
+Input_D  	状态2当前观测值	当前观测速度
+Input_DD  当前控制量				当前观测加速度
+Out  			状态1当前预估值 	预估距离
+Out_D			状态2当前预估值 	预估速度
+Dt				周期时间 
+*/
+void Filter_EKF_Double::EKFFilter_Double(float Model,float Model_D ,float Input,float Input_D,float Input_DD,float &Out,float &Out_D,float Dt)
+{
+	//时间更新 先验状态
+	Out += Out_D*Dt + 0.5*Input_DD*Dt*Dt;
+	Out_D += Input_DD*Dt;
+	//时间更新 先验协方差
+	P[0] = Pre_P[0] + Pre_P[2] * Dt + (Pre_P[1] + Pre_P[3] * Dt) * Dt + Q[0];
+	P[1] = Pre_P[1] + Pre_P[3] * Dt;
+	P[2] = Pre_P[2] + Pre_P[3] * Dt;
+	P[3] = Pre_P[3] + Q[1];
+	//观测更新 计算卡尔曼增益
+	float K_Denominator = 1.0 / ((P[0]+ R[0]) * (P[3] + R[1]) - P[1] * P[2]);
+	Kg[0] = (P[0] * (P[3] + R[1]) - P[1] * P[2]) * K_Denominator;
+	Kg[1] = (P[1] * R[0]) * K_Denominator;
+	Kg[2] = (P[2] * R[1]) * K_Denominator;
+	Kg[3] = (P[2] * (-P[1]) + P[3] *(P[0] + R[0])) * K_Denominator;
+	//观测更新 融合数据输出
+	float Out_Err 	= Input - Model;
+	float Out_D_Err = Input_D - Model_D;
+	Out 	+= Kg[0] * Out_Err + Kg[1] * Out_D_Err;
+	Out_D += Kg[2] * Out_Err + Kg[3] * Out_D_Err;
+	//观测更新 更新状态协方差矩阵
+	Pre_P[0] = (1 - Kg[0]) * P[0] - Kg[1] * P[2];
+	Pre_P[1] = (1 - Kg[0]) * P[1] - Kg[1] * P[3];
+	Pre_P[2] = (1 - Kg[3]) * P[2] - Kg[2] * P[0];
+	Pre_P[3] = (1 - Kg[3]) * P[3] - Kg[2] * P[1];
+}
 
-//float Filter_EKF::EKFFilter(float Model,float Model_D ,float Input,float Input_D )
-//{
-//	X_k_k1 = Model;
-//	P_k_k1 = P_k_k + Q;
-//	X_k_k  = X_k_k1 + Kg * (Input - X_k_k1);
-//	Kg     = P_k_k1 / (P_k_k1 + R);
-//	P_k_k  = (1 - Kg) * P_k_k1;
-//	
-//	return X_k_k;
-//}
+
