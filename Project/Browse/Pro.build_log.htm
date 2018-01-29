@@ -26,13 +26,30 @@ Project File Date:  01/27/2018
 
 <h2>Output:</h2>
 Build target 'Target 1'
-".\Browse\Pro.axf" - 0 Error(s), 0 Warning(s).
+compiling Position.c...
+..\User\Code_C\src\Position.c(49): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	Altitude_Estimate = MS5611.Data->Altitude*100.0;//高度观测量 m转cm 单位cm
+..\User\Code_C\src\Position.c(50): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s
+..\User\Code_C\src\Position.c(63): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	SpeedDealt = (Last_Acc_z + Position.Acc.z) * Delta_T/2.0;
+..\User\Code_C\src\Position.c(65): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	Origion_Position_z += (Position.Speed.z + 0.5*SpeedDealt) * Delta_T;
+..\User\Code_C\src\Position.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=52262 RO-data=3178 RW-data=2928 ZI-data=4528  
+FromELF: creating hex file...
+".\Browse\Pro.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE
   d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0
 
 <h2>Collection of Component Files used:</h2>
+<<<<<<< HEAD
+=======
+Build Time Elapsed:  00:00:02
+>>>>>>> c82c16517fccae9b1e7ef5b776178bb8c6ac7014
 </pre>
 </body>
 </html>

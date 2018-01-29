@@ -210,6 +210,7 @@ void MS561101_Init(void)
 }
 //采样频率25HZ 截止频率 2HZ 
 Filter_2nd MS5611_Filter(0.046131802093312926,0.092263604186625852,0.046131802093312926, -1.3072850288493234,0.49181223722257528 );
+Filter_2nd MS5611_Speed_Filter(0.046131802093312926,0.092263604186625852,0.046131802093312926, -1.3072850288493234,0.49181223722257528 );
 
 void MS5611_Updata(void)
 {
@@ -261,14 +262,14 @@ void MS5611_Updata(void)
 	
 	if(MS5611_Data.Pressure < 0) return;
 	
-	MS5611_Data.Altitude = (1 - powf(MS5611_Data.Pressure / 101325.0f, 1.0f / 5.255f)) * 44330.0f;
+	float ALT_TMP = (1 - powf(MS5611_Data.Pressure / 101325.0f, 1.0f / 5.255f)) * 44330.0f;
+	ALT_TMP = MS5611_Filter.LPF2ndFilter(ALT_TMP);	
 	
 	float TimeNow = SystemTime.Now_MS();
-	float ALT_TMP = MS5611_Filter.LPF2ndFilter(MS5611_Data.Altitude);
-	
 	MS5611_Data.Speed = (ALT_TMP - MS5611_Data.Altitude) / (TimeNow - Time_Pre) * (double)1e3;
+	MS5611_Data.Speed = MS5611_Speed_Filter.LPF2ndFilter(MS5611_Data.Speed);
 	MS5611_Data.Altitude = ALT_TMP - MS5611_ALT_OFFECT;//单位 m
-	
+
 	Time_Pre = TimeNow;
 	MS5611_State = MS5611_IDEL;
 }

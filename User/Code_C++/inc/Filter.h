@@ -81,10 +81,10 @@ class Filter_Balance
 		float BalanceFilter(float Input,float Measurement,double dt);
 };
 
-class Filter_EKF
+class Filter_EKF_Single
 {
 	public:
-		Filter_EKF(float Q_Set,float R_Set)
+		Filter_EKF_Single(float Q_Set,float R_Set)
 		{
 			X_k_k1 = 0;
 			X_k_k = 0;
@@ -95,7 +95,7 @@ class Filter_EKF
 			R = R_Set;
 		}
 		
-		float EKFFilter(float Model,float Input);
+		float EKFFilter_Single(float Model,float Input);
 		
 		float X_k_k1;
 		float X_k_k;
@@ -104,6 +104,43 @@ class Filter_EKF
 		double Kg;
 		double Q;
 		double R;
+	
+};
+
+class Filter_EKF_Double
+{
+	public:
+		Filter_EKF_Double(float Q0_Set,float Q1_Set,float R0_Set,float R1_Set)
+		{
+			P[0] = 0;
+			P[1] = 0;
+			P[2] = 0;
+			P[3] = 0;
+			
+			Pre_P[0] = 0;
+			Pre_P[1] = 0;
+			Pre_P[2] = 0;
+			Pre_P[3] = 0;
+			
+			Kg[0] = 1;
+			Kg[1] = 1;
+			Kg[2] = 1;
+			Kg[3] = 1;
+			
+			Q[0] = Q0_Set;
+			Q[1] = Q1_Set;
+			R[0] = R0_Set;
+			R[1] = R1_Set;
+		}
+		
+		void EKFFilter_Double(float Model,float Model_D ,float Input,float Input_D,float Input_DD,float &Out,float &Out_D,float Dt);
+		
+	private:
+		float P[4];
+		float Pre_P[4];
+		double Kg[4];
+		double Q[2];
+		double R[2];
 	
 };
 
