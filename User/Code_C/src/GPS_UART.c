@@ -89,7 +89,9 @@ void UART4_IRQHandler(void)                	//串口1中断服务程序
     USART_ClearITPendingBit(UART4, USART_IT_RXNE);
 		
 		if(False == Queue_OPS.Enqueue(temp,&GPS_UART_QueueRecv))
-		{}
+		{
+			u8 a =1;
+		}
   }
 } 
 }
