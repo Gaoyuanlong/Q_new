@@ -568,7 +568,7 @@ void Send_Data_PC(void)
 {
 	static u8 Cnt = 0;
 
-	switch (1) 
+	switch (Cnt++%6) 
 	{
 		case 0:
 			Send_Eular_PC();
@@ -831,8 +831,8 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 1
-#define USE_ANTO 0
+#define USE_VCAN 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {

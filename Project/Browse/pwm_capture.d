@@ -2,7 +2,7 @@
 .\browse\pwm_capture.o: ..\User\Code_C\inc\PWM_Capture.h
 .\browse\pwm_capture.o: ..\CIMIS\stm32f4xx.h
 .\browse\pwm_capture.o: ..\CIMIS\core_cm4.h
-.\browse\pwm_capture.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\pwm_capture.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\pwm_capture.o: ..\CIMIS\core_cmInstr.h
 .\browse\pwm_capture.o: ..\CIMIS\core_cmFunc.h
 .\browse\pwm_capture.o: ..\CIMIS\core_cmSimd.h
