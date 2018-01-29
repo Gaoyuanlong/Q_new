@@ -117,7 +117,7 @@ void XY_Update(u16 Time_Ms,Vector ACC_Earth)
 void Position_Updata(u16 Time_Ms)
 {
 	Vector ACC_Earth;
-	ACC_Earth = Math.Body_To_Earth(MPU6050.Data->ACC_ADC,Attitude.Angle->y,Attitude.Angle->x);
+	ACC_Earth = Math.Body_To_Earth(MPU6050.Data->ACC_ADC,Attitude.Angle->z,Attitude.Angle->y,Attitude.Angle->x);
 	
 	ACC_Earth.x /= 4095;
 	ACC_Earth.x *= 9.8f;
@@ -134,9 +134,9 @@ void Position_Updata(u16 Time_Ms)
 	XY_Update(Time_Ms,ACC_Earth);
 	
 	
-//	User_Data.Data7 = ACC_Earth.x*100;
-//	User_Data.Data8 = ACC_Earth.y*100;
-//	User_Data.Data9 = ACC_Earth.z*100;
+	User_Data.Data1 = ACC_Earth.x*100;
+	User_Data.Data2 = ACC_Earth.y*100;
+	User_Data.Data3 = ACC_Earth.z*100;
 }
 
 

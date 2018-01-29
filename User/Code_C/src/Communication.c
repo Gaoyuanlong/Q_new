@@ -358,18 +358,18 @@ BOOL Send_UserData_PC(void)
 	u8 Cnt = 1;
 	vs16 Temp = 0;
 	
-	User_Data.Data1 = Position.Position_xyz.z;		
-	User_Data.Data2 = Position.Speed.z;	
-	User_Data.Data3 = MS5611.Data->Altitude*100;	
-	User_Data.Data4 = MS5611.Data->Speed*100;			
-	User_Data.Data5 = MPU6050.Data->ACC_ADC.z;
-	User_Data.Data6 = 0;
-	User_Data.Data7 = 0;
-	User_Data.Data8 = 0;
-	User_Data.Data9 = 0;
-	User_Data.Data10 = 0;
-	User_Data.Data11 = 0;
-	User_Data.Data12 = 0;
+//	User_Data.Data1 = Position.Position_xyz.z;		
+//	User_Data.Data2 = Position.Speed.z;	
+//	User_Data.Data3 = MS5611.Data->Altitude*100;	
+//	User_Data.Data4 = MS5611.Data->Speed*100;			
+//	User_Data.Data5 = MPU6050.Data->ACC_ADC.z;
+//	User_Data.Data6 = 0;
+//	User_Data.Data7 = 0;
+//	User_Data.Data8 = 0;
+//	User_Data.Data9 = 0;
+//	User_Data.Data10 = 0;
+//	User_Data.Data11 = 0;
+//	User_Data.Data12 = 0;
 	
 //	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
 //	User_Data.Data2 = Position.Position_xyz.z;	
@@ -582,7 +582,7 @@ void Send_Data_PC(void)
 {
 	static u8 Cnt = 0;
 
-	switch (4) 
+	switch (Cnt++%6) 
 	{
 		case 0:
 			Send_Eular_PC();
