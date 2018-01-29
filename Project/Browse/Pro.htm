@@ -3,11 +3,7 @@
 <title>Static Call Graph - [.\Browse\Pro.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Browse\Pro.axf</H1><HR>
-<<<<<<< HEAD
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jan 29 13:45:31 2018
-=======
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jan 29 16:42:44 2018
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Jan 29 17:23:15 2018
 <BR><P>
 <H3>Maximum Stack Usage =        368 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1397,22 +1393,6 @@ Global Symbols
 <P><STRONG><a name="[49]"></a>SW_POS_Judge(unsigned short)</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, sbus.o(i._Z12SW_POS_Judget))
 <BR>[Address Reference Count : 1]<UL><LI> sbus.o(.data)
 </UL>
-<<<<<<< HEAD
-<P><STRONG><a name="[fa]"></a>Send_Data_PC()</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, communication.o(i._Z12Send_Data_PCv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Send_Data_PC() &rArr; Send_Senser_PC()
-</UL>
-<BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_UserData_PC()
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_Senser2_PC()
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_Senser_PC()
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_Motor_PC()
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_Eular_PC()
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_RC_PC()
-</UL>
-<BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Communicate()
-</UL>
-
-=======
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 <P><STRONG><a name="[1d]"></a>State_Updata(unsigned short)</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, sysstate.o(i._Z12State_Updatat))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = State_Updata(unsigned short) &rArr; Controller_State(unsigned short) &rArr; __aeabi_cdcmple
 </UL>
@@ -1670,13 +1650,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Init()
 </UL>
 
-<<<<<<< HEAD
-<P><STRONG><a name="[1c]"></a>Position_Updata(unsigned short)</STRONG> (Thumb, 288 bytes, Stack size 24 bytes, position.o(i._Z15Position_Updatat))
+<P><STRONG><a name="[1c]"></a>Position_Updata(unsigned short)</STRONG> (Thumb, 306 bytes, Stack size 24 bytes, position.o(i._Z15Position_Updatat))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = Position_Updata(unsigned short) &rArr; XY_Update(unsigned short, Vector) &rArr; Filter_EKF_Double::EKFFilter_Double(float, float, float, float, float, float&, float&, float) &rArr; __aeabi_dmul
-=======
-<P><STRONG><a name="[1c]"></a>Position_Updata(unsigned short)</STRONG> (Thumb, 256 bytes, Stack size 24 bytes, position.o(i._Z15Position_Updatat))
-<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = Position_Updata(unsigned short) &rArr; XY_Update(unsigned short, Vector) &rArr; Filter_EKF_Double::EKFFilter_Double(float, float, float, float, float, float&, float&, float) &rArr; __aeabi_dmul
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 </UL>
 <BR>[Calls]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Update(unsigned short, Vector)
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Altitude_Update(unsigned short, Vector)
@@ -1739,27 +1714,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_CPT_Init(unsigned short, unsigned short)
 </UL>
 
-<<<<<<< HEAD
-<P><STRONG><a name="[151]"></a>Send_PID_Para_PC(unsigned char)</STRONG> (Thumb, 1090 bytes, Stack size 480 bytes, communication.o(i._Z16Send_PID_Para_PCh))
-<BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = Send_PID_Para_PC(unsigned char) &rArr; __aeabi_dmul
-</UL>
-<BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_vec_ctor_nocookie_nodtor
-</UL>
-<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Data_Analysis_PC()
-</UL>
-
-<P><STRONG><a name="[120]"></a>Send_UserData_PC()</STRONG> (Thumb, 638 bytes, Stack size 16 bytes, communication.o(i._Z16Send_UserData_PCv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Send_UserData_PC()
-</UL>
-<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Send_Data_PC()
-</UL>
-
-<P><STRONG><a name="[142]"></a>MPU6050_Calibrate()</STRONG> (Thumb, 480 bytes, Stack size 8 bytes, mpu6050.o(i._Z17MPU6050_Calibratev))
-=======
 <P><STRONG><a name="[13a]"></a>MPU6050_Calibrate()</STRONG> (Thumb, 480 bytes, Stack size 8 bytes, mpu6050.o(i._Z17MPU6050_Calibratev))
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = MPU6050_Calibrate() &rArr; MPU6050_Para_Save() &rArr; Write_Flash() &rArr; FLASH_EraseSector &rArr; FLASH_WaitForLastOperation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector::Vector()
@@ -1818,11 +1773,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PWM_CPT_Init(unsigned short, unsigned short)
 </UL>
 
-<<<<<<< HEAD
-<P><STRONG><a name="[126]"></a>Updata_Quaternion(Vector, Vector, Vector, double)</STRONG> (Thumb, 3392 bytes, Stack size 280 bytes, attitude.o(i._Z17Updata_Quaternion6VectorS_S_d))
-=======
 <P><STRONG><a name="[11e]"></a>Updata_Quaternion(Vector, Vector, Vector, double)</STRONG> (Thumb, 3334 bytes, Stack size 280 bytes, attitude.o(i._Z17Updata_Quaternion6VectorS_S_d))
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = Updata_Quaternion(Vector, Vector, Vector, double) &rArr; Safe_Asin(float) &rArr; __hardfp_asinf &rArr; sqrtf &rArr; __set_errno
 </UL>
 <BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_sqrt_f32(float, float*)
@@ -2030,8 +1981,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> time.o(.data)
 </UL>
-<P><STRONG><a name="[149]"></a>XY_Update(unsigned short, Vector)</STRONG> (Thumb, 280 bytes, Stack size 48 bytes, position.o(i._Z9XY_Updatet6Vector))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = XY_Update(unsigned short, Vector) &rArr; Filter_EKF_Double::EKFFilter_Double(float, float, float, float, float, float&, float&, float) &rArr; __aeabi_dmul
+<P><STRONG><a name="[149]"></a>XY_Update(unsigned short, Vector)</STRONG> (Thumb, 248 bytes, Stack size 40 bytes, position.o(i._Z9XY_Updatet6Vector))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = XY_Update(unsigned short, Vector) &rArr; Filter_EKF_Double::EKFFilter_Double(float, float, float, float, float, float&, float&, float) &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_EKF_Double::EKFFilter_Double(float, float, float, float, float, float&, float&, float)
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -2278,18 +2229,14 @@ Global Symbols
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_2nd::LPF2ndFilter(Vector)
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Coordinate_Rotate(float, float, float)
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Body_To_Earth(Vector, float, float, float)
-<<<<<<< HEAD
-<LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Updata_Quaternion(Vector, Vector, Vector, double)
-=======
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Updata_Quaternion(Vector, Vector, Vector, double)
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 <LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HMC5883_Updata()
 <LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_Calibrate()
 </UL>
 <BR>[Address Reference Count : 4]<UL><LI> mpu6050.o(i.__sti___9_MPU6050_c_b1a692db)
 <LI> hmc5883.o(i.__sti___9_HMC5883_c_5f2e7b48)
-<LI> pwm_capture.o(i.__sti___13_PWM_Capture_c_9e817118)
 <LI> ultra.o(i.__sti___7_Ultra_c_220f73de)
+<LI> pwm_capture.o(i.__sti___13_PWM_Capture_c_9e817118)
 </UL>
 <P><STRONG><a name="[1dc]"></a>Vector::Vector__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, flycontrol.o(i._ZN6VectorC1Ev), UNUSED)
 
@@ -2635,15 +2582,6 @@ Global Symbols
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_asinf
 </UL>
 
-<<<<<<< HEAD
-<P><STRONG><a name="[128]"></a>arm_cos_f32</STRONG> (Thumb, 132 bytes, Stack size 0 bytes, arm_cos_f32.o(i.arm_cos_f32))
-<BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Coordinate_Rotate(float, float, float)
-<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Body_To_Earth(Vector, float, float, float)
-</UL>
-
-<P><STRONG><a name="[129]"></a>arm_sin_f32</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, arm_sin_f32.o(i.arm_sin_f32))
-<BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Coordinate_Rotate(float, float, float)
-=======
 <P><STRONG><a name="[120]"></a>arm_cos_f32</STRONG> (Thumb, 132 bytes, Stack size 0 bytes, arm_cos_f32.o(i.arm_cos_f32))
 <BR><BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS::GPS_Unit_transform()
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Coordinate_Rotate(float, float, float)
@@ -2653,7 +2591,6 @@ Global Symbols
 <P><STRONG><a name="[121]"></a>arm_sin_f32</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, arm_sin_f32.o(i.arm_sin_f32))
 <BR><BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPS::GPS_Unit_transform()
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;XY_Coordinate_Rotate(float, float, float)
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 <LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Body_To_Earth(Vector, float, float, float)
 </UL>
 

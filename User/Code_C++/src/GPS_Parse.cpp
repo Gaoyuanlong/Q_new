@@ -378,12 +378,11 @@ void GPS::GPS_Unit_transform(void)
 	state = GXGGA_Data.state;
 	
 	//位置偏置取值  暂时使用 后期需要修改
-	if(state != 0 && Cnt < 55)
+	if(state != 0 && Cnt < 205)
 	{
 		Cnt++;
 	}
-	
-	if(Cnt == 50)
+	if(Cnt == 200)
 	{
 		Home_OffectX = POS_X;
 		Home_OffectY = POS_Y;

@@ -2,7 +2,7 @@
 .\browse\hmc5883.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\hmc5883.o: ..\CIMIS\stm32f4xx.h
 .\browse\hmc5883.o: ..\CIMIS\core_cm4.h
-.\browse\hmc5883.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\hmc5883.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\hmc5883.o: ..\CIMIS\core_cmInstr.h
 .\browse\hmc5883.o: ..\CIMIS\core_cmFunc.h
 .\browse\hmc5883.o: ..\CIMIS\core_cmSimd.h
@@ -41,5 +41,5 @@
 .\browse\hmc5883.o: ..\User\Code_C++\inc\Filter.h
 .\browse\hmc5883.o: ..\User\DSP\Include\arm_math.h
 .\browse\hmc5883.o: ..\User\DSP\Include\core_cm4.h
-.\browse\hmc5883.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\hmc5883.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\hmc5883.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\hmc5883.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

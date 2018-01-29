@@ -358,7 +358,7 @@ BOOL Send_UserData_PC(void)
 	u8 Cnt = 1;
 	vs16 Temp = 0;
 	
-<<<<<<< HEAD
+
 //	User_Data.Data1 = Position.Position_xyz.z;		
 //	User_Data.Data2 = Position.Speed.z;	
 //	User_Data.Data3 = MS5611.Data->Altitude*100;	
@@ -371,21 +371,7 @@ BOOL Send_UserData_PC(void)
 //	User_Data.Data10 = 0;
 //	User_Data.Data11 = 0;
 //	User_Data.Data12 = 0;
-=======
-	User_Data.Data1 = GPS_Location.POS_X;		
-	User_Data.Data2 = GPS_Location.POS_Y;	
-	User_Data.Data3 = GPS_Location.POS_Z;	
-	User_Data.Data4 = GPS_Location.SatNum;			
-	User_Data.Data5 = GPS_Location.state;
-	User_Data.Data6 = GXGGA_Data.HDOP;
-	User_Data.Data7 = GPS_Location.Speed.x;
-	User_Data.Data8 = 0;
-	User_Data.Data9 = 0;
-	User_Data.Data10 = 0;
-	User_Data.Data11 = 0;
-	User_Data.Data12 = 0;
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
-	
+
 //	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
 //	User_Data.Data2 = Position.Position_xyz.z;	
 //	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	

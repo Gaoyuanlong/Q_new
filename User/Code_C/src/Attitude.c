@@ -155,12 +155,6 @@ void Updata_Quaternion(Vector GYR,Vector ACC,Vector MAG,double DltaT_S)
 	if(HMC5883.IsSensorError == False)													//磁力计数据正常进行一阶互补滤波
 	{ 
 		MAG_Earth = Math.Body_To_Earth(MAG,0,Angle.y ,Angle.x);				//磁力计坐标转换 机体->地球
-<<<<<<< HEAD
-		User_Data.Data4 = MAG_Earth.x*100;
-		User_Data.Data5 = MAG_Earth.y*100;
-		User_Data.Data6 = MAG_Earth.z*100;
-=======
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
   	MAG_Z_angle  = Degrees(atan2f(MAG_Earth.x,MAG_Earth.y));		//磁力计计算角度
 		if(MAG_Z_angle - Angle.z > 180 )
 			Angle.z = (1- Z_FILTER) * Angle.z + Z_FILTER * (MAG_Z_angle - 360);

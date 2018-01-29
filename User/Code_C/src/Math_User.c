@@ -67,8 +67,6 @@ Vector Body_To_Earth(Vector Body,float Yaw,float Roll,float Pitch)
 	Earth.z = -SIN_Theta 					 * Body.x + 																 COS_Theta * SIN_Phi * Body.y + 																 COS_Theta * COS_Phi * Body.z;
 	return Earth;
 };
-<<<<<<< HEAD
-=======
 
 //Vector Body_To_Earth(Vector Body,float Pitch,float Roll)
 //{
@@ -86,7 +84,6 @@ Vector Body_To_Earth(Vector Body,float Yaw,float Roll,float Pitch)
 //	return Earth;
 //};
 
->>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 Vector XY_Coordinate_Rotate(float X,float Y,float Angle)
 {
 	Vector Earth;
