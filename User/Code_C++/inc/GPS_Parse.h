@@ -89,10 +89,18 @@ class GXVTG
 class GPS
 {
 	public:
-		GPS(){};
+		GPS(){
+		Home_OffectX = 0;
+		Home_OffectY = 0;
+		Home_OffectZ = 0;
+		};
 			
 	u8 state;
 	u8 SatNum;
+	double Home_OffectX;
+	double Home_OffectY;
+	double Home_OffectZ;
+			
 	double POS_X;
 	double POS_Y;
 	double POS_Z;

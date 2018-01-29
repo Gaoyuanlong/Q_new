@@ -1,5 +1,7 @@
 #include "GPS_Parse.h"
 #include "GPS_UART.h"
+#include "arm_math.h"
+#include "Math_User.h"
 
 double GPS_Str2Float(const u8* Str_Add)
 { 
@@ -346,9 +348,9 @@ void GPS::GPS_Update(void)
 void GPS::GPS_Unit_transform(void)
 {
 	#define EARTH_RADIUS 6371393
-	#define PI 3.141592653f
 	#define LAT0 0
 	#define LON0 0
+	static u8 Cnt = 0;
 	double  Lon_Deg = 0 ,Lat_Deg = 0;
 	int Lat_Int_Temp = 0, Lon_Int_Temp = 0;
 	
@@ -363,12 +365,30 @@ void GPS::GPS_Unit_transform(void)
 	if(GXGGA_Data.NorS == 'S')
 		Lat_Deg = -Lat_Deg;
 	
-	POS_X = (Lon_Deg*PI/180)*EARTH_RADIUS * 100 - 1351328734;		//经度 单位cm	GGA
-	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100 - 432329475;		//纬度 单位cm	GGA
-	POS_Z = GXGGA_Data.AltSea * 100 - 3190; 								//相对海平面高度 单位cm	GGA
-	Speed.x =GXRMC_Data.SOG;
+	POS_X = (Lon_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectX;		//经度 单位cm	GGA
+	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectY;		//纬度 单位cm	GGA
+	POS_Z = GXGGA_Data.AltSea * 100 - Home_OffectZ; 								//相对海平面高度 单位cm	GGA
+	//位置需要加入滤波 备忘
+	float Speed_Temp = GXRMC_Data.SOG * 51.4; 			//速率 单位cm/s   节转cm/s
+	float Angle_Temp = GXRMC_Data.COG * DEG_TO_RAD;	//航向角 0-360 		弧度转度
+	Speed.x = Speed_Temp * arm_sin_f32(Angle_Temp);	// 单位cm/s
+	Speed.y = Speed_Temp * arm_cos_f32(Angle_Temp);	// 单位cm/s
+	//速度需要加入滤波	备忘
 	SatNum = GXGGA_Data.SatNum;
 	state = GXGGA_Data.state;
+	
+	//位置偏置取值  暂时使用 后期需要修改
+	if(state != 0 && Cnt < 55)
+	{
+		Cnt++;
+	}
+	
+	if(Cnt == 50)
+	{
+		Home_OffectX = POS_X;
+		Home_OffectY = POS_Y;
+		Home_OffectZ = POS_Z;
+	}
 }
 
 

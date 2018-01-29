@@ -38,3 +38,9 @@
 .\browse\gps_parse.o: ..\User\Code_C\inc\Common.h
 .\browse\gps_parse.o: ..\User\Code_C\inc\GPS_UART.h
 .\browse\gps_parse.o: ..\User\Code_C\inc\Queue.h
+.\browse\gps_parse.o: ..\User\DSP\Include\arm_math.h
+.\browse\gps_parse.o: ..\User\DSP\Include\core_cm4.h
+.\browse\gps_parse.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\gps_parse.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\gps_parse.o: ..\User\Code_C\inc\Math_User.h
+.\browse\gps_parse.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

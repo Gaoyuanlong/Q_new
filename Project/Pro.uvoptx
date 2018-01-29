@@ -219,22 +219,6 @@
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>366</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134246818</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>C:\Users\gaoyuanlong\Desktop\鍥涜酱璋冭瘯\Q_new\User\Code_C++\src\GPS_Parse.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Pro\../User/Code_C++/src/GPS_Parse.cpp\366</Expression>
-        </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
@@ -296,6 +280,16 @@
           <count>11</count>
           <WinNumber>1</WinNumber>
           <ItemText>i,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Speed_Temp1</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>Speed_Temp2</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
