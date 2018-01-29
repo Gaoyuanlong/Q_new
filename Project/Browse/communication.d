@@ -2,7 +2,7 @@
 .\browse\communication.o: ..\User\Code_C\inc\Communication.h
 .\browse\communication.o: ..\CIMIS\stm32f4xx.h
 .\browse\communication.o: ..\CIMIS\core_cm4.h
-.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\communication.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\communication.o: ..\CIMIS\core_cmInstr.h
 .\browse\communication.o: ..\CIMIS\core_cmFunc.h
 .\browse\communication.o: ..\CIMIS\core_cmSimd.h
@@ -45,11 +45,11 @@
 .\browse\communication.o: ..\User\Code_C\inc\Time.h
 .\browse\communication.o: ..\User\Code_C++\inc\Filter.h
 .\browse\communication.o: ..\User\Code_C\inc\Math_User.h
-.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\communication.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\communication.o: ..\User\DSP\Include\arm_math.h
 .\browse\communication.o: ..\User\DSP\Include\core_cm4.h
-.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\communication.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\communication.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\communication.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\communication.o: ..\User\Code_C\inc\Communication.h
 .\browse\communication.o: ..\User\Code_C\inc\MS5611.h
@@ -64,4 +64,4 @@
 .\browse\communication.o: ..\User\Code_C\inc\Position.h
 .\browse\communication.o: ..\User\Code_C\inc\Ultra.h
 .\browse\communication.o: ..\User\Code_C++\inc\GPS_Parse.h
-.\browse\communication.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\browse\communication.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

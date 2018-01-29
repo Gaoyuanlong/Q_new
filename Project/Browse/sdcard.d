@@ -2,7 +2,7 @@
 .\browse\sdcard.o: ..\User\Code_C\inc\SDCard.h
 .\browse\sdcard.o: ..\CIMIS\stm32f4xx.h
 .\browse\sdcard.o: ..\CIMIS\core_cm4.h
-.\browse\sdcard.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\sdcard.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\sdcard.o: ..\CIMIS\core_cmInstr.h
 .\browse\sdcard.o: ..\CIMIS\core_cmFunc.h
 .\browse\sdcard.o: ..\CIMIS\core_cmSimd.h

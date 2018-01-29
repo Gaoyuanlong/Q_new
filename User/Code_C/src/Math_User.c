@@ -67,6 +67,26 @@ Vector Body_To_Earth(Vector Body,float Yaw,float Roll,float Pitch)
 	Earth.z = -SIN_Theta 					 * Body.x + 																 COS_Theta * SIN_Phi * Body.y + 																 COS_Theta * COS_Phi * Body.z;
 	return Earth;
 };
+<<<<<<< HEAD
+=======
+
+//Vector Body_To_Earth(Vector Body,float Pitch,float Roll)
+//{
+//	Vector Earth;
+//	Pitch *= DEG_TO_RAD;
+//	Roll *= DEG_TO_RAD;
+//	float COS_Phi   = arm_cos_f32(Roll);
+//	float COS_Theta = arm_cos_f32(Pitch);
+//	float SIN_Phi   = arm_sin_f32(Roll);
+//	float SIN_Theta = arm_sin_f32(Pitch);
+//	
+//	Earth.x =  COS_Theta * Body.x + SIN_Phi * SIN_Theta * Body.y + COS_Phi * SIN_Theta * Body.z;
+//	Earth.y =                                 COS_Phi   * Body.y -             SIN_Phi * Body.z;
+//	Earth.z = -SIN_Theta * Body.x + SIN_Phi * COS_Theta * Body.y + COS_Phi * COS_Theta * Body.z;
+//	return Earth;
+//};
+
+>>>>>>> 83e58e02e5820f1e32d7240f2927ccbe7d786805
 Vector XY_Coordinate_Rotate(float X,float Y,float Angle)
 {
 	Vector Earth;
