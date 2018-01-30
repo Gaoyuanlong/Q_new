@@ -5,7 +5,7 @@
 .\browse\flycontrol.o: ..\User\Code_C\inc\Common.h
 .\browse\flycontrol.o: ..\CIMIS\stm32f4xx.h
 .\browse\flycontrol.o: ..\CIMIS\core_cm4.h
-.\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\flycontrol.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\flycontrol.o: ..\CIMIS\core_cmInstr.h
 .\browse\flycontrol.o: ..\CIMIS\core_cmFunc.h
 .\browse\flycontrol.o: ..\CIMIS\core_cmSimd.h
@@ -44,11 +44,11 @@
 .\browse\flycontrol.o: ..\User\Code_C\inc\MPU6050_Register.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Time.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Math_User.h
-.\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\flycontrol.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\flycontrol.o: ..\User\DSP\Include\arm_math.h
 .\browse\flycontrol.o: ..\User\DSP\Include\core_cm4.h
-.\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\flycontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\flycontrol.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\flycontrol.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\Communication.h
 .\browse\flycontrol.o: ..\User\Code_C\inc\USART.h

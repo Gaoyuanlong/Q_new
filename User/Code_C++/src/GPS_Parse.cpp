@@ -2,6 +2,7 @@
 #include "GPS_UART.h"
 #include "arm_math.h"
 #include "Math_User.h"
+#include "Attitude.h"
 
 double GPS_Str2Float(const u8* Str_Add)
 { 
@@ -378,11 +379,11 @@ void GPS::GPS_Unit_transform(void)
 	state = GXGGA_Data.state;
 	
 	//位置偏置取值  暂时使用 后期需要修改
-	if(state != 0 && Cnt < 205)
+	if(state != 0 && Cnt < 105)
 	{
 		Cnt++;
 	}
-	if(Cnt == 200)
+	if(Cnt == 100)
 	{
 		Home_OffectX = POS_X;
 		Home_OffectY = POS_Y;

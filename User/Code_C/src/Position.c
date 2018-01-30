@@ -82,8 +82,8 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 }
 
 /*********************************水平位置双观测卡尔曼融合 GPS+ACC *****************************************/
-Filter_EKF_Double Filter_EKF_X(0.1,0.01,500,850);
-Filter_EKF_Double Filter_EKF_Y(0.1,0.01,500,850);
+Filter_EKF_Double Filter_EKF_X(0.1,0.01,5,100);
+Filter_EKF_Double Filter_EKF_Y(0.1,0.01,5,100);
 void XY_Update(u16 Time_Ms,Vector ACC_Earth)
 {
 	if(GPS_Location.state != 0)
@@ -96,7 +96,7 @@ void XY_Update(u16 Time_Ms,Vector ACC_Earth)
 																	Position.Position_xyz.x,		//预估出距离        	cm
 																	Position.Speed.x,						//预估出速度					cm/s
 																	Time_Ms/1000);							//周期时间						s
-		Position.Acc.x = ACC_Earth.x*100; //cm/s2
+		Position.Acc.x = ACC_Earth.x; //cm/s2
 		Filter_EKF_Y.EKFFilter_Double(Position.Position_xyz.y,		//上次预估距离
 																	Position.Speed.y,						//上次预估速度
 																	GPS_Location.POS_Y,					//当前GPS观测距离

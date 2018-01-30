@@ -2,7 +2,7 @@
 .\browse\battery.o: ..\User\Code_C\inc\Battery.h
 .\browse\battery.o: ..\CIMIS\stm32f4xx.h
 .\browse\battery.o: ..\CIMIS\core_cm4.h
-.\browse\battery.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\battery.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\battery.o: ..\CIMIS\core_cmInstr.h
 .\browse\battery.o: ..\CIMIS\core_cmFunc.h
 .\browse\battery.o: ..\CIMIS\core_cmSimd.h

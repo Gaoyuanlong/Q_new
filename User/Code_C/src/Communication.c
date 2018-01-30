@@ -919,12 +919,12 @@ void Vcan_Send_Data_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = Position.Acc.x;
+	Temp1 = GXRMC_Data.SOG * 51.4;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = GPS_Location.state;
+	Temp1 = GXRMC_Data.COG * DEG_TO_RAD;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
