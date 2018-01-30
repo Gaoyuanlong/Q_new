@@ -47,7 +47,7 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 	
 	Delta_T = Time_Ms/1000.0;//ms转s 单位 s
 	Altitude_Estimate = MS5611.Data->Altitude*100.0;//高度观测量 m转cm 单位cm
-	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s
+	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s2
 	
 	//由观测量（气压计）得到状态误差
 	Altitude_Dealt = Altitude_Estimate -  Position.Position_xyz.z;//气压计(超声波)与SINS估计量的差，单位cm
@@ -57,7 +57,7 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 	pos_correction +=Altitude_Dealt* K_POS_ZER*Delta_T ;//位置矫正量
 	//加速度计矫正后更新
 	Last_Acc_z = Position.Acc.z;//上一次加速度量
-	Position.Acc.z = Origion_Acc_z + acc_correction;// 加速度单位cm/s
+	Position.Acc.z = Origion_Acc_z + acc_correction;// 加速度单位cm/s2
 	//速度增量矫正后更新，用于更新位置,由于步长h=0.005,相对较长，
 	//这里采用二阶龙格库塔法更新微分方程，不建议用更高阶段，因为加速度信号非平滑
 	SpeedDealt = (Last_Acc_z + Position.Acc.z) * Delta_T/2.0;
@@ -81,7 +81,7 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 	}
 }
 
-/****水平位置双观测卡尔曼融合 GPS+ACC ****/
+/*********************************水平位置双观测卡尔曼融合 GPS+ACC *****************************************/
 Filter_EKF_Double Filter_EKF_X(0.1,0.01,500,850);
 Filter_EKF_Double Filter_EKF_Y(0.1,0.01,500,850);
 void XY_Update(u16 Time_Ms,Vector ACC_Earth)
@@ -92,19 +92,20 @@ void XY_Update(u16 Time_Ms,Vector ACC_Earth)
 																	Position.Speed.x,						//上次预估速度				cm/s
 																	GPS_Location.POS_X,					//当前GPS观测距离   	cm
 																	GPS_Location.Speed.x,				//当前GPS观测速度   	cm/s
-																	ACC_Earth.x*100,						//当前加速度计观测加速度 cm/s2
+																	ACC_Earth.x,						//当前加速度计观测加速度 cm/s2
 																	Position.Position_xyz.x,		//预估出距离        	cm
 																	Position.Speed.x,						//预估出速度					cm/s
 																	Time_Ms/1000);							//周期时间						s
-		
+		Position.Acc.x = ACC_Earth.x*100; //cm/s2
 		Filter_EKF_Y.EKFFilter_Double(Position.Position_xyz.y,		//上次预估距离
 																	Position.Speed.y,						//上次预估速度
 																	GPS_Location.POS_Y,					//当前GPS观测距离
 																	GPS_Location.Speed.y,				//当前GPS观测速度
-																	ACC_Earth.y*100,						//当前加速度计观测加速度
+																	ACC_Earth.y,						//当前加速度计观测加速度
 																	Position.Position_xyz.y,		//预估出距离
 																	Position.Speed.y,						//预估出速度
 																	Time_Ms/1000);							//周期时间						s
+		Position.Acc.y = ACC_Earth.y;	//cm/s2
 	}
 }
 
@@ -114,23 +115,23 @@ void Position_Updata(u16 Time_Ms)
 	ACC_Earth = Math.Body_To_Earth(MPU6050.Data->ACC_ADC,Attitude.Angle->z,Attitude.Angle->y,Attitude.Angle->x);
 	
 	ACC_Earth.x /= 4095;
-	ACC_Earth.x *= 9.8f;
+	ACC_Earth.x *= 980.0f;//cm/s2
 	
 	ACC_Earth.y /= 4095;
-	ACC_Earth.y *= 9.8f;
+	ACC_Earth.y *= 980.0f;//cm/s2
 	
 	ACC_Earth.z -= 4095;
 	ACC_Earth.z /= 4095;
-	ACC_Earth.z *= 9.8f;
+	ACC_Earth.z *= 980.0f;//cm/s2
 //--------------高度融合--------------------------------------------------------------------//
 	Altitude_Update(Time_Ms,ACC_Earth);
 //--------------水平位置融合--------------------------------------------------------------------//
 	XY_Update(Time_Ms,ACC_Earth);
 	
 	
-	User_Data.Data1 = ACC_Earth.x*100;
-	User_Data.Data2 = ACC_Earth.y*100;
-	User_Data.Data3 = ACC_Earth.z*100;
+	User_Data.Data1 = ACC_Earth.x;
+	User_Data.Data2 = ACC_Earth.y;
+	User_Data.Data3 = ACC_Earth.z;
 }
 
 
