@@ -79,8 +79,6 @@ void ADC_Init(void)
 
 void ADC_Updata(void)
 {
-	static u8 Mark = 0;
-	float BatValue = 0;
 	Power_VOL_Data.BAT_3S = ADC_Value[0] / 4095.0f * 3.3f * 4.0f;
 
 //	switch (Mark % 3)

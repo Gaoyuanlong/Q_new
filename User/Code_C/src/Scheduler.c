@@ -43,10 +43,8 @@ void Loop_50Hz(u16 Time_Ms)
 {
 						
 	GPS_Location.GPS_Update();
-	
 	PWM_In.Updata();											//遥控数据采集 
   FlyControl.POS_OuterLoop(Time_Ms);		//位置控制外环
-	
 	Power.Updata();										//电压数据采集
 	SystemState.Updata(Time_Ms);			//系统状态监控	
 	Communication.UpData();						//调试通信	

@@ -4,7 +4,7 @@
 .\browse\diskio.o: ..\User\Code_C\inc\sdcard.h
 .\browse\diskio.o: ..\CIMIS\stm32f4xx.h
 .\browse\diskio.o: ..\CIMIS\core_cm4.h
-.\browse\diskio.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\diskio.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\diskio.o: ..\CIMIS\core_cmInstr.h
 .\browse\diskio.o: ..\CIMIS\core_cmFunc.h
 .\browse\diskio.o: ..\CIMIS\core_cmSimd.h

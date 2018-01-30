@@ -85,8 +85,8 @@ void Controller_State(u16 Time)
 		else if(FlyControl.Para->Mode != ATT)
 			ModeCnt++;
 	}
-	else
-	{	
+	else if(PWM_RC_R6 > PWM_RC_DEAD && PWM_RC_R6 <  (PWM_RC_MAX - PWM_RC_DEAD))
+	{
 		if(FlyControl.Para->Mode != ALT && ModeCnt > 10)
 		{
 			FlyControl.Para->Mode = ALT;
@@ -95,6 +95,17 @@ void Controller_State(u16 Time)
 		else if(FlyControl.Para->Mode != ALT)
 			ModeCnt++;
 	}
+	else 
+	{	
+		if(FlyControl.Para->Mode != POS && ModeCnt > 10)
+		{
+			FlyControl.Para->Mode = POS;
+			ModeCnt = 0;
+		}
+		else if(FlyControl.Para->Mode != POS)
+			ModeCnt++;
+	}
+	
 	
 	//解锁判定	 上锁判定
 	if(FlyControl.Para->IsLock == True)// & (FlyControl.Para->IsError == False))

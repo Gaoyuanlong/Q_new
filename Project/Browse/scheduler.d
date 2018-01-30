@@ -4,7 +4,7 @@
 .\browse\scheduler.o: ..\User\Code_C\inc\LED.h
 .\browse\scheduler.o: ..\CIMIS\stm32f4xx.h
 .\browse\scheduler.o: ..\CIMIS\core_cm4.h
-.\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\scheduler.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\scheduler.o: ..\CIMIS\core_cmInstr.h
 .\browse\scheduler.o: ..\CIMIS\core_cmFunc.h
 .\browse\scheduler.o: ..\CIMIS\core_cmSimd.h
@@ -41,11 +41,11 @@
 .\browse\scheduler.o: ..\User\Code_C++\inc\Target.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Motor.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Math_User.h
-.\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\scheduler.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\scheduler.o: ..\User\DSP\Include\arm_math.h
 .\browse\scheduler.o: ..\User\DSP\Include\core_cm4.h
-.\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\scheduler.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\scheduler.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\scheduler.o: ..\User\Code_C\inc\Common.h
 .\browse\scheduler.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\scheduler.o: ..\User\Code_C++\inc\I2C_Soft.h
@@ -76,4 +76,4 @@
 .\browse\scheduler.o: ..\User\SDCard\ff.h
 .\browse\scheduler.o: ..\User\SDCard\integer.h
 .\browse\scheduler.o: ..\User\SDCard\ffconf.h
-.\browse\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\browse\scheduler.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

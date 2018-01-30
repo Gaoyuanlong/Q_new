@@ -372,19 +372,32 @@ BOOL Send_UserData_PC(void)
 //	User_Data.Data11 = 0;
 //	User_Data.Data12 = 0;
 
-//	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
-//	User_Data.Data2 = Position.Position_xyz.z;	
-//	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
-//	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_z.Feedback;			
-//	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
-//	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_z.Feedback;;
-//	User_Data.Data7 = FlyControl.Para->Throttle;
-//	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
-//	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
+	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
+	User_Data.Data2 = Position.Position_xyz.z;	
+	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
+	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_z.Feedback;			
+	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
+	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_z.Feedback;;
+	User_Data.Data7 = FlyControl.Para->Throttle;
+	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
+	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
+	User_Data.Data10 = MS5611.Data->Altitude*100;
+	User_Data.Data11 = PWM_In.Data->CH3; ;
+	User_Data.Data12 = 0;
+	
+	
+//	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_x.Setpoint;		
+//	User_Data.Data2 = Position.Position_xyz.x;	
+//	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_x.Setpoint;	
+//	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_x.Feedback;			
+//	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_x.Setpoint;
+//	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_x.Feedback;;
+//	User_Data.Data7 = FlyControl.Para->ATT_Outer_PID_x.Setpoint;
+//	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_x.Output;
+//	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_x.SumError;
 //	User_Data.Data10 = MS5611.Data->Altitude*100;
 //	User_Data.Data11 = PWM_In.Data->CH3; ;
 //	User_Data.Data12 = 0;
-	
 //	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Setpoint);		
 //	User_Data.Data2 = Degrees(Attitude.Rate->z);	
 //	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Setpoint);		
@@ -846,8 +859,8 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 1
-#define USE_ANTO 0
+#define USE_VCAN 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {

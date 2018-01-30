@@ -3,13 +3,13 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: μVision V5.20.0.39
-Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Gaoyuanlong Microsoft, Microsoft, LIC=8VR63-A832M-5TS3W-QMJTT-93MTR-R6MX1
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: gaoyuanlong,  , LIC=2TTEV-PUKSZ-NRSXL-0170Y-NY0SM-8ZV97
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.14.0.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  d:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.05 update 1 (build 106)
 Assembler:       Armasm.exe V5.05 update 1 (build 106)
 Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
@@ -21,24 +21,35 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-G:\项目\飞行器\新机时期\软件\Q_new\Project\Pro.uvprojx
+C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\Pro.uvprojx
 Project File Date:  01/30/2018
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.05 update 1 (build 106)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling main.c...
+compiling FlyControl.c...
+..\User\Code_C\src\FlyControl.c(193): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                ATT_XY_RC.x = Radians(Math.Dead_Zone(PWM_RC_F_B - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+..\User\Code_C\src\FlyControl.c(194): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                ATT_XY_RC.y = Radians(Math.Dead_Zone(PWM_RC_L_R - PWM_RC_MID,10) / PWM_RC_RANGE * ATT_ANGLE_MAX);
+..\User\Code_C\src\FlyControl.c(258): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Control_Para.ATT_Inner_PID_z.Setpoint = (1 - ATT_FILTER_SPEED) * Control_Para.ATT_Inner_PID_z.Setpoint + ATT_FILTER_SPEED * Radians((float)Math.Dead_Zone(PWM_RC_MID - PWM_RC_Lr_Rr ,10) / PWM_RC_RANGE * ATT_ANGLE_SPEED_RC_Z_MAX);
+..\User\Code_C\src\FlyControl.c(432): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Control_Para.POS_Outer_PID_x.Feedback = Math.Constrain(Position.Position_xyz.x,Control_Para.Home.x + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.x);
+..\User\Code_C\src\FlyControl.c(449): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Control_Para.POS_Outer_PID_y.Feedback = Math.Constrain(Position.Position_xyz.y,Control_Para.Home.y + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.y);
+..\User\Code_C\src\FlyControl.c(470): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+                Control_Para.POS_Outer_PID_z.Feedback = Math.Constrain(Position.Position_xyz.z,Control_Para.Home.z + POS_POS_FEEBACK_MAX_Z,Control_Para.Home.z);
+..\User\Code_C\src\FlyControl.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=51254 RO-data=3178 RW-data=2928 ZI-data=4672  
+Program Size: Code=56542 RO-data=3178 RW-data=2924 ZI-data=4676  
 FromELF: creating hex file...
-".\Browse\Pro.axf" - 0 Error(s), 0 Warning(s).
+".\Browse\Pro.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
-  G:\项目\飞行器\新机时期\软件\Q_new\Project\RTE
-  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE
+  d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

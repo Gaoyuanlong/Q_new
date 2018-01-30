@@ -1,39 +1,38 @@
 #include "FlyControl.h"
 
-#define ATT_ANGLE_SPEED_RC_Z_MAX  20    						 //遥控Z最大转角速度
-#define ATT_ANGLE_SPEED      (45.0f * DEG_TO_RAD)    //最大转角速度
-#define ATT_ANGLE_MAX        20.0f                   //最大倾角
+#define ATT_ANGLE_SPEED_RC_Z_MAX  	20    						 		//遥控Z最大转角速度
+#define ATT_ANGLE_SPEED      				(45.0f * DEG_TO_RAD)  //最大转角速度
+#define ATT_ANGLE_MAX        				20.0f                 //最大倾角
 
-#define ATT_FILTER_ANGLE   	 0.1f                    //角度环前置滤波器系数
-#define ATT_FILTER_SPEED     0.1f                    //角速度环前置滤波系数
+#define ATT_FILTER_ANGLE   	 				0.1f                  //角度环前置滤波器系数
+#define ATT_FILTER_SPEED     				0.1f                  //角速度环前置滤波系数
 
-#define POS_POS_SET_MAX_XY        500.0f                   //XY最大高度 cm
-#define POS_SPEED_SET_MAX_XY      40.0f                    //XY最大速度 cm/s
-#define POS_ACC_SET_MAX_XY        60.0f                    //XY最大加速度 cm/s
-#define POS_OUT_MAX_XY        20.0f                   //XY最大输出   角度值
+#define POS_POS_SET_MAX_XY       		3000.0f              //XY最大距离 cm
+#define POS_SPEED_SET_MAX_XY      	30.0f               //XY最大速度 cm/s
+#define POS_ACC_SET_MAX_XY        	40.0f               //XY最大加速度 cm/s
+#define POS_OUT_MAX_XY        			20.0f               //XY最大输出  角度值
 
-#define POS_POS_FEEBACK_MAX_XY        (1.5*POS_POS_SET_MAX_XY)    //XY最大反馈高度 cm
-#define POS_SPEED_FEEBACK_MAX_XY      40.0f                    //XY最大速度 cm/s
-#define POS_ACC_FEEBACK_MAX_XY        100.0f                   //XY最大加速度 cm/s
+#define POS_POS_FEEBACK_MAX_XY      (1.5*POS_POS_SET_MAX_XY) //XY最大反馈高度 cm
+#define POS_SPEED_FEEBACK_MAX_XY    30.0f                    //XY最大反馈速度 cm/s
+#define POS_ACC_FEEBACK_MAX_XY      100.0f                   //XY最大反馈加速度 cm/s
 
-#define POS_POS_SET_MAX_Z        500.0f                   //Z最大高度 cm
-#define POS_SPEED_SET_MAX_Z      40.0f                    //Z最大速度 cm/s
-#define POS_ACC_SET_MAX_Z        60.0f                    //Z最大加速度 cm/s
-#define POS_OUT_MAX_Z        	THROTTLE_60_PERCENT                   //Z最大输出
+#define POS_POS_SET_MAX_Z        		500.0f                   //Z最大高度 cm
+#define POS_SPEED_SET_MAX_Z      		40.0f                    //Z最大速度 cm/s
+#define POS_ACC_SET_MAX_Z        		60.0f                    //Z最大加速度 cm/s
+#define POS_OUT_MAX_Z        				THROTTLE_60_PERCENT         //Z最大输出
 
-#define POS_POS_FEEBACK_MAX_Z        (1.5*POS_POS_SET_MAX_Z)    //Z最大反馈高度 cm
-#define POS_SPEED_FEEBACK_MAX_Z      40.0f                    //Z最大速度 cm/s
-#define POS_ACC_FEEBACK_MAX_Z        100.0f                   //Z最大加速度 cm/s
+#define POS_POS_FEEBACK_MAX_Z       (1.5*POS_POS_SET_MAX_Z)  //Z最大反馈高度 cm
+#define POS_SPEED_FEEBACK_MAX_Z     40.0f                    //Z最大速度 cm/s
+#define POS_ACC_FEEBACK_MAX_Z       100.0f                   //Z最大加速度 cm/s
 
-#define POS_FILTER_POS   	   0.1f                    //位置前置滤波器系数
-#define POS_FILTER_SPEED     0.1f                    //速度环前置滤波系数
-#define POS_FILTER_ACC       0.8f                    //加速度环前置滤波系数
+#define POS_FILTER_POS   	  				0.1f                    //位置前置滤波器系数
+#define POS_FILTER_SPEED     				0.1f                    //速度环前置滤波系数
+#define POS_FILTER_ACC       				0.8f                    //加速度环前置滤波系数
 
 #define THROTTLE_MIN PWM_RC_MIN
 #define THROTTLE_MAX PWM_RC_MAX
 #define THROTTLE_MID ((PWM_RC_MAX + PWM_RC_MIN) / 2)
 #define THROTTLE_60_PERCENT ((THROTTLE_MAX - THROTTLE_MIN) * 0.6f)
-
 
 void ATT_Inner_Loop(u32 Time);
 void ATT_Outer_Loop(u32 Time);
@@ -100,11 +99,11 @@ struct Control_Para_ Control_Para =
 	
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(0.8,1,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.8,1.5,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
 
 	PID(0,0,0,0),
 	PID(0,0,0,0),
-	PID(1.8,0,0,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(2,0,0.1,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
 
 	PID(0,0,0,0),
 	PID(0,0,0,0),
@@ -167,7 +166,7 @@ void ATT_Inner_Loop(u32 Time)
 	Motor.PWM->PWM3 = + Inner_Output.x +  Inner_Output.y + Inner_Output.z + Control_Para.Throttle; 
 	Motor.PWM->PWM4 = + Inner_Output.x -  Inner_Output.y - Inner_Output.z + Control_Para.Throttle;
 	
-	Motor.Output(True);
+	//Motor.Output(True);
 }
 /*
 	弧度制单位 

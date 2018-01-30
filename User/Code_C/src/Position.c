@@ -47,7 +47,7 @@ void Altitude_Update(u16 Time_Ms,Vector ACC_Earth)
 	
 	Delta_T = Time_Ms/1000.0;//ms转s 单位 s
 	Altitude_Estimate = MS5611.Data->Altitude*100.0;//高度观测量 m转cm 单位cm
-	Origion_Acc_z = ACC_Earth.z*100.0;//加速度 m转cm 单位cm/s2
+	Origion_Acc_z = ACC_Earth.z;//加速度  单位cm/s2
 	
 	//由观测量（气压计）得到状态误差
 	Altitude_Dealt = Altitude_Estimate -  Position.Position_xyz.z;//气压计(超声波)与SINS估计量的差，单位cm
@@ -128,10 +128,6 @@ void Position_Updata(u16 Time_Ms)
 //--------------水平位置融合--------------------------------------------------------------------//
 	XY_Update(Time_Ms,ACC_Earth);
 	
-	
-	User_Data.Data1 = ACC_Earth.x;
-	User_Data.Data2 = ACC_Earth.y;
-	User_Data.Data3 = ACC_Earth.z;
 }
 
 
