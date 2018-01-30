@@ -2,7 +2,7 @@
 .\browse\ms5611.o: ..\User\Code_C\inc\MS5611.h
 .\browse\ms5611.o: ..\CIMIS\stm32f4xx.h
 .\browse\ms5611.o: ..\CIMIS\core_cm4.h
-.\browse\ms5611.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\ms5611.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\ms5611.o: ..\CIMIS\core_cmInstr.h
 .\browse\ms5611.o: ..\CIMIS\core_cmFunc.h
 .\browse\ms5611.o: ..\CIMIS\core_cmSimd.h
@@ -40,8 +40,8 @@
 .\browse\ms5611.o: ..\User\Code_C\inc\Common.h
 .\browse\ms5611.o: ..\User\DSP\Include\arm_math.h
 .\browse\ms5611.o: ..\User\DSP\Include\core_cm4.h
-.\browse\ms5611.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\ms5611.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\ms5611.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\ms5611.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\ms5611.o: ..\User\Code_C++\inc\Filter.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Communication.h
 .\browse\ms5611.o: ..\User\Code_C\inc\USART.h
@@ -50,7 +50,7 @@
 .\browse\ms5611.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\ms5611.o: ..\User\Code_C\inc\MPU6050_Register.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Math_User.h
-.\browse\ms5611.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\ms5611.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\ms5611.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Communication.h
 .\browse\ms5611.o: ..\User\Code_C\inc\Battery.h

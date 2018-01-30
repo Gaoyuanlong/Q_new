@@ -3,7 +3,7 @@
 .\browse\position.o: ..\User\Code_C\inc\MS5611.h
 .\browse\position.o: ..\CIMIS\stm32f4xx.h
 .\browse\position.o: ..\CIMIS\core_cm4.h
-.\browse\position.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\position.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\position.o: ..\CIMIS\core_cmInstr.h
 .\browse\position.o: ..\CIMIS\core_cmFunc.h
 .\browse\position.o: ..\CIMIS\core_cmSimd.h
@@ -41,11 +41,11 @@
 .\browse\position.o: ..\User\Code_C\inc\Common.h
 .\browse\position.o: ..\User\DSP\Include\arm_math.h
 .\browse\position.o: ..\User\DSP\Include\core_cm4.h
-.\browse\position.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\position.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\position.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\position.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\position.o: ..\User\Code_C++\inc\Filter.h
 .\browse\position.o: ..\User\Code_C\inc\Math_User.h
-.\browse\position.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\position.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\position.o: ..\User\Code_C\inc\Attitude.h
 .\browse\position.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\position.o: ..\User\Code_C\inc\MPU6050_Register.h

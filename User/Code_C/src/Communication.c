@@ -398,6 +398,7 @@ BOOL Send_UserData_PC(void)
 //	User_Data.Data10 = MS5611.Data->Altitude*100;
 //	User_Data.Data11 = PWM_In.Data->CH3; ;
 //	User_Data.Data12 = 0;
+
 //	User_Data.Data1 = Degrees(FlyControl.Para->ATT_Inner_PID_z.Setpoint);		
 //	User_Data.Data2 = Degrees(Attitude.Rate->z);	
 //	User_Data.Data3 = Degrees(FlyControl.Para->ATT_Outer_PID_z.Setpoint);		
@@ -759,6 +760,61 @@ void Vcan_Send_Data_PC(void)
 	Communicate_BUF[Cnt++] = 0X03;
 	Communicate_BUF[Cnt++] = 0XFC;
 	
+		
+//	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_x.Setpoint;		
+//	User_Data.Data2 = Position.Position_xyz.x;	
+//	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_x.Setpoint;	
+//	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_x.Feedback;			
+//	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_x.Setpoint;
+//	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_x.Feedback;;
+//	User_Data.Data7 = FlyControl.Para->ATT_Outer_PID_x.Setpoint;
+//	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_x.Output;
+//	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_x.SumError;
+//	User_Data.Data10 = MS5611.Data->Altitude*100;
+//	User_Data.Data11 = PWM_In.Data->CH3; ;
+//	User_Data.Data12 = 0;
+	
+//	Temp1 =  FlyControl.Para->POS_Outer_PID_x.Setpoint - FlyControl.Para->Home.x;	
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+//	Temp1 = Position.Position_xyz.x - FlyControl.Para->Home.x;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//2
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = FlyControl.Para->POS_Inner_PID_x.Setpoint;	
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//3
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+//	Temp1 = FlyControl.Para->POS_Inner_PID_x.Feedback;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//4
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = FlyControl.Para->POS_Acc_PID_x.Setpoint;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = FlyControl.Para->POS_Acc_PID_x.Feedback;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = FlyControl.Para->ATT_Outer_PID_x.Setpoint; 
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//7
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = GPS_Location.SatNum;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//8
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+	
 //	Temp1 =  FlyControl.Para->POS_Outer_PID_z.Setpoint - FlyControl.Para->Home.z;	
 //	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
 //	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
@@ -800,22 +856,55 @@ void Vcan_Send_Data_PC(void)
 //	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 //	Communicate_BUF[Cnt++] = BYTE3(Temp1);
 
-//	User_Data.Data1 = FlyControl.Para->POS_Outer_PID_z.Setpoint;		
-//	User_Data.Data2 = FlyControl.Para->POS_Outer_PID_z.Feedback;	
-//	User_Data.Data3 = FlyControl.Para->POS_Inner_PID_z.Setpoint;	
-//	User_Data.Data4 = FlyControl.Para->POS_Inner_PID_z.Feedback;			
-//	User_Data.Data5 = FlyControl.Para->POS_Acc_PID_z.Setpoint;
-//	User_Data.Data6 = FlyControl.Para->POS_Acc_PID_z.Feedback;;
-//	User_Data.Data7 = FlyControl.Para->Throttle;
-//	User_Data.Data8 = FlyControl.Para->POS_Acc_PID_z.Output;
-//	User_Data.Data9 = FlyControl.Para->POS_Acc_PID_z.SumError;
+
 	
+//	Temp1 = GPS_Location.Speed.x;	
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+//	Temp1 = GPS_Location.Speed.y;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//2
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = GPS_Location.POS_X;	
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//3
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
+//	Temp1 = GPS_Location.POS_Y;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//4
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = Position.Speed.x;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = Position.Speed.y;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = Position.Position_xyz.x; 
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//7
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+//	Temp1 = Position.Position_xyz.y;
+//	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//8
+//	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
+//	Communicate_BUF[Cnt++] = BYTE3(Temp1);
+
 	Temp1 = GPS_Location.Speed.x;	
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//1
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
-	Temp1 = GPS_Location.Speed.y;
+	Temp1 = Position.Speed.x;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//2
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
@@ -825,33 +914,32 @@ void Vcan_Send_Data_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);	
-	Temp1 = GPS_Location.POS_Y;
+	Temp1 = Position.Position_xyz.x;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//4
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = Position.Speed.x;
+	Temp1 = Position.Acc.x;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = Position.Speed.y;
+	Temp1 = GPS_Location.state;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = Position.Position_xyz.x; 
+	Temp1 = GPS_Location.SatNum; 
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//7
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = Position.Position_xyz.y;
+	Temp1 = GPS_Location.Speed.y;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//8
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
 
-	
 	Communicate_BUF[Cnt++] = 0XFC;	
 	Communicate_BUF[Cnt++] = 0X03;
 	
@@ -859,8 +947,8 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 0
-#define USE_ANTO 1
+#define USE_VCAN 1
+#define USE_ANTO 0
 
 BOOL Communicate(void)
 {
