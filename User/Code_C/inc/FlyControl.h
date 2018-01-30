@@ -13,6 +13,11 @@ enum Fly_Mode
 	ALT,
 	POS,
 };
+enum Head_Mode_
+{
+	HEAD,
+	NO_HEAD,
+};
 
 struct Control_Para_
 {
@@ -42,6 +47,8 @@ struct Control_Para_
 	BOOL IsLock;
 	BOOL IsLost;
 	BOOL IsError;
+	
+	Head_Mode_ Head_Mode;
 	Fly_Mode Mode;
 };
 
