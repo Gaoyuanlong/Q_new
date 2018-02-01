@@ -2,7 +2,7 @@
 .\browse\i2c_soft.o: ..\User\Code_C++\inc\I2C_Soft.h
 .\browse\i2c_soft.o: ..\CIMIS\stm32f4xx.h
 .\browse\i2c_soft.o: ..\CIMIS\core_cm4.h
-.\browse\i2c_soft.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\i2c_soft.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\i2c_soft.o: ..\CIMIS\core_cmInstr.h
 .\browse\i2c_soft.o: ..\CIMIS\core_cmFunc.h
 .\browse\i2c_soft.o: ..\CIMIS\core_cmSimd.h

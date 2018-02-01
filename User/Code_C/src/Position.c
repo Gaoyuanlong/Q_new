@@ -17,7 +17,7 @@ struct Position_ Position =
 void Position_Init(void)
 {
 	MS5611.Init();
-	GPS_UART.Init(9600);
+	GPS_UART.Init(115200);
 }
 
 /****气压计三阶互补滤波方案——参考开源飞控APM****/
