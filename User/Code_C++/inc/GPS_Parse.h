@@ -61,6 +61,7 @@ class GPS
 			
 	u8 state;
 	u8 SatNum;
+	float pDOP;
 	double Home_OffectX;
 	double Home_OffectY;
 	double Home_OffectZ;

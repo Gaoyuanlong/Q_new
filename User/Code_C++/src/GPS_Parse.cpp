@@ -74,6 +74,7 @@ GPS GPS_Location;
 void GPS::GPS_Update(void)
 {
 	GPS_PVT_Data.GPS_PVT_Parse();
+	GPS_Unit_transform();
 }
 
 /*
@@ -125,18 +126,21 @@ void GPS::GPS_Unit_transform(void)
 //	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectY;		//纬度 单位cm
 //	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 								//相对海平面高度 单位cm	
 
+	Lon_Deg = GPS_PVT_Data.PVT_Data.lon*0.0000001;
+	Lat_Deg = GPS_PVT_Data.PVT_Data.lat*0.0000001;
 
-	POS_X = GPS_PVT_Data.PVT_Data.lon * (cosf(GPS_PVT_Data.PVT_Data.lat) * 11094000) - Home_OffectX;				//经度 单位cm
-	POS_Y = GPS_PVT_Data.PVT_Data.lat * 11094000 - Home_OffectY;											//纬度 单位cm
+	POS_X = Lon_Deg * (cosf(Lat_Deg*DEG_TO_RAD) * 11094000) - Home_OffectX;				//经度 单位cm
+	POS_Y = Lat_Deg * 11094000 - Home_OffectY;											//纬度 单位cm
 	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 													//相对海平面高度 单位cm	
 
 	//位置需要加入滤波 备忘
-	Speed.x = GPS_PVT_Data.PVT_Data.velE * 10;	// 单位cm/s
-	Speed.y = GPS_PVT_Data.PVT_Data.velN * 10;	// 单位cm/s
-	Speed.z = GPS_PVT_Data.PVT_Data.velD * 10;	// 单位cm/s
+	Speed.x = GPS_PVT_Data.PVT_Data.velE * 0.1;	// 单位cm/s
+	Speed.y = GPS_PVT_Data.PVT_Data.velN * 0.1;	// 单位cm/s
+	Speed.z = GPS_PVT_Data.PVT_Data.velD * 0.1;	// 单位cm/s
 	//速度需要加入滤波	备忘
+	state = GPS_PVT_Data.PVT_Data.flags;
 	SatNum = GPS_PVT_Data.PVT_Data.numSV;
-	state = GPS_PVT_Data.PVT_Data.pDOP;
+	pDOP = GPS_PVT_Data.PVT_Data.pDOP*0.01;
 	
 	//位置偏置取值  暂时使用 后期需要修改
 	if(state != 0 && Cnt < 105)
