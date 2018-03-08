@@ -146,9 +146,9 @@ void Send_Eular_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp2);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp2);
 	
-	Communicate_BUF[Cnt++] = MPU6050.IsCalibrating;
-	Communicate_BUF[Cnt++] = False;	
-
+	Communicate_BUF[Cnt++] = FlyControl.Para->Mode;
+	Communicate_BUF[Cnt++] = FlyControl.Para->IsLock;
+	
 	Communicate_BUF[4] = Cnt - 5;
 	
 	u8 Sum = 0;
@@ -948,7 +948,7 @@ void Vcan_Send_Data_PC(void)
 
 #define USE_PHONE 0
 #define USE_VCAN 0
-#define USE_ANTO 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {

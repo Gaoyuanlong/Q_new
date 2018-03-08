@@ -7,33 +7,33 @@ class PVT_Data_
 {
 	public:
 	u32 iTOW;
-	u16 year;
-	u8 month;
-	u8 day;
-	u8 hour;
-	u8 min;
-	u8 sec;
-	u8 valid;
-	u32 tAcc;
-	s32 nano;
-	u8 fixType;
-	u8 flags;
-	u8 reserved1;
-	u8 numSV;
-	s32 lon;
-	s32 lat;
-	s32 height;
-	s32 hMSL;
-	u32 hAcc;
-	u32 vAcc;
-	s32 velN;
-	s32 velE;
-	s32 velD;
-	s32 gSpeed;
-	s32 heading;
-	u32 sAcc;
-	u32 headingAcc;
-	u16 pDOP;
+	u16 year;					//年 
+	u8 month;					//月 
+	u8 day;					  //日 
+	u8 hour;					//时 
+	u8 min;						//分 
+	u8 sec;						//秒 
+	u8 valid;					//有效标志位 
+	u32 tAcc;					//时间精度估计
+	s32 nano; 				//分数部分
+	u8 fixType;				//定位类型
+	u8 flags; 				//是否有效定位  差分模式是否开启(DGPS)  省电模式、未用  航向是否有效
+	u8 reserved1; 		//保留
+	u8 numSV;   			//参与定位卫星个数
+	s32 lon;					//经度  deg
+	s32 lat;					//纬度  deg
+	s32 height;				//椭球高度  mm
+	s32 hMSL;					//GPS获取海拔高度 	mm
+	u32 hAcc;					//水平位置估计精度 mm
+	u32 vAcc;					//垂直位置估计精度	mm
+	s32 velN;					//GPS获取的沿导航系正北速度  		mm/s
+	s32 velE;					//GPS获取的沿导航系正东向速度  	mm/s
+	s32 velD;					//GPS获取的沿导航系'天'向速度  	mm/s
+	s32 gSpeed;				//载体对地速度	mm/s
+	s32 heading;			//载体运动航向角	deg
+	u32 sAcc;					//速度估计精度 mm/s
+	u32 headingAcc;		//载体运动航向角估计精度 deg
+	u16 pDOP;					//位置精度因子
 	u16 reserved2;
 	u32 reserved3;
 };
@@ -43,10 +43,11 @@ class GPS_PVT
 public:
 	GPS_PVT()
 	{}
-	void GPS_PVT_Parse(void);
+	void GPS_PVT_Parse(void);	
+	PVT_Data_ PVT_Data;
 private:
 	u8 Rx_buf[GPS_PVT_BUF_SIZE];
-	PVT_Data_ PVT_Data;
+
 };
 
 class GPS

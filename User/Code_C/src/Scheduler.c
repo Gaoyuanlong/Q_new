@@ -21,19 +21,17 @@ void Loop_1000Hz(u16 Time_Ms)
 
 void Loop_500Hz(u16 Time_Ms)
 {
-  MPU6050.Updata();									//mpu6050数据采集
-	Attitude.Updata();								//姿态解算
-	FlyControl.ATT_InnerLoop(Time_Ms);//姿态控制内环
-	FlyControl.POS_AccLoop(Time_Ms);		//位置控制加速度环
+  MPU6050.Updata();											//mpu6050数据采集
+	Attitude.Updata();										//姿态解算								-----姿态解算
+	FlyControl.ATT_InnerLoop(Time_Ms);		//姿态控制内环           -----------------------------------姿态 内环
+	FlyControl.POS_AccLoop(Time_Ms);			//位置控制加速度环				-------------------位置 加速度环
 }
-
 void Loop_200Hz(u16 Time_Ms)
 {
-	Position.Updata(Time_Ms);							//位置解算
+	Position.Updata(Time_Ms);							//位置解算								-----位置解算
 	HMC5883.Updata();											//磁力计数据采集
-	FlyControl.ATT_OuterLoop(Time_Ms);		//姿态控制外环
-  FlyControl.POS_InnerLoop(Time_Ms);		//位置控制速度内环
-	
+	FlyControl.ATT_OuterLoop(Time_Ms);		//姿态控制外环						-----------------------------------姿态 外环
+  FlyControl.POS_InnerLoop(Time_Ms);		//位置控制速度内环				-------------------位置 速度环
 }
 void Loop_100Hz(u16 Time_Ms)
 {
@@ -41,12 +39,12 @@ void Loop_100Hz(u16 Time_Ms)
 }
 void Loop_50Hz(u16 Time_Ms)
 {
-	GPS_Location.GPS_Update();
+	GPS_Location.GPS_Update();						//GPS数据采集
 	PWM_In.Updata();											//遥控数据采集 
-  FlyControl.POS_OuterLoop(Time_Ms);		//位置控制外环
-	Power.Updata();										//电压数据采集
-	SystemState.Updata(Time_Ms);			//系统状态监控	
-	Communication.UpData();						//调试通信	
+  FlyControl.POS_OuterLoop(Time_Ms);		//位置控制外环						-------------------位置 环
+	Power.Updata();												//电压数据采集
+	SystemState.Updata(Time_Ms);					//系统状态监控	
+	Communication.UpData();								//调试通信	
 	
 //	Motor.PWM->PWM1 = 2*PWM_RC_D_U;
 //	Motor.PWM->PWM2 = 2*PWM_RC_D_U;	
