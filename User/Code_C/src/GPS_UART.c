@@ -1,22 +1,29 @@
 #include "GPS_UART.h"
 #include "USART.h"
+#include "Time.h"
 
-#define GPS_UART_BUF_SIZE 255
 u8 GPS_UART_TX_BUF[GPS_UART_BUF_SIZE];
 u8 GPS_UART_RX_BUF[GPS_UART_BUF_SIZE];
+u8 GPS_UART_RX_Cnt;
 
 Queue_ GPS_UART_QueueSend;
-Queue_ GPS_UART_QueueRecv;
 
 void GPS_UART_init(u32 bound);
 BOOL GPS_send(u8 *data, u16 num);
-BOOL GPS_receive(u8 *data, u16 num);
+u8 GPS_receive(u8 *data, u16 num);
 void GPS_Cof(void);
+
+struct GPS_UART_RX_ GPS_UART_RX= {
+	0,
+	0,
+	0,
+	0
+};
 struct GPS_UART_ GPS_UART= {  
 	GPS_UART_init, 
 	GPS_send,	
 	GPS_receive,
-	GPS_Cof
+	GPS_Cof,
 };
 
 
@@ -62,7 +69,6 @@ void GPS_UART_init(u32 Bound)
 	USART_Init(UART4, &USART_InitStructure);
  
 	GPS_UART_QueueSend = Queue_OPS.Init(GPS_UART_BUF_SIZE,GPS_UART_TX_BUF);
-	GPS_UART_QueueRecv = Queue_OPS.Init(GPS_UART_BUF_SIZE,GPS_UART_RX_BUF);
 	
 	USART_ITConfig(UART4, USART_IT_RXNE, ENABLE);      
 	USART_Cmd(UART4, ENABLE);
@@ -74,10 +80,13 @@ extern "C"{
 void UART4_IRQHandler(void)                	//串口1中断服务程序
 {
 	u8 temp;
+	u8 i;
   //send 
   if(USART_GetITStatus(UART4, USART_IT_TXE) != RESET){   
 		if(True == Queue_OPS.Dequeue(&temp,&GPS_UART_QueueSend))
+		{
 			USART_SendData(UART4, temp); 
+		}
 		else
 			USART_ITConfig(UART4, USART_IT_TXE, DISABLE);   
   }
@@ -86,10 +95,22 @@ void UART4_IRQHandler(void)                	//串口1中断服务程序
   if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET){    
 		
 		temp = USART_ReceiveData(UART4);
-    USART_ClearITPendingBit(UART4, USART_IT_RXNE);
 		
-		if(False == Queue_OPS.Enqueue(temp,&GPS_UART_QueueRecv))
-		{}
+		GPS_UART_RX.Time_Old = GPS_UART_RX.Time_Now;
+		GPS_UART_RX.Time_Now = SystemTime.Now_MS();
+		if(GPS_UART_RX.Time_Now - GPS_UART_RX.Time_Old > 50 && GPS_UART_RX.Data_Siz == 0)
+		{
+			for(i = 0;i < GPS_UART_RX_Cnt;i++)
+				GPS_UART_RX.Data[i] = GPS_UART_RX_BUF[i];
+			
+			GPS_UART_RX.Data_Siz = GPS_UART_RX_Cnt;
+			GPS_UART_RX_Cnt = 0;
+		}
+		GPS_UART_RX_BUF[GPS_UART_RX_Cnt] = temp;
+		
+		if(GPS_UART_RX_Cnt < GPS_UART_BUF_SIZE - 1)
+			GPS_UART_RX_Cnt++;
+    USART_ClearITPendingBit(UART4, USART_IT_RXNE);
   }
 } 
 }
@@ -113,17 +134,19 @@ BOOL GPS_send(u8 *data, u16 num)
 /**************************************************************
 	串口4接收
 **************************************************************/
-BOOL GPS_receive(u8 *data, u16 num)
+u8 GPS_receive(u8 *data, u16 num)
 {
-	u16 i = 0;
-	if(num > GPS_UART_QueueRecv.Length)
-		return False;
-	for(i = 0;i < num;i++){
-		if(False == Queue_OPS.Dequeue(&data[i],&GPS_UART_QueueRecv)){
-			return False;
-		}
+	u8 Min_Size;
+	u8 i = 0;
+	
+	GPS_UART_RX.Data_Siz < num ? Min_Size = GPS_UART_RX.Data_Siz : Min_Size = num;
+	
+	for(i = 0;i < Min_Size;i++){	
+		data[i] = GPS_UART_RX.Data[i];
+		GPS_UART_RX.Data[i] = 0;
 	}
-	return True;	
+	GPS_UART_RX.Data_Siz = 0;
+	return Min_Size;	
 }
 
 
@@ -132,15 +155,9 @@ void GPS_Cof(void)
 	#if USE_GPS_PC
 	extern Queue_ USART1_QueueRecv;
 	u8 gps_2_pc[100],pc_2_gps[100];
-	u16 gps_2_pc_size = 0;
-	u16 pc_2_gps_size = 0;
+	u16 pc_2_gps_size = 100;
 	
-	if(GPS_UART_QueueRecv.Length != 0)
-	{
-		gps_2_pc_size = GPS_UART_QueueRecv.Length;
-		GPS_receive(gps_2_pc,gps_2_pc_size);
-		usart1.send(gps_2_pc,gps_2_pc_size);
-	}
+	usart1.send(gps_2_pc,GPS_receive(gps_2_pc,100));
 	
 	if(USART1_QueueRecv.Length != 0)
 	{

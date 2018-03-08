@@ -38,3 +38,4 @@
 .\browse\gps_uart.o: ..\User\Code_C\inc\Queue.h
 .\browse\gps_uart.o: ..\User\Code_C\inc\Common.h
 .\browse\gps_uart.o: ..\User\Code_C\inc\USART.h
+.\browse\gps_uart.o: ..\User\Code_C\inc\Time.h

@@ -2,89 +2,53 @@
 #define __GPS_PARSE_H__
 #include "stm32f4xx.h"
 #include "Common.h"
-#define GPS_DATA_MAX_SIZE 100 //GPS帧最大字符数
 
-
-class GXGGA
+class PVT_Data_
 {
 	public:
-		GXGGA(){
-		 UTC = 0;          //UTC时间
-		 LAT = 0;          //纬度
-		 NorS = 0;         //南北
-		 LON = 0;          //经度
-		 WorE = 0;          //东西
-		 state = 0;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
-		 SatNum = 0;          //卫星数量
-		 HDOP = 0;         //水平经度衰减因子
-		 AltSea = 0;       //海平面高度
-		 AltEarth = 0;     //相对于海平面的地面高度
-		 GPSBaseTime = 0;    //上一次收到GPS差分站数据开始的计时，单位秒
-		 GPSBase = 0;        //差分站编号
-		};
-	
-		double UTC;          //UTC时间
-		double LAT;          //纬度
-		char  NorS;         //南北
-		double LON;          //经度
-		char WorE;          //东西
-		u8 state;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
-		u8 SatNum;          //卫星数量
-		double HDOP;         //水平经度衰减因子
-		double AltSea;       //海平面高度
-		double AltEarth;     //相对于海平面的地面高度
-		u16 GPSBaseTime;    //上一次收到GPS差分站数据开始的计时，单位秒
-		u16 GPSBase;        //差分站编号
-		
-		void GXGGA_Data_Clear(void);
-		private:
+	u32 iTOW;
+	u16 year;					//年 
+	u8 month;					//月 
+	u8 day;					  //日 
+	u8 hour;					//时 
+	u8 min;						//分 
+	u8 sec;						//秒 
+	u8 valid;					//有效标志位 
+	u32 tAcc;					//时间精度估计
+	s32 nano; 				//分数部分
+	u8 fixType;				//定位类型
+	u8 flags; 				//是否有效定位  差分模式是否开启(DGPS)  省电模式、未用  航向是否有效
+	u8 reserved1; 		//保留
+	u8 numSV;   			//参与定位卫星个数
+	s32 lon;					//经度  deg
+	s32 lat;					//纬度  deg
+	s32 height;				//椭球高度  mm
+	s32 hMSL;					//GPS获取海拔高度 	mm
+	u32 hAcc;					//水平位置估计精度 mm
+	u32 vAcc;					//垂直位置估计精度	mm
+	s32 velN;					//GPS获取的沿导航系正北速度  		mm/s
+	s32 velE;					//GPS获取的沿导航系正东向速度  	mm/s
+	s32 velD;					//GPS获取的沿导航系'天'向速度  	mm/s
+	s32 gSpeed;				//载体对地速度	mm/s
+	s32 heading;			//载体运动航向角	deg
+	u32 sAcc;					//速度估计精度 mm/s
+	u32 headingAcc;		//载体运动航向角估计精度 deg
+	u16 pDOP;					//位置精度因子
+	u16 reserved2;
+	u32 reserved3;
 };
-class GXRMC
+#define GPS_PVT_BUF_SIZE 110
+class GPS_PVT
 {
-		public:
-		GXRMC(){
-		 UTC = 0;         //UTC时间
-		 state = 0;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
-		 LAT = 0;         //纬度
-		 NorS = 0;         //南北
-		 LON = 0;         //经度
-		 WorE = 0;          //东西
-		 SOG = 0;  				//地面速率（000.0~999.9节，前面的0也将被传输）
-		 COG = 0;					//地面航向（000.0~359.9度，以真北为参考基准，前面的0也将被传输）
-		 Date = 0;        //日期 ddmmyy（日月年）格式
-		 Mag_Var = 0; 		//磁偏角 （000.0~180.0度，前面的0也将被传输）
-		 Mag_EorW = 0;			//磁偏角方向 E（东）或W（西）
-		 Mode = 0;  				//模式指示（仅NMEA0183 3.00版本输出，A=自主定位，D=差分，E=估算，N=数据无效）
-		};
-	
-		double UTC;         //UTC时间
-		u8 state;           //定位状态 0：未定位 1：无差分，SPS模式 2：带差分，SPS模式 3：PPS模式
-		double LAT;         //纬度
-		char  NorS;         //南北
-		double LON;         //经度
-		char WorE;          //东西
-		double SOG;  				//地面速率（000.0~999.9节，前面的0也将被传输）
-		double COG;					//地面航向（000.0~359.9度，以真北为参考基准，前面的0也将被传输）
-		double Date;        //日期 ddmmyy（日月年）格式
-		double Mag_Var; 		//磁偏角 （000.0~180.0度，前面的0也将被传输）
-		char Mag_EorW;			//磁偏角方向 E（东）或W（西）
-		char Mode;  				//模式指示（仅NMEA0183 3.00版本输出，A=自主定位，D=差分，E=估算，N=数据无效）
+public:
+	GPS_PVT()
+	{}
+	void GPS_PVT_Parse(void);	
+	PVT_Data_ PVT_Data;
+private:
+	u8 Rx_buf[GPS_PVT_BUF_SIZE];
 
-		void GXRMC_Data_Clear(void);
-		private:
-	
 };
-
-class GXGLL
-{
-};
-
-
-class GXVTG
-{
-};
-
-
 
 class GPS
 {
@@ -108,17 +72,10 @@ class GPS
 	void GPS_Update(void);
 			
 	private:
-		u8 GPS_Find_Head(const char* Str1,const char* Str2,const char* Str3);
-		BOOL GPS_Read_Str(u8 *data, u16 num);
-		void GPS_Parse(GXGGA &GXGGA_Data ,const u8* BUF);	
-		void GPS_Parse(GXGLL &GXGLL_Data ,const u8* BUF);
-	  void GPS_Parse(GXRMC &GXGLL_Data ,const u8* BUF);
 		void GPS_Unit_transform(void);
 };
 
 extern GPS GPS_Location;
-extern GXGGA GXGGA_Data;
-extern GXRMC GXRMC_Data;
 #endif
 
 

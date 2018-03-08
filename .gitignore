@@ -77,7 +77,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+<<<<<<< HEAD
 *.gaoyuanlong
 *.uvoptx
 *.uvoptx
 *.uvoptx
+=======
+Project/Pro.uvguix.Gyl
+>>>>>>> 7f2e9d938bf53ce105300f03cc438dc0d8f4354b

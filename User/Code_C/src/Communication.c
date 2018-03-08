@@ -146,9 +146,9 @@ void Send_Eular_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp2);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp2);
 	
-	Communicate_BUF[Cnt++] = MPU6050.IsCalibrating;
-	Communicate_BUF[Cnt++] = False;	
-
+	Communicate_BUF[Cnt++] = FlyControl.Para->Mode;
+	Communicate_BUF[Cnt++] = FlyControl.Para->IsLock;
+	
 	Communicate_BUF[4] = Cnt - 5;
 	
 	u8 Sum = 0;
@@ -919,12 +919,12 @@ void Vcan_Send_Data_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = GXRMC_Data.SOG * 51.4;
+	Temp1 = 51.4;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//5
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE3(Temp1);
-	Temp1 = GXRMC_Data.COG * DEG_TO_RAD;
+	Temp1 = 0 * DEG_TO_RAD;
 	Communicate_BUF[Cnt++] = BYTE0(Temp1);	//6
 	Communicate_BUF[Cnt++] = BYTE1(Temp1);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp1);	
@@ -947,8 +947,8 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 1
-#define USE_ANTO 0
+#define USE_VCAN 0
+#define USE_ANTO 1
 
 BOOL Communicate(void)
 {
