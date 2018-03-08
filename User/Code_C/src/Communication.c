@@ -99,7 +99,7 @@ void Send_Senser2_PC(void)
 	Communicate_BUF[Cnt++] = BYTE1(Temp2);	
 	Communicate_BUF[Cnt++] = BYTE0(Temp2);
 	
-	Temp2 = MS5611.Data->Speed*10000;
+	Temp2 = Power.Data->BAT_3S*1000000;
 	Communicate_BUF[Cnt++] = BYTE3(Temp2);	
 	Communicate_BUF[Cnt++] = BYTE2(Temp2);	
 	Communicate_BUF[Cnt++] = BYTE1(Temp2);	
