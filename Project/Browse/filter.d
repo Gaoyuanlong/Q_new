@@ -3,7 +3,7 @@
 .\browse\filter.o: ..\User\Code_C\inc\Common.h
 .\browse\filter.o: ..\CIMIS\stm32f4xx.h
 .\browse\filter.o: ..\CIMIS\core_cm4.h
-.\browse\filter.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\filter.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\filter.o: ..\CIMIS\core_cmInstr.h
 .\browse\filter.o: ..\CIMIS\core_cmFunc.h
 .\browse\filter.o: ..\CIMIS\core_cmSimd.h

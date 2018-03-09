@@ -2,7 +2,7 @@
 .\browse\mpu6050.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\mpu6050.o: ..\CIMIS\stm32f4xx.h
 .\browse\mpu6050.o: ..\CIMIS\core_cm4.h
-.\browse\mpu6050.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\mpu6050.o: ..\CIMIS\core_cmInstr.h
 .\browse\mpu6050.o: ..\CIMIS\core_cmFunc.h
 .\browse\mpu6050.o: ..\CIMIS\core_cmSimd.h
@@ -45,11 +45,11 @@
 .\browse\mpu6050.o: ..\User\Code_C\inc\Queue.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\Attitude.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\Math_User.h
-.\browse\mpu6050.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\mpu6050.o: ..\User\DSP\Include\arm_math.h
 .\browse\mpu6050.o: ..\User\DSP\Include\core_cm4.h
-.\browse\mpu6050.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\mpu6050.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\Communication.h
 .\browse\mpu6050.o: ..\User\Code_C\inc\MS5611.h

@@ -3,7 +3,11 @@
 <title>Static Call Graph - [.\Browse\Pro.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Browse\Pro.axf</H1><HR>
+<<<<<<< HEAD
 <BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Mar 09 19:22:30 2018
+=======
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Fri Mar 09 18:41:54 2018
+>>>>>>> 2f20fd0874f6a13c96e58a2a1bac7931ef0f0eea
 <BR><P>
 <H3>Maximum Stack Usage =        368 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2162,9 +2166,15 @@ Global Symbols
 
 <P><STRONG><a name="[1db]"></a>PID::PID__sub_object(float, float, float, float, Filter_2nd)</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, pid.o(i._ZN3PIDC1Effff10Filter_2nd), UNUSED)
 
+<<<<<<< HEAD
 <P><STRONG><a name="[185]"></a>Vector::Vector(float, float, float)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, position.o(i._ZN6VectorC1Efff))
 <BR><BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___10_Position_c_0be53425
+=======
+<P><STRONG><a name="[180]"></a>Vector::Vector(float, float, float)</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, position.o(i._ZN6VectorC1Efff))
+<BR><BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___10_Position_c_0be53425
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
+>>>>>>> 2f20fd0874f6a13c96e58a2a1bac7931ef0f0eea
 </UL>
 
 <P><STRONG><a name="[1dc]"></a>Vector::Vector__sub_object(float, float, float)</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, position.o(i._ZN6VectorC1Efff), UNUSED)
@@ -2178,6 +2188,7 @@ Global Symbols
 <LI><a href="#[14]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ATT_Inner_Loop(unsigned)
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_Calibrate()
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MPU6050_c_b1a692db
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___13_GPS_Parse_cpp_aca24829
 <LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_MidValue::MidValue(Vector)
 <LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_2nd::Filter_2nd()
 <LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Filter_2nd::LPF2ndFilter(Vector)
@@ -2186,10 +2197,10 @@ Global Symbols
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Updata_Quaternion(Vector, Vector, Vector, double)
 <LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HMC5883_Updata()
 </UL>
-<BR>[Address Reference Count : 4]<UL><LI> mpu6050.o(i.__sti___9_MPU6050_c_b1a692db)
-<LI> hmc5883.o(i.__sti___9_HMC5883_c_5f2e7b48)
-<LI> pwm_capture.o(i.__sti___13_PWM_Capture_c_9e817118)
+<BR>[Address Reference Count : 4]<UL><LI> hmc5883.o(i.__sti___9_HMC5883_c_5f2e7b48)
+<LI> mpu6050.o(i.__sti___9_MPU6050_c_b1a692db)
 <LI> ultra.o(i.__sti___7_Ultra_c_220f73de)
+<LI> pwm_capture.o(i.__sti___13_PWM_Capture_c_9e817118)
 </UL>
 <P><STRONG><a name="[1dd]"></a>Vector::Vector__sub_object()</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, flycontrol.o(i._ZN6VectorC1Ev), UNUSED)
 
@@ -2352,9 +2363,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MPU6050_c_b1a692db
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MPU6050_c_b1a692db
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___8_MS5611_c_c0e1f7a6
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_Ultra_c_220f73de
 </UL>
 
@@ -2376,9 +2387,9 @@ Global Symbols
 <P><STRONG><a name="[188]"></a>__aeabi_vec_ctor_nocookie_nodtor</STRONG> (Thumb, 36 bytes, Stack size 24 bytes, aeabi_vec_ctor_nocookie_nodtor.o(i.__aeabi_vec_ctor_nocookie_nodtor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __aeabi_vec_ctor_nocookie_nodtor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MPU6050_c_b1a692db
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_MPU6050_c_b1a692db
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___13_PWM_Capture_c_9e817118
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___9_HMC5883_c_5f2e7b48
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sti___7_Ultra_c_220f73de
 </UL>
 
@@ -3093,7 +3104,11 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> position.o(.init_array)
 </UL>
-<P><STRONG><a name="[ad]"></a>__sti___13_GPS_Parse_cpp_aca24829</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, gps_parse.o(i.__sti___13_GPS_Parse_cpp_aca24829))
+<P><STRONG><a name="[ad]"></a>__sti___13_GPS_Parse_cpp_aca24829</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, gps_parse.o(i.__sti___13_GPS_Parse_cpp_aca24829))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __sti___13_GPS_Parse_cpp_aca24829
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Vector::Vector()
+</UL>
 <BR>[Address Reference Count : 1]<UL><LI> gps_parse.o(.init_array)
 </UL>
 <P><STRONG><a name="[ae]"></a>__sti___9_MPU6050_c_b1a692db</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, mpu6050.o(i.__sti___9_MPU6050_c_b1a692db))

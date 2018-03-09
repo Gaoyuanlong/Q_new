@@ -3,7 +3,7 @@
 .\browse\main.o: ..\User\Code_C\inc\LED.h
 .\browse\main.o: ..\CIMIS\stm32f4xx.h
 .\browse\main.o: ..\CIMIS\core_cm4.h
-.\browse\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\main.o: ..\CIMIS\core_cmInstr.h
 .\browse\main.o: ..\CIMIS\core_cmFunc.h
 .\browse\main.o: ..\CIMIS\core_cmSimd.h
@@ -40,11 +40,11 @@
 .\browse\main.o: ..\User\Code_C++\inc\Target.h
 .\browse\main.o: ..\User\Code_C\inc\Motor.h
 .\browse\main.o: ..\User\Code_C\inc\Math_User.h
-.\browse\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\main.o: ..\User\DSP\Include\arm_math.h
 .\browse\main.o: ..\User\DSP\Include\core_cm4.h
-.\browse\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\main.o: ..\User\Code_C\inc\Common.h
 .\browse\main.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\main.o: ..\User\Code_C++\inc\I2C_Soft.h
@@ -75,4 +75,4 @@
 .\browse\main.o: ..\User\SDCard\ff.h
 .\browse\main.o: ..\User\SDCard\integer.h
 .\browse\main.o: ..\User\SDCard\ffconf.h
-.\browse\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\browse\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

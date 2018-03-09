@@ -69,6 +69,7 @@ class GPS
 	double POS_X;
 	double POS_Y;
 	double POS_Z;
+	Vector POS;	
 	Vector Speed;
 	void GPS_Update(void);
 			
