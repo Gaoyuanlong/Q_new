@@ -126,15 +126,14 @@ void GPS::GPS_Unit_transform(void)
 //	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectY;		//纬度 单位cm
 //	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 								//相对海平面高度 单位cm	
 
-	Lon_Deg = GPS_PVT_Data.PVT_Data.lon;
-	Lat_Deg = GPS_PVT_Data.PVT_Data.lat;
+	Lon_Deg = GPS_PVT_Data.PVT_Data.lon*1e-7f;
+	Lat_Deg = GPS_PVT_Data.PVT_Data.lat*1e-7f;
 	
-	
-//	POS_X = Lon_Deg * cos(Lat_Deg*DEG_TO_RAD) * 11094000 - Home_OffectX;					//经度 单位cm
-//	POS_Y = Lat_Deg * 11094000 - Home_OffectY;																		//纬度 单位cm
+	POS_X = Lon_Deg * cos(Lat_Deg*DEG_TO_RAD) * 11094000 - Home_OffectX;					//经度 单位cm
+	POS_Y = Lat_Deg * 11094000 - Home_OffectY;																		//纬度 单位cm
 
-	POS_X = Lon_Deg - Home_OffectX;					//经度 单位度 *1e^-7
-	POS_Y = Lat_Deg - Home_OffectY;					//纬度 单位度 *1e^-7
+//	POS_X = Lon_Deg - Home_OffectX;					//经度 单位度 *1e^-7
+//	POS_Y = Lat_Deg - Home_OffectY;					//纬度 单位度 *1e^-7
 	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 											//相对海平面高度 单位cm	
 
 	//位置需要加入滤波 备忘
