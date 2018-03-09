@@ -378,7 +378,6 @@ void POS_Outer_Loop(u32 Time)
 		Control_Para.POS_Outer_PID_z.Rst_I();
 
 		Control_Para.Home = Position.Position_xyz;
-		
 		Control_Para.POS_Outer_PID_x.Setpoint = Control_Para.Home.x;		
 		Control_Para.POS_Outer_PID_y.Setpoint = Control_Para.Home.y;	
 		Control_Para.POS_Outer_PID_z.Setpoint = Control_Para.Home.z;	

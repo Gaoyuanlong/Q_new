@@ -3,12 +3,12 @@
 .\browse\sd_app.o: ..\User\SDCard\ff.h
 .\browse\sd_app.o: ..\User\SDCard\integer.h
 .\browse\sd_app.o: ..\User\SDCard\ffconf.h
-.\browse\sd_app.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\browse\sd_app.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\sd_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\browse\sd_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\browse\sd_app.o: ..\User\Code_C\inc\Common.h
 .\browse\sd_app.o: ..\CIMIS\stm32f4xx.h
 .\browse\sd_app.o: ..\CIMIS\core_cm4.h
-.\browse\sd_app.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\sd_app.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\sd_app.o: ..\CIMIS\core_cmInstr.h
 .\browse\sd_app.o: ..\CIMIS\core_cmFunc.h
 .\browse\sd_app.o: ..\CIMIS\core_cmSimd.h

@@ -4,7 +4,7 @@
 .\browse\sysstate.o: ..\User\Code_C\inc\LED.h
 .\browse\sysstate.o: ..\CIMIS\stm32f4xx.h
 .\browse\sysstate.o: ..\CIMIS\core_cm4.h
-.\browse\sysstate.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\sysstate.o: ..\CIMIS\core_cmInstr.h
 .\browse\sysstate.o: ..\CIMIS\core_cmFunc.h
 .\browse\sysstate.o: ..\CIMIS\core_cmSimd.h
@@ -41,11 +41,11 @@
 .\browse\sysstate.o: ..\User\Code_C++\inc\Target.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Motor.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Math_User.h
-.\browse\sysstate.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\sysstate.o: ..\User\DSP\Include\arm_math.h
 .\browse\sysstate.o: ..\User\DSP\Include\core_cm4.h
-.\browse\sysstate.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\sysstate.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\sysstate.o: ..\User\Code_C\inc\Common.h
 .\browse\sysstate.o: ..\User\Code_C\inc\MPU6050.h
 .\browse\sysstate.o: ..\User\Code_C++\inc\I2C_Soft.h
@@ -76,4 +76,4 @@
 .\browse\sysstate.o: ..\User\SDCard\ff.h
 .\browse\sysstate.o: ..\User\SDCard\integer.h
 .\browse\sysstate.o: ..\User\SDCard\ffconf.h
-.\browse\sysstate.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\browse\sysstate.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

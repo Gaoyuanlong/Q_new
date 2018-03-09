@@ -2,7 +2,7 @@
 .\browse\attitude.o: ..\User\Code_C\inc\Attitude.h
 .\browse\attitude.o: ..\CIMIS\stm32f4xx.h
 .\browse\attitude.o: ..\CIMIS\core_cm4.h
-.\browse\attitude.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\attitude.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\attitude.o: ..\CIMIS\core_cmInstr.h
 .\browse\attitude.o: ..\CIMIS\core_cmFunc.h
 .\browse\attitude.o: ..\CIMIS\core_cmSimd.h
@@ -42,11 +42,11 @@
 .\browse\attitude.o: ..\User\Code_C\inc\Common.h
 .\browse\attitude.o: ..\User\Code_C++\inc\Filter.h
 .\browse\attitude.o: ..\User\Code_C\inc\Math_User.h
-.\browse\attitude.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\browse\attitude.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\browse\attitude.o: ..\User\DSP\Include\arm_math.h
 .\browse\attitude.o: ..\User\DSP\Include\core_cm4.h
-.\browse\attitude.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\browse\attitude.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\browse\attitude.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\browse\attitude.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\browse\attitude.o: ..\User\Code_C\inc\HMC5883.h
 .\browse\attitude.o: ..\User\Code_C\inc\Communication.h
 .\browse\attitude.o: ..\User\Code_C\inc\USART.h
