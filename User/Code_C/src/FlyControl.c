@@ -7,14 +7,14 @@
 #define ATT_FILTER_ANGLE   	 				0.1f                  //角度环前置滤波器系数
 #define ATT_FILTER_SPEED     				0.1f                  //角速度环前置滤波系数
 
-#define POS_POS_SET_MAX_XY       		3000.0f              //XY最大距离 cm
+#define POS_POS_SET_MAX_XY       		800.0f              //XY最大距离 cm
 #define POS_SPEED_SET_MAX_XY      	30.0f               //XY最大速度 cm/s
 #define POS_ACC_SET_MAX_XY        	40.0f               //XY最大加速度 cm/s
-#define POS_OUT_MAX_XY        			20.0f               //XY最大输出  角度值
+#define POS_OUT_MAX_XY        			10.0f               //XY最大输出  角度值
 
-#define POS_POS_FEEBACK_MAX_XY      (1.5*POS_POS_SET_MAX_XY) //XY最大反馈高度 cm
+#define POS_POS_FEEBACK_MAX_XY      (1.5*POS_POS_SET_MAX_XY) //XY最大反馈距离 cm
 #define POS_SPEED_FEEBACK_MAX_XY    30.0f                    //XY最大反馈速度 cm/s
-#define POS_ACC_FEEBACK_MAX_XY      100.0f                   //XY最大反馈加速度 cm/s
+#define POS_ACC_FEEBACK_MAX_XY      50.0f                   //XY最大反馈加速度 cm/s
 
 #define POS_POS_SET_MAX_Z        		500.0f                   //Z最大高度 cm
 #define POS_SPEED_SET_MAX_Z      		40.0f                    //Z最大速度 cm/s
@@ -22,8 +22,8 @@
 #define POS_OUT_MAX_Z        				THROTTLE_60_PERCENT         //Z最大输出
 
 #define POS_POS_FEEBACK_MAX_Z       (1.5*POS_POS_SET_MAX_Z)  //Z最大反馈高度 cm
-#define POS_SPEED_FEEBACK_MAX_Z     40.0f                    //Z最大速度 cm/s
-#define POS_ACC_FEEBACK_MAX_Z       100.0f                   //Z最大加速度 cm/s
+#define POS_SPEED_FEEBACK_MAX_Z     40.0f                    //Z最大反馈速度 cm/s
+#define POS_ACC_FEEBACK_MAX_Z       100.0f                   //Z最大反馈加速度 cm/s
 
 #define POS_FILTER_POS   	  				0.1f                    //位置前置滤波器系数
 #define POS_FILTER_SPEED     				0.1f                    //速度环前置滤波系数
@@ -95,18 +95,16 @@ struct Control_Para_ Control_Para =
 	PID(10,0,0,0),
 	PID(1,0,0,0),
 	
-	
-	
-	PID(0,0,0,0),
-	PID(0,0,0,0),
-	PID(0.8,1.5,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
 
-	PID(0,0,0,0),
-	PID(0,0,0,0),
-	PID(2,0,0.1,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
 
-	PID(0,0,0,0),
-	PID(0,0,0,0),
+	PID(1,0,0,0),
+	PID(1,0,0,0),
 	PID(1,0,0,0),
 
 	THROTTLE_MIN,
@@ -279,12 +277,20 @@ void POS_Acc_Loop(u32 Time)
 		//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 		//ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ
+		Control_Para.POS_Acc_PID_x.Rst_I();
+		Control_Para.POS_Acc_PID_y.Rst_I();
+		Control_Para.POS_Acc_PID_z.Rst_I();
+		
 		Control_Para.Throttle = (1 - POS_FILTER_ACC) * Control_Para.Throttle + POS_FILTER_ACC * 2 * (PWM_RC_D_U - PWM_RC_MID);		
 		Control_Para.Throttle = Math.Constrain(Control_Para.Throttle,POS_OUT_MAX_Z,0);
 		return;		
 	}
-	
-	if(Control_Para.Mode == POS) 
+	if(Control_Para.Mode == ALT) 
+	{
+		Control_Para.POS_Acc_PID_x.Rst_I();
+		Control_Para.POS_Acc_PID_y.Rst_I();
+	}
+	else if(Control_Para.Mode == POS) 
 	{
 		//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		//--------------pid控制\直接输出------------------------------------------------------------------//
@@ -328,7 +334,12 @@ void POS_Inner_Loop(u32 Time)
 		Control_Para.POS_Inner_PID_z.Rst_I();		
 		return;		
 	}
-	if(Control_Para.Mode == POS) //XY控制
+	if(Control_Para.Mode == ALT) 
+	{
+		Control_Para.POS_Inner_PID_x.Rst_I();
+		Control_Para.POS_Inner_PID_y.Rst_I();
+	}
+	else if(Control_Para.Mode == POS) //XY控制
 	{
 		//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		//--------------pid控制------------------------------------------------------------------//
@@ -362,8 +373,6 @@ void POS_Inner_Loop(u32 Time)
 	}
 }
 
-
-
 // 加锁的方式过于简单，在飞行过程中也会出现油门拉到最低的情况，不能简单的根据油门值加锁
 void POS_Outer_Loop(u32 Time)
 {
@@ -395,7 +404,12 @@ void POS_Outer_Loop(u32 Time)
 		return;
 	}
 	
-	if(Control_Para.Mode == POS) //XY控制
+	if(Control_Para.Mode == ALT) 
+	{
+		Control_Para.POS_Outer_PID_x.Rst_I();
+		Control_Para.POS_Outer_PID_y.Rst_I();
+	}
+	else if(Control_Para.Mode == POS) //XY控制
 	{
 		//无头\有头模式转换
 		if(Control_Para.Head_Mode == HEAD)

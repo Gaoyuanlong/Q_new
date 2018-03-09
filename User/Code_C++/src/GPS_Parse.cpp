@@ -103,9 +103,10 @@ void GPS::GPS_Update(void)
 		地球赤道圈长度40075.36公里，北京和乌鲁木齐地区在北纬40度左右，纬度圈长为40075*sin(90-40)，因此这里的经度一度合85.276公里，一分合1.42公里，一秒合23.69米。
 		在除赤道外的其他纬线上，经度差1度对应的实际距离是 110.94公里*cos纬度 。
 */
-float longitude_scale(double lat)
+
+float longitude_scale(int32_t lat)
 {
-	static int32_t last_lat;
+	static int32_t last_lat = 0;
 	static float scale = 1.0;
 	//比较两次纬度相差值，避免重复运算余弦函数
 	if(abs((float)(last_lat-lat)) < 100000){
@@ -114,8 +115,8 @@ float longitude_scale(double lat)
 	// the same scale factor.
 		return scale;
 	}
-	scale = cosf(lat * 1.0e-7f * DEG_TO_RAD);
-	scale = Math.Constrain(scale,0.01f,1.0f);
+	scale = cos(lat * 1.0e-7f * DEG_TO_RAD);
+	scale = Math.Constrain(scale,1.0f,0.01f);
 	last_lat = lat;
 	return scale;
 }
@@ -125,7 +126,7 @@ void GPS::GPS_Unit_transform(void)
 //  #define RADIUS_OF_EARTH 6378100
 //  scaling factor from 1e-7 degrees to meters at equater
 //  == 1.0e-7 * DEG_TO_RAD * RADIUS_OF_EARTH
-  #define LOCATION_SCALING_FACTOR 1.1131884502145034f   //cm
+  #define LOCATION_SCALING_FACTOR 1.1131884502145034f   //*100 >cm
 	
 	#define EARTH_RADIUS 6371393
 	#define LAT0 0
@@ -134,38 +135,13 @@ void GPS::GPS_Unit_transform(void)
 	static double Lon_Deg = 0 ,Lat_Deg = 0;
 	int Lat_Int_Temp = 0, Lon_Int_Temp = 0;
 	
-//	Lon_Int_Temp = (int)GPS_PVT_Data.PVT_Data.lon/100; 
-//	Lon_Deg = Lon_Int_Temp + (GPS_PVT_Data.PVT_Data.lon - Lon_Int_Temp*100)/60;
-//	
-//	Lat_Int_Temp = (int)GPS_PVT_Data.PVT_Data.lat/100; 
-//	Lat_Deg = Lat_Int_Temp + (GPS_PVT_Data.PVT_Data.lat - Lat_Int_Temp*100)/60;
-	
-//	if(GXGGA_Data.WorE == 'W')
-//		Lon_Deg = -Lon_Deg;
-//	if(GXGGA_Data.NorS == 'S')
-//		Lat_Deg = -Lat_Deg;
-//	POS_X = (Lon_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectX;		//经度 单位cm
-//	POS_Y = (Lat_Deg*PI/180)*EARTH_RADIUS * 100 - Home_OffectY;		//纬度 单位cm
-//	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 								//相对海平面高度 单位cm	
 
-	Lon_Deg = GPS_PVT_Data.PVT_Data.lon*1e-7f;
-	Lat_Deg = GPS_PVT_Data.PVT_Data.lat*1e-7f;
-	
-<<<<<<< HEAD
-	POS_X = Lon_Deg * cos(Lat_Deg*DEG_TO_RAD) * 11094000 - Home_OffectX;					//经度 单位cm
-	POS_Y = Lat_Deg * 11094000 - Home_OffectY;																		//纬度 单位cm
+	Lon_Deg = GPS_PVT_Data.PVT_Data.lon;
+	Lat_Deg = GPS_PVT_Data.PVT_Data.lat;
 
-=======
-//	POS_X = Lon_Deg * cos(Lat_Deg*DEG_TO_RAD) * 11094000 - Home_OffectX;					//经度 单位cm
-//	POS_Y = Lat_Deg * 11094000 - Home_OffectY;																		//纬度 单位cm
-
-	POS_X = Lon_Deg * LOCATION_SCALING_FACTOR * longitude_scale(Lat_Deg);		//经度 单位cm
-	POS_Y = Lat_Deg * LOCATION_SCALING_FACTOR;															//纬度 单位cm
-
->>>>>>> 2f20fd0874f6a13c96e58a2a1bac7931ef0f0eea
-//	POS_X = Lon_Deg - Home_OffectX;					//经度 单位度 *1e^-7
-//	POS_Y = Lat_Deg - Home_OffectY;					//纬度 单位度 *1e^-7
-	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 											//相对海平面高度 单位cm	
+	POS_X = Lon_Deg * LOCATION_SCALING_FACTOR * longitude_scale(Lat_Deg) - Home_OffectX;	//经度 单位cm
+	POS_Y = Lat_Deg * LOCATION_SCALING_FACTOR - Home_OffectY;															//纬度 单位cm
+	POS_Z = GPS_PVT_Data.PVT_Data.hMSL * 10 - Home_OffectZ; 															//相对海平面高度 单位cm	
 
 	//位置需要加入滤波 备忘
 	Speed.x = GPS_PVT_Data.PVT_Data.velE * 0.1;	// 单位cm/s
@@ -188,24 +164,8 @@ void GPS::GPS_Unit_transform(void)
 		Home_OffectZ = POS_Z;
 	}
 }
- //  /*************************以下计算球面投影距离内容源于APM3.2 AP.Math.c文件******************************/
- //  // radius of earth in meters
- //  #define RADIUS_OF_EARTH 6378100
- //  // scaling factor from 1e-7 degrees to meters at equater
- //  // == 1.0e-7 * DEG_TO_RAD * RADIUS_OF_EARTH
- // #define LOCATION_SCALING_FACTOR 0.011131884502145034f
- //  // inverse of LOCATION_SCALING_FACTOR
- //  #define LOCATION_SCALING_FACTOR_INV 89.83204953368922f
- //  // constrain a value
 
 
-//Vector location_diff(Location loc1,Location loc2)
-//{
-//	Vector Location_Delta;
-//	Location_Delta.x=(loc2.lat - loc1.lat) * LOCATION_SCALING_FACTOR;//距离单位为m
-//	Location_Delta.y=(loc2.lng - loc1.lng) * LOCATION_SCALING_FACTOR * longitude_scale(loc1.lat);//距离单位为mm
-//	return Location_Delta;
-//}
 
 
 

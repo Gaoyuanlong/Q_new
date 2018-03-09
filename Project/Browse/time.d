@@ -2,7 +2,7 @@
 .\browse\time.o: ..\User\Code_C\inc\Time.h
 .\browse\time.o: ..\CIMIS\stm32f4xx.h
 .\browse\time.o: ..\CIMIS\core_cm4.h
-.\browse\time.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\browse\time.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\browse\time.o: ..\CIMIS\core_cmInstr.h
 .\browse\time.o: ..\CIMIS\core_cmFunc.h
 .\browse\time.o: ..\CIMIS\core_cmSimd.h
