@@ -86,7 +86,7 @@ Filter_EKF_Double Filter_EKF_X(0.1,0.01,5,100);
 Filter_EKF_Double Filter_EKF_Y(0.1,0.01,5,100);
 void XY_Update(u16 Time_Ms,Vector ACC_Earth)
 {
-	if(GPS_Location.state != 0)
+	if(GPS_Location.state != 0 && GPS_Location.SatNum > 5)
 	{
 		Filter_EKF_X.EKFFilter_Double(Position.Position_xyz.x,		//上次预估距离				cm
 																	Position.Speed.x,						//上次预估速度				cm/s

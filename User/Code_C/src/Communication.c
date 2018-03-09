@@ -947,8 +947,8 @@ void Vcan_Send_Data_PC(void)
 }
 
 #define USE_PHONE 0
-#define USE_VCAN 0
-#define USE_ANTO 1
+#define USE_VCAN 1
+#define USE_ANTO 0
 
 BOOL Communicate(void)
 {
