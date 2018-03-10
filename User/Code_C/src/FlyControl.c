@@ -7,14 +7,14 @@
 #define ATT_FILTER_ANGLE   	 				0.1f                  //角度环前置滤波器系数
 #define ATT_FILTER_SPEED     				0.1f                  //角速度环前置滤波系数
 
-#define POS_POS_SET_MAX_XY       		800.0f              //XY最大距离 cm
-#define POS_SPEED_SET_MAX_XY      	30.0f               //XY最大速度 cm/s
-#define POS_ACC_SET_MAX_XY        	40.0f               //XY最大加速度 cm/s
-#define POS_OUT_MAX_XY        			10.0f               //XY最大输出  角度值
+#define POS_POS_SET_MAX_XY       		1000.0f              //XY最大距离 cm
+#define POS_SPEED_SET_MAX_XY      	100.0f               //XY最大速度 cm/s
+#define POS_ACC_SET_MAX_XY        	100.0f               //XY最大加速度 cm/s
+#define POS_OUT_MAX_XY        			3.0f               //XY最大输出  角度值
 
 #define POS_POS_FEEBACK_MAX_XY      (1.5*POS_POS_SET_MAX_XY) //XY最大反馈距离 cm
-#define POS_SPEED_FEEBACK_MAX_XY    30.0f                    //XY最大反馈速度 cm/s
-#define POS_ACC_FEEBACK_MAX_XY      50.0f                   //XY最大反馈加速度 cm/s
+#define POS_SPEED_FEEBACK_MAX_XY    100.0f                    //XY最大反馈速度 cm/s
+#define POS_ACC_FEEBACK_MAX_XY      100.0f                   //XY最大反馈加速度 cm/s
 
 #define POS_POS_SET_MAX_Z        		500.0f                   //Z最大高度 cm
 #define POS_SPEED_SET_MAX_Z      		40.0f                    //Z最大速度 cm/s
@@ -95,13 +95,13 @@ struct Control_Para_ Control_Para =
 	PID(10,0,0,0),
 	PID(1,0,0,0),
 	
-	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
-	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
-	PID(0.2,0.5,0,100,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.003,0.01,0,10,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.003,0.01,0,10,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
+	PID(0.8,1.5,0,600,Filter_2nd(0.00015514842347569903,0.00031029684695139806,0.00015514842347569903,-1.964460580205232,0.96508117389913495)),	//采样频率500HZ 截止2HZ 
 
-	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
-	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
-	PID(1,0,0.01,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(0.2,0,0.0008,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(0.2,0,0.0008,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
+	PID(2,0,0.1,0,Filter_2nd(0.06745527388907,0.1349105477781,0.06745527388907,-1.14298050254,0.4128015980962)),	//采样频率200HZ 截止频率 20HZ 
 
 	PID(1,0,0,0),
 	PID(1,0,0,0),
@@ -440,8 +440,8 @@ void POS_Outer_Loop(u32 Time)
 		//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 		//--------------pid控制------------------------------------------------------------------//
 		// x PID计算
-		Control_Para.POS_Outer_PID_x.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_x.Setpoint,	Control_Para.Home.x + POS_POS_SET_MAX_XY,Control_Para.Home.x);//
-		Control_Para.POS_Outer_PID_x.Feedback = Math.Constrain(Position.Position_xyz.x,Control_Para.Home.x + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.x);
+		Control_Para.POS_Outer_PID_x.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_x.Setpoint,	Control_Para.Home.x + POS_POS_SET_MAX_XY,Control_Para.Home.x - POS_POS_SET_MAX_XY);//
+		Control_Para.POS_Outer_PID_x.Feedback = Math.Constrain(Position.Position_xyz.x,Control_Para.Home.x + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.x - POS_POS_FEEBACK_MAX_XY);
 		Outer_Output.x = Math.Constrain(Control_Para.POS_Outer_PID_x.Cal_PID_POS(Time),POS_SPEED_SET_MAX_XY,-POS_SPEED_SET_MAX_XY);
 		//--------------输出处理------------------------------------------------------------------//
 		// x 输出选择 定点或遥控
@@ -452,13 +452,13 @@ void POS_Outer_Loop(u32 Time)
 		}
 		else
 		{
-			Control_Para.POS_Inner_PID_x.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_z.Setpoint + POS_FILTER_SPEED * Outer_Output.x;
+			Control_Para.POS_Inner_PID_x.Setpoint = (1 - POS_FILTER_SPEED)*Control_Para.POS_Inner_PID_x.Setpoint + POS_FILTER_SPEED * Outer_Output.x;
 		}	
 		//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
 		//--------------pid控制------------------------------------------------------------------//
 		// y PID计算
-		Control_Para.POS_Outer_PID_y.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_y.Setpoint,	Control_Para.Home.y + POS_POS_SET_MAX_XY,Control_Para.Home.y);//
-		Control_Para.POS_Outer_PID_y.Feedback = Math.Constrain(Position.Position_xyz.y,Control_Para.Home.y + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.y);
+		Control_Para.POS_Outer_PID_y.Setpoint = Math.Constrain(Control_Para.POS_Outer_PID_y.Setpoint,	Control_Para.Home.y + POS_POS_SET_MAX_XY,Control_Para.Home.y - POS_POS_SET_MAX_XY);//
+		Control_Para.POS_Outer_PID_y.Feedback = Math.Constrain(Position.Position_xyz.y,Control_Para.Home.y + POS_POS_FEEBACK_MAX_XY,Control_Para.Home.y - POS_POS_FEEBACK_MAX_XY);
 		Outer_Output.y = Math.Constrain(Control_Para.POS_Outer_PID_y.Cal_PID_POS(Time),POS_SPEED_SET_MAX_XY,-POS_SPEED_SET_MAX_XY);
 		//--------------输出处理------------------------------------------------------------------//
 		// y 输出选择 定点或遥控

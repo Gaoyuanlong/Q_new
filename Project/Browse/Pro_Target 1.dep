@@ -38,7 +38,7 @@ I (..\Libraries\inc\stm32f4xx_dcmi.h)(0x5A63ED08)
 I (..\Libraries\inc\stm32f4xx_fsmc.h)(0x5A63ED08)
 I (..\User\Code_C\inc\Time.h)(0x5A63ED09)
 I (..\User\Code_C++\inc\Target.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\Math_User.h)(0x5A6ECB3C)
 I (d:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\User\DSP\Include\arm_math.h)(0x5A63ED09)
@@ -114,7 +114,7 @@ I (..\Libraries\inc\stm32f4xx_dcmi.h)(0x5A63ED08)
 I (..\Libraries\inc\stm32f4xx_fsmc.h)(0x5A63ED08)
 I (..\User\Code_C\inc\Time.h)(0x5A63ED09)
 I (..\User\Code_C++\inc\Target.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\Math_User.h)(0x5A6ECB3C)
 I (d:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\User\DSP\Include\arm_math.h)(0x5A63ED09)
@@ -149,7 +149,7 @@ I (..\User\SDCard\ff.h)(0x5A63ED09)
 I (..\User\SDCard\integer.h)(0x5A63ED09)
 I (..\User\SDCard\ffconf.h)(0x5A63ED09)
 I (d:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-F (..\User\Code_C\src\Communication.c)(0x5AA28EC4)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\communication.o --omf_browse .\browse\communication.crf --depend .\browse\communication.d)
+F (..\User\Code_C\src\Communication.c)(0x5AA39784)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\communication.o --omf_browse .\browse\communication.crf --depend .\browse\communication.d)
 I (..\User\Code_C\inc\Communication.h)(0x5A63FAB2)
 I (..\CIMIS\stm32f4xx.h)(0x5A63ED08)
 I (..\CIMIS\core_cm4.h)(0x5A63ED08)
@@ -204,7 +204,7 @@ I (..\User\Code_C\inc\HMC5883.h)(0x5A63ED09)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
@@ -214,7 +214,7 @@ I (..\User\Code_C\inc\Position.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Ultra.h)(0x5A63ED09)
 I (..\User\Code_C++\inc\GPS_Parse.h)(0x5AA27114)
 I (d:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-F (..\User\Code_C\src\FlyControl.c)(0x5AA28EC4)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\flycontrol.o --omf_browse .\browse\flycontrol.crf --depend .\browse\flycontrol.d)
+F (..\User\Code_C\src\FlyControl.c)(0x5AA39F57)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\flycontrol.o --omf_browse .\browse\flycontrol.crf --depend .\browse\flycontrol.d)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
 I (..\User\Code_C++\inc\Filter.h)(0x5A6E7C64)
@@ -271,7 +271,7 @@ I (..\User\Code_C\inc\Queue.h)(0x5A63ED09)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\SBUS.h)(0x5A63ED09)
 I (..\User\Code_C\inc\Position.h)(0x5A63F95C)
@@ -333,7 +333,7 @@ I (..\User\Code_C\inc\Queue.h)(0x5A63ED09)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
@@ -342,7 +342,7 @@ I (..\User\Code_C\inc\PWM_Capture.h)(0x5A63FAB2)
 I (..\User\Code_C\inc\Position.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Ultra.h)(0x5A63ED09)
 I (..\User\Code_C++\inc\GPS_Parse.h)(0x5AA27114)
-F (..\User\Code_C\src\Position.c)(0x5AA282EE)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\position.o --omf_browse .\browse\position.crf --depend .\browse\position.d)
+F (..\User\Code_C\src\Position.c)(0x5AA36F0A)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\position.o --omf_browse .\browse\position.crf --depend .\browse\position.d)
 I (..\User\Code_C\inc\Position.h)(0x5A63F95C)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\CIMIS\stm32f4xx.h)(0x5A63ED08)
@@ -398,7 +398,7 @@ I (..\User\Code_C\inc\USART.h)(0x5A63ED09)
 I (..\User\Code_C\inc\Queue.h)(0x5A63ED09)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
@@ -446,7 +446,7 @@ I (..\Libraries\inc\stm32f4xx_dcmi.h)(0x5A63ED08)
 I (..\Libraries\inc\stm32f4xx_fsmc.h)(0x5A63ED08)
 I (..\User\Code_C\inc\Time.h)(0x5A63ED09)
 I (..\User\Code_C++\inc\Target.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\Math_User.h)(0x5A6ECB3C)
 I (d:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\User\DSP\Include\arm_math.h)(0x5A63ED09)
@@ -770,7 +770,7 @@ I (..\User\Code_C\inc\USART.h)(0x5A63ED09)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
 I (..\User\Code_C\inc\SBUS.h)(0x5A63ED09)
@@ -832,7 +832,7 @@ I (..\User\Code_C\inc\HMC5883.h)(0x5A63ED09)
 I (..\User\Code_C\inc\MS5611.h)(0x5A63F95C)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
@@ -940,7 +940,7 @@ I (d:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\User\Code_C\inc\HMC5883.h)(0x5A63ED09)
 I (..\User\Code_C\inc\Battery.h)(0x5A63ED09)
 I (..\User\Code_C\inc\ADS1118.h)(0x5A63ED09)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\GPS_UART.h)(0x5AA0DABF)
 I (..\User\Code_C\inc\FlyControl.h)(0x5A702EBB)
 I (..\User\Code_C++\inc\PID.h)(0x5A63F95C)
@@ -1023,7 +1023,7 @@ I (..\Libraries\inc\stm32f4xx_dcmi.h)(0x5A63ED08)
 I (..\Libraries\inc\stm32f4xx_fsmc.h)(0x5A63ED08)
 I (..\User\Code_C\inc\Time.h)(0x5A63ED09)
 F (..\User\Code_C\src\Motor.c)(0x5A6AEED0)(--c99 -c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\Libraries\inc -I..\Libraries\src -I..\CIMIS -I..\Startup -I..\User -I..\User\Code_C\inc -I..\User\Code_C\src -I..\User\Code_C++\inc -I..\User\Code_C++\src -I..\User\DSP\Include -I..\User\DSP\FastMathFunctions -I..\User\SDCard --cpp-I C:\Users\gaoyuanlong\Desktop\四轴调试\Q_new\Project\RTE-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0-I d:\Keil_v5\ARM\CMSIS\Include-I d:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.11.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="514" -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_PRESENT="1" -D__FPU_USED="1" -DARM_MATH_CM4-o .\browse\motor.o --omf_browse .\browse\motor.crf --depend .\browse\motor.d)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\CIMIS\stm32f4xx.h)(0x5A63ED08)
 I (..\CIMIS\core_cm4.h)(0x5A63ED08)
 I (d:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -1369,7 +1369,7 @@ I (..\Libraries\inc\stm32f4xx_dcmi.h)(0x5A63ED08)
 I (..\Libraries\inc\stm32f4xx_fsmc.h)(0x5A63ED08)
 I (..\User\Code_C\inc\Time.h)(0x5A63ED09)
 I (..\User\Code_C\inc\Common.h)(0x5A63F95C)
-I (..\User\Code_C\inc\Motor.h)(0x5A63FAB2)
+I (..\User\Code_C\inc\Motor.h)(0x5AA3798D)
 I (..\User\Code_C\inc\Math_User.h)(0x5A6ECB3C)
 I (d:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5475F300)
 I (..\User\DSP\Include\arm_math.h)(0x5A63ED09)

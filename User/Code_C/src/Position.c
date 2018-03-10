@@ -124,8 +124,6 @@ void Position_Updata(u16 Time_Ms)
 	ACC_Earth.z /= 4095;
 	ACC_Earth.z *= 980.0f;//cm/s2
 	
-	User_Data.Data1 = ACC_Earth.x;
-	User_Data.Data2 = ACC_Earth.y;
 //--------------高度融合--------------------------------------------------------------------//
 	Altitude_Update(Time_Ms,ACC_Earth);
 //--------------水平位置融合--------------------------------------------------------------------//
